@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONVIVIA CAELESTE — Mensa Planetarum</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --gold: #c9a84c; --gold-dim: #7a5f28;
+    --ink: #f5ead8; --ink-dim: #b8a88a; --ink-faint: #6b5c42;
+    --border: rgba(201,168,76,0.22);
+    --saturn: #7a8a6a; --jupiter: #6a7abf; --mars: #bf4a3a;
+    --sol: #d4a020; --venus: #7abf6a; --mercury: #8a6abf; --luna: #aab8c8;
+    --sang: #5a82bf; --chol: #bf5a2a; --mel: #6a8060; --phleg: #4a8aaa;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #0e0b06; color: var(--ink);
+    font-family: 'IM Fell English', serif; min-height:100vh; overflow-x:hidden;
+  }
+  body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      radial-gradient(1px 1px at 8% 12%, rgba(255,255,200,.5) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 38% 8%, rgba(255,255,200,.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 68% 22%, rgba(255,255,200,.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 79% 68%, rgba(255,255,200,.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 13% 72%, rgba(255,255,200,.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 58% 91%, rgba(255,255,200,.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 22% 38%, rgba(255,255,200,.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 91% 43%, rgba(255,255,200,.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 48% 33%, rgba(255,255,200,.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 73% 4%, rgba(255,255,200,.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 4% 48%, rgba(255,255,200,.38) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 18% 53%, rgba(255,255,200,.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 86% 16%, rgba(255,255,200,.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 33% 83%, rgba(255,255,200,.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 58%, rgba(255,255,200,.28) 0%, transparent 100%);
+  }
+  body::after {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background: radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,.72) 100%);
+  }
+  .wrapper { position:relative; z-index:1; }
+
+  /* ===== HEADER ===== */
+  header { text-align:center; padding:4rem 2rem 2rem; }
+  .horna {
+    font-family:'Cinzel',serif; font-size:.66rem; letter-spacing:.5em;
+    color:var(--gold-dim); text-transform:uppercase; margin-bottom:1.3rem;
+  }
+  h1 {
+    font-family:'Cinzel Decorative',serif;
+    font-size:clamp(1.7rem,4.8vw,3.6rem);
+    color:var(--gold); text-shadow:0 0 40px rgba(201,168,76,.28);
+    line-height:1.1; margin-bottom:.35rem;
+  }
+  .subtitle {
+    font-family:'Cinzel',serif; font-size:clamp(.65rem,1.5vw,.88rem);
+    color:var(--gold-dim); letter-spacing:.28em; text-transform:uppercase; margin-bottom:1.6rem;
+  }
+  .hdiv {
+    width:260px; height:1px;
+    background:linear-gradient(to right,transparent,var(--gold),transparent);
+    margin:1.2rem auto; position:relative;
+  }
+  .hdiv::before {
+    content:'✦'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    color:var(--gold); background:#0e0b06; padding:0 .4rem; font-size:.62rem;
+  }
+
+  /* ===== NAV TABS ===== */
+  .nav-tabs {
+    display:flex; justify-content:center; gap:0;
+    max-width:720px; margin:2.2rem auto 0;
+    border-bottom:1px solid var(--border); flex-wrap:wrap;
+  }
+  .nav-tab {
+    font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.18em;
+    text-transform:uppercase; padding:.55rem 1.3rem; cursor:pointer;
+    color:var(--ink-faint); border:1px solid transparent; border-bottom:none;
+    background:transparent; transition:all .22s; margin-bottom:-1px;
+  }
+  .nav-tab:hover { color:var(--ink-dim); }
+  .nav-tab.active {
+    color:var(--gold); border-color:var(--border);
+    border-bottom:1px solid #0e0b06; background:rgba(201,168,76,.04);
+  }
+  .panel { display:none; }
+  .panel.active { display:block; }
+
+  /* ===== PERSÖNLICHE TAFEL ===== */
+  .natal-box {
+    max-width:860px; margin:3rem auto; padding:0 1.5rem;
+  }
+
+  /* Großes Scoring-Diagramm */
+  .natal-card {
+    border:1px solid var(--border); background:rgba(10,8,4,.8);
+    padding:2rem; margin-bottom:2rem;
+  }
+  .natal-title {
+    font-family:'Cinzel Decorative',serif; font-size:clamp(1rem,2.2vw,1.5rem);
+    color:var(--gold); text-align:center; margin-bottom:.3rem;
+  }
+  .natal-subtitle {
+    font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.28em;
+    color:var(--gold-dim); text-align:center; text-transform:uppercase;
+    margin-bottom:1.8rem;
+  }
+
+  /* Faktoren-Tabelle */
+  .factor-table { width:100%; border-collapse:collapse; margin-bottom:1.5rem; }
+  .factor-table tr { border-bottom:1px solid rgba(201,168,76,.07); }
+  .factor-table tr:last-child { border-bottom:none; }
+  .factor-table td {
+    padding:.45rem .6rem; font-family:'Cormorant Garamond',serif; font-size:.9rem;
+    color:var(--ink-dim); vertical-align:middle;
+  }
+  .factor-table td.fnum {
+    font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.1em;
+    color:var(--gold-dim); width:1.5rem; text-align:right; padding-right:.8rem;
+  }
+  .factor-table td.fname { font-style:italic; }
+  .factor-table td.fval { color:var(--ink); font-weight:400; }
+  .factor-table td.fpts { width:3rem; text-align:right; }
+  .factor-table td.fpts span {
+    font-family:'Cinzel',serif; font-size:.62rem;
+    letter-spacing:.08em; padding:.12rem .4rem; border:1px solid; border-radius:1px;
+  }
+  .sang-c { color:var(--sang); border-color:var(--sang) !important; }
+  .chol-c { color:var(--chol); border-color:var(--chol) !important; }
+  .mel-c  { color:var(--mel);  border-color:var(--mel)  !important; }
+  .phleg-c{ color:var(--phleg);border-color:var(--phleg)!important; }
+
+  /* Ergebnis-Balken */
+  .result-section { margin-top:1.5rem; }
+  .result-label {
+    font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.28em;
+    color:var(--gold-dim); text-transform:uppercase; margin-bottom:.8rem; text-align:center;
+  }
+  .result-bars { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; max-width:500px; margin:0 auto; }
+  .rbar-row { display:flex; align-items:center; gap:.6rem; }
+  .rbar-label {
+    font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; width:4.5rem; text-align:right; flex-shrink:0;
+  }
+  .rbar-track {
+    flex:1; height:14px; background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.07); border-radius:1px; overflow:hidden;
+  }
+  .rbar-fill { height:100%; border-radius:1px; transition:width .8s ease; }
+  .rbar-pts {
+    font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.05em;
+    width:2rem; text-align:left; flex-shrink:0;
+  }
+
+  .verdict {
+    text-align:center; margin-top:1.5rem; padding:1rem;
+    border:1px solid var(--border); background:rgba(201,168,76,.03);
+  }
+  .verdict-main {
+    font-family:'Cinzel Decorative',serif; font-size:clamp(1rem,2vw,1.4rem);
+    margin-bottom:.3rem;
+  }
+  .verdict-lilly {
+    font-family:'IM Fell English',serif; font-style:italic;
+    font-size:.85rem; color:var(--ink-dim);
+  }
+  .verdict-detail {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:.88rem; color:var(--ink-faint); margin-top:.6rem; line-height:1.65;
+  }
+
+  /* ===== EMPFEHLUNG ===== */
+  .rec-section { max-width:1050px; margin:0 auto; padding:0 1.5rem 4rem; }
+  .rec-intro {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:1rem; color:var(--ink-dim); line-height:1.75;
+    text-align:center; max-width:640px; margin:0 auto 2.5rem;
+  }
+
+  .rec-group { margin-bottom:2.8rem; }
+  .rec-group-title {
+    font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.35em;
+    text-transform:uppercase; color:var(--gold-dim);
+    margin-bottom:1rem; padding-bottom:.5rem;
+    border-bottom:1px solid var(--border); display:flex; align-items:center; gap:.8rem;
+  }
+  .rec-group-title span.sigil { font-size:1.3rem; }
+
+  .rec-grid {
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:.85rem;
+  }
+  .rec-card {
+    background:rgba(18,13,7,.85); border:1px solid var(--border);
+    padding:1rem; position:relative; transition:all .28s;
+  }
+  .rec-card:hover { transform:translateY(-2px); }
+  .rec-card.primary { border-color:rgba(191,90,42,.4); }
+  .rec-card.secondary { border-color:rgba(106,128,96,.35); }
+  .rec-card.avoid { opacity:.55; }
+  .rec-card.avoid::after {
+    content:'Meiden'; position:absolute; top:.35rem; right:.4rem;
+    font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.1em;
+    color:rgba(191,74,58,.6); text-transform:uppercase;
+  }
+
+  .rec-planet {
+    font-size:1rem; margin-bottom:.3rem; opacity:.6;
+  }
+  .rec-name {
+    font-family:'Cormorant Garamond',serif; font-size:.93rem;
+    color:var(--ink); line-height:1.3; margin-bottom:.35rem;
+  }
+  .rec-why {
+    font-family:'IM Fell English',serif; font-style:italic;
+    font-size:.73rem; color:var(--ink-faint); line-height:1.48;
+  }
+  .rec-dosha {
+    font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.08em;
+    text-transform:uppercase; margin-top:.4rem; opacity:.65;
+  }
+  .rec-price {
+    font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.08em;
+    color:var(--gold-dim); margin-top:.45rem; opacity:.65;
+  }
+
+  /* Primaer/Sekundaer Indikatoren */
+  .badge-prime {
+    display:inline-block; font-family:'Cinzel',serif; font-size:.52rem;
+    letter-spacing:.1em; text-transform:uppercase;
+    padding:.1rem .4rem; margin-bottom:.35rem;
+    color:var(--chol); border:1px solid var(--chol); background:rgba(191,90,42,.07);
+  }
+  .badge-sec {
+    display:inline-block; font-family:'Cinzel',serif; font-size:.52rem;
+    letter-spacing:.1em; text-transform:uppercase;
+    padding:.1rem .4rem; margin-bottom:.35rem;
+    color:var(--mel); border:1px solid var(--mel); background:rgba(106,128,96,.07);
+  }
+  .badge-contra {
+    display:inline-block; font-family:'Cinzel',serif; font-size:.52rem;
+    letter-spacing:.1em; text-transform:uppercase;
+    padding:.1rem .4rem; margin-bottom:.35rem;
+    color:var(--phleg); border:1px solid var(--phleg); background:rgba(74,138,170,.07);
+  }
+
+  /* Score-Streifen an der Karte */
+  .card-stripe {
+    height:2px; width:100%; margin-bottom:.65rem; border-radius:1px;
+  }
+  .stripe-chol { background:var(--chol); }
+  .stripe-mel  { background:var(--mel); }
+  .stripe-sang { background:var(--sang); }
+  .stripe-phleg{ background:var(--phleg); }
+  .stripe-cm   { background:linear-gradient(to right,var(--chol) 50%,var(--mel) 50%); }
+
+  /* ===== ALLGEMEINE MENSA (Tab 3) ===== */
+  .filter-area { max-width:900px; margin:0 auto; padding:0 1.5rem; }
+  .fgl {
+    font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.28em;
+    color:var(--ink-faint); text-transform:uppercase; text-align:center;
+    margin:1.2rem 0 .4rem;
+  }
+  .filter-bar { display:flex; flex-wrap:wrap; justify-content:center; gap:.35rem; }
+  .fbtn {
+    font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; border:1px solid var(--border);
+    background:rgba(0,0,0,.4); color:var(--ink-dim); padding:.3rem .8rem;
+    cursor:pointer; transition:all .22s; border-radius:1px;
+  }
+  .fbtn:hover { border-color:var(--gold); color:var(--gold); }
+  .fbtn.act-p { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.07); }
+  .fbtn.t-chol.act-t { border-color:var(--chol);color:var(--chol);background:rgba(191,90,42,.08); }
+  .fbtn.t-mel.act-t  { border-color:var(--mel); color:var(--mel); background:rgba(106,128,96,.08); }
+  .fbtn.t-sang.act-t { border-color:var(--sang);color:var(--sang);background:rgba(90,130,191,.08); }
+  .fbtn.t-phleg.act-t{ border-color:var(--phleg);color:var(--phleg);background:rgba(74,138,170,.08); }
+
+  .mensa-full { max-width:1080px; margin:0 auto; padding:2rem 1.5rem 4rem; }
+  .planet-section { margin-bottom:3rem; opacity:0; transform:translateY(20px); animation:fuA .6s ease forwards; }
+  @keyframes fuA { to { opacity:1; transform:translateY(0); } }
+  .planet-section:nth-child(1){animation-delay:.05s}.planet-section:nth-child(2){animation-delay:.10s}
+  .planet-section:nth-child(3){animation-delay:.15s}.planet-section:nth-child(4){animation-delay:.20s}
+  .planet-section:nth-child(5){animation-delay:.25s}.planet-section:nth-child(6){animation-delay:.30s}
+  .planet-section:nth-child(7){animation-delay:.35s}.planet-section.hidden{display:none;}
+
+  .planet-header {
+    display:flex; align-items:flex-start; gap:1rem;
+    margin-bottom:1rem; padding-bottom:.7rem;
+    border-bottom:1px solid var(--border); flex-wrap:wrap;
+  }
+  .planet-sigil { font-size:2.3rem; line-height:1; flex-shrink:0; filter:drop-shadow(0 0 6px currentColor); }
+  .planet-info { flex:1; min-width:160px; }
+  .planet-name { font-family:'Cinzel Decorative',serif; font-size:clamp(1rem,2.1vw,1.6rem); line-height:1.1; margin-bottom:.15rem; }
+  .planet-meta { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim); opacity:.65; margin-bottom:.25rem; }
+  .tbadge {
+    display:inline-block; font-family:'Cinzel',serif; font-size:.55rem;
+    letter-spacing:.1em; text-transform:uppercase; padding:.1rem .45rem;
+    border:1px solid; border-radius:1px; margin-right:.22rem; margin-bottom:.22rem;
+  }
+  .tbadge.sang{color:var(--sang);border-color:var(--sang);background:rgba(90,130,191,.06);}
+  .tbadge.chol{color:var(--chol);border-color:var(--chol);background:rgba(191,90,42,.06);}
+  .tbadge.mel {color:var(--mel); border-color:var(--mel); background:rgba(106,128,96,.06);}
+  .tbadge.phleg{color:var(--phleg);border-color:var(--phleg);background:rgba(74,138,170,.06);}
+  .tbadge.dim{color:var(--ink-faint);border-color:var(--ink-faint);}
+  .ztag-row{display:flex;gap:.25rem;flex-wrap:wrap;margin-top:.3rem;}
+  .ztag{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.07em;padding:.08rem .35rem;border:1px solid;border-radius:2px;opacity:.45;}
+  .planet-doctrine{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:var(--ink-dim);max-width:420px;line-height:1.55;align-self:center;}
+
+  .sat .planet-sigil,.sat .planet-name{color:var(--saturn);}
+  .sat .ztag{border-color:var(--saturn);color:var(--saturn);}
+  .sat .planet-header{border-color:rgba(122,138,106,.3);}
+  .sat .product-card:hover{border-color:var(--saturn);box-shadow:0 4px 16px rgba(122,138,106,.17);}
+  .jup .planet-sigil,.jup .planet-name{color:var(--jupiter);}
+  .jup .ztag{border-color:var(--jupiter);color:var(--jupiter);}
+  .jup .planet-header{border-color:rgba(106,122,191,.3);}
+  .jup .product-card:hover{border-color:var(--jupiter);box-shadow:0 4px 16px rgba(106,122,191,.17);}
+  .mar .planet-sigil,.mar .planet-name{color:var(--mars);}
+  .mar .ztag{border-color:var(--mars);color:var(--mars);}
+  .mar .planet-header{border-color:rgba(191,74,58,.3);}
+  .mar .product-card:hover{border-color:var(--mars);box-shadow:0 4px 16px rgba(191,74,58,.17);}
+  .sol .planet-sigil,.sol .planet-name{color:var(--sol);}
+  .sol .ztag{border-color:var(--sol);color:var(--sol);}
+  .sol .planet-header{border-color:rgba(212,160,32,.3);}
+  .sol .product-card:hover{border-color:var(--sol);box-shadow:0 4px 16px rgba(212,160,32,.17);}
+  .ven .planet-sigil,.ven .planet-name{color:var(--venus);}
+  .ven .ztag{border-color:var(--venus);color:var(--venus);}
+  .ven .planet-header{border-color:rgba(122,191,106,.3);}
+  .ven .product-card:hover{border-color:var(--venus);box-shadow:0 4px 16px rgba(122,191,106,.17);}
+  .mer .planet-sigil,.mer .planet-name{color:var(--mercury);}
+  .mer .ztag{border-color:var(--mercury);color:var(--mercury);}
+  .mer .planet-header{border-color:rgba(138,106,191,.3);}
+  .mer .product-card:hover{border-color:var(--mercury);box-shadow:0 4px 16px rgba(138,106,191,.17);}
+  .lun .planet-sigil,.lun .planet-name{color:var(--luna);}
+  .lun .ztag{border-color:var(--luna);color:var(--luna);}
+  .lun .planet-header{border-color:rgba(170,184,200,.3);}
+  .lun .product-card:hover{border-color:var(--luna);box-shadow:0 4px 16px rgba(170,184,200,.17);}
+
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:.75rem;}
+  .product-card{background:rgba(18,13,7,.85);border:1px solid var(--border);padding:.88rem;position:relative;transition:all .26s;}
+  .product-card:hover{transform:translateY(-2px);}
+  .sbar-wrap{display:flex;gap:1px;height:2px;margin-bottom:.6rem;}
+  .sseg{height:100%;border-radius:1px;}
+  .sseg.sang{background:var(--sang)}.sseg.chol{background:var(--chol)}.sseg.mel{background:var(--mel)}.sseg.phleg{background:var(--phleg)}
+  .product-corner{position:absolute;top:.32rem;right:.42rem;font-size:.78rem;opacity:.28;}
+  .product-name{font-family:'Cormorant Garamond',serif;font-size:.91rem;color:var(--ink);line-height:1.3;margin-bottom:.28rem;padding-right:.9rem;}
+  .product-reason{font-family:'IM Fell English',serif;font-style:italic;font-size:.72rem;color:var(--ink-faint);line-height:1.46;}
+  .phum{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem;opacity:.6;}
+  .phum.sang{color:var(--sang)}.phum.chol{color:var(--chol)}.phum.mel{color:var(--mel)}.phum.phleg{color:var(--phleg)}
+  .pprice{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.07em;color:var(--gold-dim);margin-top:.45rem;opacity:.62;}
+  .toggle-score{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dim);cursor:pointer;margin-top:.45rem;display:block;opacity:.55;background:none;border:none;padding:0;}
+  .toggle-score:hover{opacity:1;}
+  .score-breakdown{display:none;margin-top:.45rem;border-top:1px solid rgba(201,168,76,.1);padding-top:.4rem;}
+  .score-breakdown.open{display:block;}
+  .score-row{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);padding:.15rem 0;gap:.4rem;}
+  .score-row .sc.sang{color:var(--sang)}.score-row .sc.chol{color:var(--chol)}.score-row .sc.mel{color:var(--mel)}.score-row .sc.phleg{color:var(--phleg)}
+  .score-total{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;border-top:1px solid rgba(201,168,76,.12);padding-top:.28rem;margin-top:.18rem;color:var(--gold-dim);}
+  .dlabel{display:inline-block;font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.28rem;padding:.15rem .45rem;border:1px solid;}
+  .dlabel.sang{color:var(--sang);border-color:var(--sang)}.dlabel.chol{color:var(--chol);border-color:var(--chol)}.dlabel.mel{color:var(--mel);border-color:var(--mel)}.dlabel.phleg{color:var(--phleg);border-color:var(--phleg)}
+
+  .sdiv{display:flex;align-items:center;gap:.7rem;margin:1rem 0;opacity:.2;}
+  .sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--gold);}
+  .sdiv span{color:var(--gold);font-size:.68rem;}
+
+  /* Tabula & Formel */
+  .temp-section{max-width:960px;margin:2.5rem auto 1rem;padding:0 1.5rem;}
+  .slabel{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-dim);text-align:center;margin-bottom:1.2rem;}
+  .ttable{width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;font-size:.86rem;}
+  .ttable th{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.62rem .85rem;text-align:center;border-bottom:1px solid var(--border);}
+  .ttable th.rh{color:var(--gold-dim);text-align:left;}
+  .ttable th.sang{color:var(--sang);border-bottom-color:var(--sang);}
+  .ttable th.chol{color:var(--chol);border-bottom-color:var(--chol);}
+  .ttable th.mel{color:var(--mel);border-bottom-color:var(--mel);}
+  .ttable th.phleg{color:var(--phleg);border-bottom-color:var(--phleg);}
+  .ttable td{padding:.48rem .85rem;text-align:center;color:var(--ink-dim);border-bottom:1px solid rgba(201,168,76,.06);line-height:1.5;}
+  .ttable td.rh{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;text-align:left;color:var(--gold-dim);white-space:nowrap;}
+  .ttable td.sang{color:var(--sang)}.ttable td.chol{color:var(--chol)}.ttable td.mel{color:var(--mel)}.ttable td.phleg{color:var(--phleg)}
+  .onote{font-family:'IM Fell English',serif;font-style:italic;font-size:.72rem;color:var(--ink-faint);text-align:center;margin-top:.65rem;}
+
+  .fbox{max-width:660px;margin:2rem auto;border:1px solid var(--border);background:rgba(10,8,4,.7);padding:1.4rem 1.8rem;}
+  .ftitle{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.9rem;text-align:center;}
+  .frow{display:flex;justify-content:space-between;align-items:baseline;padding:.28rem 0;border-bottom:1px solid rgba(201,168,76,.06);gap:.8rem;}
+  .frow:last-child{border-bottom:none;}
+  .fcrit{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:var(--ink-dim);flex:1;}
+  .fcrit em{font-style:normal;color:var(--ink-faint);font-size:.76rem;}
+  .fanl{font-family:'IM Fell English',serif;font-style:italic;font-size:.73rem;color:var(--ink-faint);flex:1;text-align:right;}
+  .fpts{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.08em;color:var(--gold);white-space:nowrap;}
+
+  footer{text-align:center;padding:2.2rem 2rem;border-top:1px solid var(--border);}
+  .colobox{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase;line-height:2.1;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<header>
+  <div class="horna">✦ Ptolemaeus · Ficinus · Agrippa · Standaart ✦</div>
+  <h1>CONVIVIA CAELESTE</h1>
+  <div class="subtitle">Mensa Planetarum — Cena sub Signo Septem Sphaerarum</div>
+  <div class="hdiv"></div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('natal',this)">I. Mein Temperament</button>
+    <button class="nav-tab" onclick="showPanel('mensa',this)">II. Mensa Planetarum</button>
+    <button class="nav-tab" onclick="showPanel('tabula',this)">III. Tabula &amp; Formula</button>
+  </div>
+</header>
+
+<!-- ========== PANEL I: PERSÖNLICHES TEMPERAMENT ========== -->
+<div id="panel-natal" class="panel active">
+<div class="natal-box">
+
+  <!-- Horoskop-Karte -->
+  <div class="natal-card">
+    <div class="natal-title">Nativitas — 21. Ianuarii 1981</div>
+    <div class="natal-subtitle">11:25 Uhr · Reutte in Tirol, Austria · 47°29′N · 10°43′E</div>
+
+    <table class="factor-table">
+      <tr>
+        <td class="fnum">1</td>
+        <td class="fname">Aszendent-Zeichen (Element)</td>
+        <td class="fval">♉ <strong>Stier</strong> 5°19′ — Erde</td>
+        <td class="fpts"><span class="mel-c">+2 Mel</span></td>
+      </tr>
+      <tr>
+        <td class="fnum">2</td>
+        <td class="fname">Aszendent-Herrscher (intrinsisch)</td>
+        <td class="fval">♀ <strong>Venus</strong> — Heiß &amp; Feucht</td>
+        <td class="fpts"><span class="sang-c">+1 Sang</span></td>
+      </tr>
+      <tr>
+        <td class="fnum">3</td>
+        <td class="fname">Almuten des Aszendenten</td>
+        <td class="fval">♀ <strong>Venus</strong> (Domizil im Stier) — Heiß &amp; Feucht</td>
+        <td class="fpts"><span class="sang-c">+1 Sang</span></td>
+      </tr>
+      <tr>
+        <td class="fnum">4</td>
+        <td class="fname">Mond-Zeichen (Element)</td>
+        <td class="fval">♌ <strong>Löwe</strong> 15°0′ — Feuer</td>
+        <td class="fpts"><span class="chol-c">+2 Chol</span></td>
+      </tr>
+      <tr>
+        <td class="fnum">5</td>
+        <td class="fname">Mond-Herrscher (nach Zeichen)</td>
+        <td class="fval">☉ <strong>Sol</strong> — Heiß &amp; Trocken</td>
+        <td class="fpts"><span class="chol-c">+1 Chol</span></td>
+      </tr>
+      <tr>
+        <td class="fnum">6</td>
+        <td class="fname">Mondphase (nach Lilly)</td>
+        <td class="fval">193° — <strong>Vollmond → letztes Viertel</strong></td>
+        <td class="fpts"><span class="mel-c">+1 Mel</span></td>
+      </tr>
+      <tr>
+        <td class="fnum">7</td>
+        <td class="fname">Jahreszeit der Geburt</td>
+        <td class="fval"><strong>Winter</strong> (21. Januar · Capricorn/Aquarius)</td>
+        <td class="fpts"><span class="phleg-c">+2 Phleg</span></td>
+      </tr>
+    </table>
+
+    <!-- Ergebnis-Balken -->
+    <div class="result-section">
+      <div class="result-label">✦ Standaart Scoring — Gesamt 10 Punkte ✦</div>
+      <div class="result-bars">
+        <div class="rbar-row">
+          <div class="rbar-label sang-c" style="border:none;">Cholerisch</div>
+          <div class="rbar-track"><div class="rbar-fill" style="width:30%;background:var(--chol);"></div></div>
+          <div class="rbar-pts chol-c">3 Pkt</div>
+        </div>
+        <div class="rbar-row">
+          <div class="rbar-label mel-c" style="border:none;">Melanchol.</div>
+          <div class="rbar-track"><div class="rbar-fill" style="width:30%;background:var(--mel);"></div></div>
+          <div class="rbar-pts mel-c">3 Pkt</div>
+        </div>
+        <div class="rbar-row">
+          <div class="rbar-label sang-c" style="border:none;">Sanguinisch</div>
+          <div class="rbar-track"><div class="rbar-fill" style="width:20%;background:var(--sang);"></div></div>
+          <div class="rbar-pts sang-c">2 Pkt</div>
+        </div>
+        <div class="rbar-row">
+          <div class="rbar-label phleg-c" style="border:none;">Phlegmat.</div>
+          <div class="rbar-track"><div class="rbar-fill" style="width:20%;background:var(--phleg);"></div></div>
+          <div class="rbar-pts phleg-c">2 Pkt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-main">
+        <span class="chol-c">Cholerisch</span> · <span class="mel-c">Melancholisch</span>
+      </div>
+      <div class="verdict-lilly">„Choleric, Melancholly Choleric" — nach Standaart/Lilly, Table 16</div>
+      <div class="verdict-detail">
+        Das Urteil ist ausgeglichen (3:3) — wie in Lillys eigenem Beispielfall, wo er schloss:
+        <em>„I cannot perceive any superabundance in any of the four Humours."</em><br>
+        Der Stier-Aszendent und die abnehmende Mondphase geben dem Erdigen Gewicht;
+        der Mond im Löwen und sein Herrscher Sol bringen das Feurige.
+        Venus als Aszendent-Herrscher legt einen sanguinischen Grundton darunter.
+        Der Winter als Jahreszeit mahnt zur phlegmatischen Reserve.
+      </div>
+    </div>
+  </div><!-- /natal-card -->
+
+  <!-- Empfehlungen -->
+  <div class="slabel" style="margin-top:2.5rem;">✦ Convivia Personalia — Speisen für Dein Temperament ✦</div>
+
+  <div class="rec-section" style="padding:0 0 3rem;">
+
+    <div class="rec-intro">
+      Für ein ausgeglichenes Cholerisch-Melancholisches Temperament empfiehlt die Galenik,<br>
+      das Feuer zu mäßigen (nicht zu löschen) und die Schwere der Erde aufzuhellen —<br>
+      <em>durch Sanguinisches, das die Mitte hält.</em><br><br>
+      Die markierten Produkte sind Deine <span class="chol-c">Primär-Wahl</span>,
+      <span class="mel-c">Sekundär-Wahl</span> und <span class="sang-c">ausgleichende Empfehlung</span>.
+    </div>
+
+    <!-- PRIMÄR: Was das dominante Temperament ausgleicht -->
+    <div class="rec-group">
+      <div class="rec-group-title">
+        <span class="sigil" style="color:var(--venus);">♀</span>
+        Primär — Ausgleich des Cholerisch-Melancholischen · Sanguinische Mäßiger
+        <span style="font-size:.58rem;opacity:.6;">(heiß &amp; feucht · erwärmen ohne auszutrocknen)</span>
+      </div>
+      <div class="rec-grid">
+
+        <div class="rec-card primary">
+          <div class="card-stripe stripe-sang"></div>
+          <div class="badge-prime">Primär empfohlen</div>
+          <div class="rec-planet">♀</div>
+          <div class="rec-name">Bio-Pesto mit sizilianischem Basilikum</div>
+          <div class="rec-why">Basilikum ist die sanguinischste Venuspflanze — warm und feucht, hebt die Schwere des Melancholischen auf. Ideal als täglicher Ausgleich.</div>
+          <div class="rec-dosha sang-c">Sanguinisch 8 · heiß &amp; feucht</div>
+          <div class="rec-price">5,00 €</div>
+        </div>
+
+        <div class="rec-card primary">
+          <div class="card-stripe stripe-sang"></div>
+          <div class="badge-prime">Primär empfohlen</div>
+          <div class="rec-planet">♀</div>
+          <div class="rec-name">Bio-Wildfenchel-Pesto</div>
+          <div class="rec-why">Wilder Fenchel — luft-sanguinisch, Frühlingspflanze. Mäßigt die cholerische Hitze durch Feuchte und kühlt die schwarzgallische Schwere.</div>
+          <div class="rec-dosha sang-c">Sanguinisch 8 · heiß &amp; feucht</div>
+          <div class="rec-price">5,00 €</div>
+        </div>
+
+        <div class="rec-card primary">
+          <div class="card-stripe stripe-sang"></div>
+          <div class="badge-prime">Primär empfohlen</div>
+          <div class="rec-planet">♀</div>
+          <div class="rec-name">Bio-Wildblumenhonig</div>
+          <div class="rec-why">Frühlingshonig — quintessenz des Sanguinischen. Ficino empfahl Honig für melancholische Gelehrte: er erheitert das Gemüt ohne zu erhitzen.</div>
+          <div class="rec-dosha sang-c">Sanguinisch 7 · heiß &amp; feucht</div>
+          <div class="rec-price">6,50 €</div>
+        </div>
+
+        <div class="rec-card primary">
+          <div class="card-stripe stripe-sang"></div>
+          <div class="badge-prime">Primär empfohlen</div>
+          <div class="rec-planet">♀</div>
+          <div class="rec-name">Bio-Weißfeigenmarmelade</div>
+          <div class="rec-why">Die Feige — seit Homer der Venus heilig, sanguinisch-warm, saftig. Hebt die Trockenheit des Melancholischen auf, ohne das Feuer des Cholerischen zu schüren.</div>
+          <div class="rec-dosha sang-c">Sanguinisch 7 · heiß &amp; feucht</div>
+          <div class="rec-price">6,00 €</div>
+        </div>
+
+        <div class="rec-card primary">
+          <div class="card-stripe stripe-sang"></div>
+          <div class="badge-prime">Primär empfohlen</div>
+          <div class="rec-planet">♃</div>
+          <div class="rec-name">Bio-Pistaziencreme</div>
+          <div class="rec-why">Jovialisch-sanguinisch — warm und nährend. Jupiter ist der wohltätigste Planet für ein cholerisch-melancholisches Temperament: er gibt Mäßigung und Freude.</div>
+          <div class="rec-dosha sang-c">Sanguinisch 8 · heiß &amp; feucht</div>
+          <div class="rec-price">9,00 €</div>
+        </div>
+
+        <div class="rec-card primary">
+          <div class="card-stripe stripe-sang"></div>
+          <div class="badge-prime">Primär empfohlen</div>
+          <div class="rec-planet">♃</div>
+          <div class="rec-name">Bio-Mandelcreme</div>
+          <div class="rec-why">Ibn Sīnā verschrieb Mandeln bei Übermaß schwarzer Galle: ölig, warm, feuchtigkeitsspendend — der ideale Gegenpol zum melancholischen Trocknenden.</div>
+          <div class="rec-dosha sang-c">Sanguinisch 7 · heiß &amp; feucht</div>
+          <div class="rec-price">7,00 €</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEKUNDÄR: Für den melancholischen Pol -->
+    <div class="rec-group" style="margin-top:1.5rem;">
+      <div class="rec-group-title">
+        <span class="sigil" style="color:var(--venus);">♀</span>
+        Sekundär — Ausgleich des Melancholischen · Die süßen Herbstgaben der Venus
+        <span style="font-size:.58rem;opacity:.6;">(occidental · mäßigt schwarze Galle durch süße Säure)</span>
+      </div>
+      <div class="rec-grid">
+
+        <div class="rec-card secondary">
+          <div class="card-stripe stripe-mel" style="background:linear-gradient(to right,var(--mel) 60%,var(--sang) 40%);"></div>
+          <div class="badge-sec">Sekundär</div>
+          <div class="rec-planet">♀</div>
+          <div class="rec-name">Pesto von Trapani</div>
+          <div class="rec-why">Trapani — Heiligtum der Venus Erycina. Die Mandel im Pesto wirkt ausgleichend auf die schwarze Galle; sanguinisch-frisch mit erdiger Tiefe.</div>
+          <div class="rec-dosha sang-c">Sanguinisch 7 · dominant</div>
+          <div class="rec-price">5,00 €</div>
+        </div>
+
+        <div class="rec-card secondary">
+          <div class="card-stripe" style="background:linear-gradient(to right,var(--mel) 60%,var(--phleg) 40%);"></div>
+          <div class="badge-sec">Sekundär</div>
+          <div class="rec-planet">♀</div>
+          <div class="rec-name">Bio-Mandarinenmarmelade</div>
+          <div class="rec-why">Venus occidental — herbstlich-melancholisch, aber süß. Der Honiganteil mildert die Schwarzgalle; passt zur melancholischen Seite des Temperaments.</div>
+          <div class="rec-dosha mel-c">Melancholisch 6 · mit phlegm. Note</div>
+          <div class="rec-price">5,00 €</div>
+        </div>
+
+        <div class="rec-card secondary">
+          <div class="card-stripe stripe-phleg"></div>
+          <div class="badge-sec">Sekundär</div>
+          <div class="rec-planet">♃</div>
+          <div class="rec-name">Pistazien-Panettone + Speedy Cream</div>
+          <div class="rec-why">Occid. Jupiter — phlegmatisch-schützend. Für das cholerische Temperament ist ein phlegmatisches Wintergericht als Ausgleich bei Übererhitzung angemessen.</div>
+          <div class="rec-dosha phleg-c">Phlegmatisch 8 · kühlend</div>
+          <div class="rec-price">29,06 €</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VORSICHT: Was das Temperament verstärkt -->
+    <div class="rec-group" style="margin-top:1.5rem;">
+      <div class="rec-group-title">
+        <span class="sigil" style="color:var(--mars);">♂</span>
+        Mit Vorsicht — Verstärker des dominanten Temperaments
+        <span style="font-size:.58rem;opacity:.6;">(cholerisch · feurig · trocken · meiden bei Übermaß)</span>
+      </div>
+      <div class="rec-grid">
+
+        <div class="rec-card avoid">
+          <div class="card-stripe stripe-chol"></div>
+          <div class="rec-planet">♂</div>
+          <div class="rec-name">Bio-Chilipastete</div>
+          <div class="rec-why">Rein cholerisch (10 Pkt) — verstärkt das feuerige Übermaß. In kleinen Mengen als Reiz geeignet, aber nicht als Basisnahrung für Dein Temperament.</div>
+          <div class="rec-dosha chol-c">Cholerisch 10 — Maximum</div>
+          <div class="rec-price">5,00 €</div>
+        </div>
+
+        <div class="rec-card avoid">
+          <div class="card-stripe stripe-chol"></div>
+          <div class="rec-planet">♂</div>
+          <div class="rec-name">Bio-Arrabbiata-Sauce</div>
+          <div class="rec-why">Cholerisch-marsisch — die Wütende. Verstärkt Feuer und gelbe Galle; kontraindiziert bei cholerischem Übermaß laut Ibn Sīnā und Ficino.</div>
+          <div class="rec-dosha chol-c">Cholerisch 8 — meiden</div>
+          <div class="rec-price">2,50 €</div>
+        </div>
+
+        <div class="rec-card avoid">
+          <div class="card-stripe stripe-mel"></div>
+          <div class="rec-planet">♄</div>
+          <div class="rec-name">Bio-Kastanienhonig</div>
+          <div class="rec-why">Rein melancholisch (8 Pkt) — verstärkt die schwarze Galle. Für den melancholischen Pol Deines Temperaments ein Risiko; besser den Wildblumenhonig wählen.</div>
+          <div class="rec-dosha mel-c">Melancholisch 8 — meiden</div>
+          <div class="rec-price">7,00 €</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DAS IDEAL: Caponata als Ausgleich aller Humores -->
+    <div class="rec-group" style="margin-top:1.5rem;">
+      <div class="rec-group-title">
+        <span class="sigil" style="color:var(--mercury);">☿</span>
+        Die Quintessenz — Caponata · Alle vier Humores ausgeglichen
+      </div>
+      <div class="rec-grid" style="max-width:450px;">
+        <div class="rec-card" style="border-color:rgba(138,106,191,.4);">
+          <div class="card-stripe" style="background:linear-gradient(to right,var(--sang) 25%,var(--chol) 25%,var(--chol) 50%,var(--mel) 50%,var(--mel) 75%,var(--phleg) 75%);"></div>
+          <span class="badge-prime" style="color:var(--mercury);border-color:var(--mercury);">Universalempfehlung</span>
+          <div class="rec-planet">☿</div>
+          <div class="rec-name">Sizilianische Bio-Caponata</div>
+          <div class="rec-why">Das Agrodolce der Caponata vereint alle vier Qualitäten: süß-warm (Feige/Rosinen), sauer-kalt (Essig), bitter-trocken (Olive), salzig-feucht (Kapern). Für ein ausgeglichenes 3:3:2:2-Temperament wie Deines ist die Caponata die philosophisch vollkommenste Wahl — sie führt alle Humores in Harmonie.</div>
+          <div class="rec-dosha" style="color:var(--mercury);">☿ Alle vier Humores · Ausgeglichen</div>
+          <div class="rec-price">5,00 €</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /rec-section -->
+</div><!-- /natal-box -->
+</div><!-- /panel-natal -->
+
+<!-- ========== PANEL II: VOLLSTÄNDIGE MENSA ========== -->
+<div id="panel-mensa" class="panel">
+
+  <div class="filter-area">
+    <div class="fgl">Nach Planet</div>
+    <div class="filter-bar">
+      <button class="fbtn act-p" onclick="filterP('all',this)">Alle Sphären</button>
+      <button class="fbtn" onclick="filterP('sat',this)">♄ Saturnus</button>
+      <button class="fbtn" onclick="filterP('jup',this)">♃ Iuppiter</button>
+      <button class="fbtn" onclick="filterP('mar',this)">♂ Mars</button>
+      <button class="fbtn" onclick="filterP('sol',this)">☉ Sol</button>
+      <button class="fbtn" onclick="filterP('ven',this)">♀ Venus</button>
+      <button class="fbtn" onclick="filterP('mer',this)">☿ Mercurius</button>
+      <button class="fbtn" onclick="filterP('lun',this)">☽ Luna</button>
+    </div>
+    <div class="fgl">Nach Temperament</div>
+    <div class="filter-bar" style="margin-bottom:1rem;">
+      <button class="fbtn t-sang" onclick="filterT('sang',this)">● Sanguinisch</button>
+      <button class="fbtn t-chol" onclick="filterT('chol',this)">● Cholerisch</button>
+      <button class="fbtn t-mel"  onclick="filterT('mel',this)">● Melancholisch</button>
+      <button class="fbtn t-phleg" onclick="filterT('phleg',this)">● Phlegmatisch</button>
+    </div>
+  </div>
+
+  <div class="mensa-full" id="mensa">
+
+    <!-- ♄ SATURNUS -->
+    <section class="planet-section sat" data-planet="sat" data-temper="mel">
+      <div class="planet-header">
+        <div class="planet-sigil">♄</div>
+        <div class="planet-info">
+          <div class="planet-name">Saturnus</div>
+          <div class="planet-meta">♑ Steinbock · ♒ Wassermann · Occidental</div>
+          <div><span class="tbadge mel">Melancholisch</span><span class="tbadge dim">Kalt &amp; Trocken</span></div>
+          <div class="ztag-row"><span class="ztag">Erde</span><span class="ztag">Herbst</span><span class="ztag">Schwarze Galle</span></div>
+        </div>
+        <div class="planet-doctrine">Kalt und trocken — Herrscher der Konservierung, Gärung und Verdichtung. Seine Speisen haben Tiefe, Bitterkeit und lange Dauer.</div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card"><div class="sbar-wrap" data-s="0,1,5,2"></div><div class="product-corner">♄</div><div class="product-name">Bio-Kastanienhonig</div><div class="product-reason">Kastanie saturninisch — bitter, dunkles Holz; Herbsternte, schwarzgallischer Charakter.</div><div class="phum mel">Melancholisch · Kalt &amp; Trocken</div><button class="toggle-score" onclick="toggleScore(this)">▸ Scoring</button><div class="score-breakdown"><div class="score-row"><span>Element Erde=2</span><span class="sc mel">+2 Mel</span></div><div class="score-row"><span>Herrscher ♄=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Almuten ♑=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Herbsternte=2</span><span class="sc mel">+2 Mel</span></div><div class="score-row"><span>Mondz. ♑=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Mondphase=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Klima Ätna=2</span><span class="sc mel">+2 Mel</span></div><div class="score-total"><span>Gesamt</span><span class="sc mel">Mel:8</span></div><span class="dlabel mel">⬛ Melancholisch</span></div><div class="pprice">7,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,1,6,1"></div><div class="product-corner">♄</div><div class="product-name">Getrocknete Tomaten</div><div class="product-reason">Trocknung = saturninische Kunst der Verdichtung. Sommerernte, aber Konservierung macht kalt-trocken.</div><div class="phum mel">Melancholisch · Kalt &amp; Trocken</div><button class="toggle-score" onclick="toggleScore(this)">▸ Scoring</button><div class="score-breakdown"><div class="score-row"><span>Element Erde=2</span><span class="sc mel">+2 Mel</span></div><div class="score-row"><span>Herrscher ♄=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Almuten ♑=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Sommer-Ernte=2</span><span class="sc chol">+2 Chol</span></div><div class="score-row"><span>Mondz.=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Mondphase=1</span><span class="sc mel">+1 Mel</span></div><div class="score-row"><span>Klima=2</span><span class="sc mel">+2 Mel</span></div><div class="score-total"><span>Gesamt</span><span class="sc mel">Mel:7 Chol:2</span></div><span class="dlabel mel">⬛ Melancholisch</span></div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,1,6,1"></div><div class="product-corner">♄</div><div class="product-name">Capuliatu</div><div class="product-reason">Gemahlen und getrocknet — doppelt saturninisch. Agrippa: Saturn ist der Herr der zermalmenden Kraft.</div><div class="phum mel">Melancholisch · Kalt &amp; Trocken</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,0,5,3"></div><div class="product-corner">♄</div><div class="product-name">Borettane-Zwiebeln</div><div class="product-reason">Zwiebeln unter Saturn seit al-Kindī: kalt-feucht eingelegt, Feuchtigkeit des Öls bringt phlegmatischen Zug.</div><div class="phum mel">Melancholisch · Kalt &amp; Trocken</div><div class="pprice">5,00 €</div></div>
+      </div>
+    </section>
+
+    <div class="sdiv"><span>✦</span></div>
+
+    <!-- ♃ IUPPITER -->
+    <section class="planet-section jup" data-planet="jup" data-temper="sang phleg">
+      <div class="planet-header">
+        <div class="planet-sigil">♃</div>
+        <div class="planet-info">
+          <div class="planet-name">Iuppiter</div>
+          <div class="planet-meta">♐ Schütze · ♓ Fische · Oriental/Occidental</div>
+          <div><span class="tbadge sang">Sanguinisch (orient.)</span><span class="tbadge phleg">Phlegmatisch (occid.)</span></div>
+          <div class="ztag-row"><span class="ztag">Feuer/Wasser</span><span class="ztag">Frühling/Winter</span><span class="ztag">Blut/Schleim</span></div>
+        </div>
+        <div class="planet-doctrine">Wohltätig in beiden Aspekten — Spender von Reichtum, Festlichkeit und nährender Gabe.</div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card"><div class="sbar-wrap" data-s="5,1,0,2"></div><div class="product-corner">♃</div><div class="product-name">Bio-Pistaziencreme</div><div class="product-reason">Jovialisch-sanguinisch — warm, nährend. Orient. Jupiter: für Frühling, Blut, Freude.</div><div class="phum sang">Sanguinisch · Heiß &amp; Feucht</div><div class="pprice">9,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="5,1,0,2"></div><div class="product-corner">♃</div><div class="product-name">Bio-Mandelcreme</div><div class="product-reason">Ibn Sīnā: Mandeln süß, warm, ölig — das Öl des Wohlstands. Sanguinisch-jovial.</div><div class="phum sang">Sanguinisch · Heiß &amp; Feucht</div><div class="pprice">7,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="5,0,0,3"></div><div class="product-corner">♃</div><div class="product-name">Bio-Haselnusscreme</div><div class="product-reason">Haselnuss dem Jupiter geweiht — erheiternd, sanguinisch, festlich.</div><div class="phum sang">Sanguinisch · Heiß &amp; Feucht</div><div class="pprice">6,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,0,1,6"></div><div class="product-corner">♃</div><div class="product-name">Pistazien-Panettone + Speedy Cream</div><div class="product-reason">Occidental Jupiter — phlegmatisch-winterlich, schützend für die lange Nacht.</div><div class="phum phleg">Phlegmatisch · Kalt &amp; Feucht</div><div class="pprice">29,06 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,0,0,7"></div><div class="product-corner">♃</div><div class="product-name">Mandel-Panettone + Speedy Cream</div><div class="product-reason">Winterliches Festbrot — phlegmatisch und jovial occid., schützend für Familienwärme.</div><div class="phum phleg">Phlegmatisch · Kalt &amp; Feucht</div><div class="pprice">27,54 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,0,0,7"></div><div class="product-corner">♃</div><div class="product-name">Haselnuss-Panettone + Speedy Cream</div><div class="product-reason">Die Dreizahl — Jupiter liebt die ungerade Zahl. Dritte joviale Gabe der kalten Jahreszeit.</div><div class="phum phleg">Phlegmatisch · Kalt &amp; Feucht</div><div class="pprice">27,54 €</div></div>
+      </div>
+    </section>
+
+    <div class="sdiv"><span>✦</span></div>
+
+    <!-- ♂ MARS -->
+    <section class="planet-section mar" data-planet="mar" data-temper="chol">
+      <div class="planet-header">
+        <div class="planet-sigil">♂</div>
+        <div class="planet-info">
+          <div class="planet-name">Mars</div>
+          <div class="planet-meta">♈ Widder · ♏ Skorpion</div>
+          <div><span class="tbadge chol">Cholerisch</span><span class="tbadge dim">Heiß &amp; Trocken</span></div>
+          <div class="ztag-row"><span class="ztag">Feuer</span><span class="ztag">Sommer</span><span class="ztag">Gelbe Galle</span></div>
+        </div>
+        <div class="planet-doctrine">Heiß und trocken — Chili, Schärfe, das Feuer im Schlund. Dem Kriegsgott gehören die entfachenden Speisen.</div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card"><div class="sbar-wrap" data-s="0,8,0,0"></div><div class="product-corner">♂</div><div class="product-name">Bio-Chilipastete</div><div class="product-reason">Rein cholerisch (10 Pkt Maximum) — feurig, trocken, gallenfördernd. Maß halten.</div><div class="phum chol">Cholerisch · Heiß &amp; Trocken</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,7,1,0"></div><div class="product-corner">♂</div><div class="product-name">Bio-Arrabbiata-Sauce</div><div class="product-reason">Arrabbiata — „die Wütende". Cholerisch-marsisch, sommerheiß, gallig. Mit Maß zu genießen.</div><div class="phum chol">Cholerisch · Heiß &amp; Trocken</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,6,0,1"></div><div class="product-corner">♂</div><div class="product-name">Bio-Puttanesca-Sauce</div><div class="product-reason">Kapern, Oliven, Schärfe — cholerisch-provokant; leichter phlegmatischer Zug durch Salz.</div><div class="phum chol">Cholerisch · Heiß &amp; Trocken</div><div class="pprice">2,50 €</div></div>
+      </div>
+    </section>
+
+    <div class="sdiv"><span>✦</span></div>
+
+    <!-- ☉ SOL -->
+    <section class="planet-section sol" data-planet="sol" data-temper="chol">
+      <div class="planet-header">
+        <div class="planet-sigil">☉</div>
+        <div class="planet-info">
+          <div class="planet-name">Sol</div>
+          <div class="planet-meta">♌ Löwe · Mittag · Frühadultum</div>
+          <div><span class="tbadge chol">Cholerisch</span><span class="tbadge dim">Heiß &amp; Trocken</span></div>
+          <div class="ztag-row"><span class="ztag">Feuer</span><span class="ztag">Sommer · Hochstand</span><span class="ztag">Dein Mondzeichen</span></div>
+        </div>
+        <div class="planet-doctrine">Sol ist Herrscher Deines Mondzeichens (Löwe) — besonders bedeutsam für Dein Temperament. Alle goldenen Tomaten-Produkte tragen seine Signatur.</div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card"><div class="sbar-wrap" data-s="0,8,0,0"></div><div class="product-corner">☉</div><div class="product-name">Bio-Tomatenpüree</div><div class="product-reason">Pomodoro — rein cholerisch (10 Pkt). Sol ist Dein Mondzeichen-Herrscher; sein Feuer kann Deinen cholerischen Pol bestärken.</div><div class="phum chol">Cholerisch · Heiß &amp; Trocken</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,7,0,1"></div><div class="product-corner">☉</div><div class="product-name">Bio-Kirschtomatensauce</div><div class="product-reason">Sonnenfrucht im Konzentrat — cholerisch-vital, passend zu Deinem Löwen-Mond in mäßigen Mengen.</div><div class="phum chol">Cholerisch · Heiß &amp; Trocken</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,6,0,1"></div><div class="product-corner">☉</div><div class="product-name">Bio-Datterino-Tomatensauce</div><div class="product-reason">Süßere Variante — Datteltomate bringt Sanguinisches mit; günstiger als die reine Chol-Tomate.</div><div class="phum chol">Cholerisch · Heiß &amp; Trocken</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="2,5,1,0"></div><div class="product-corner">☉</div><div class="product-name">Bio-Orangenblütenhonig</div><div class="product-reason">Blüte gibt Sanguinisches — der beste Sol-Honig für Dein Temperament: erwärmt ohne völlig auszutrocknen.</div><div class="phum chol">Cholerisch · mit sang. Note</div><div class="pprice">7,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,6,2,0"></div><div class="product-corner">☉</div><div class="product-name">Bio-Blutorangenmarmelade</div><div class="product-reason">Purpur-Sonne mit melancholischem Einschlag (Winterernte) — interessante Entsprechung zu Deinem 3:3-Profil.</div><div class="phum chol">Cholerisch-Melancholisch</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,6,0,1"></div><div class="product-corner">☉</div><div class="product-name">Sizilianische Bio-Fertigsauce</div><div class="product-reason">Die klassische Sauce — cholerisch-sanguinisch, das Fundament des sizilianischen Lichts.</div><div class="phum chol">Cholerisch · Heiß &amp; Trocken</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="2,5,1,0"></div><div class="product-corner">☉</div><div class="product-name">Natives Olivenöl extra 3L</div><div class="product-reason">Olivenöl dem Sol geweiht — heiß und trocken nach Galen, bitter-melancholischer Grundton des Baumes.</div><div class="phum chol">Cholerisch · Gold des Lichts</div><div class="pprice">48,00 €</div></div>
+      </div>
+    </section>
+
+    <div class="sdiv"><span>✦</span></div>
+
+    <!-- ♀ VENUS -->
+    <section class="planet-section ven" data-planet="ven" data-temper="sang mel">
+      <div class="planet-header">
+        <div class="planet-sigil">♀</div>
+        <div class="planet-info">
+          <div class="planet-name">Venus</div>
+          <div class="planet-meta">♉ Stier · ♎ Waage · Dein ASC-Herrscher!</div>
+          <div><span class="tbadge sang">Sanguinisch (orient.)</span><span class="tbadge mel">Melancholisch (occid.)</span></div>
+          <div class="ztag-row"><span class="ztag">Dein ASC-Herrscher</span><span class="ztag">Almuten ASC</span><span class="ztag">Luft/Erde</span></div>
+        </div>
+        <div class="planet-doctrine">Venus ist Herrscherin Deines Aszendenten — ihre Produkte haben für Dich besondere Bedeutung. Als Morgenstern sanguinisch-ausgleichend, als Abendstern herbstlich-vertiefend.</div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card"><div class="sbar-wrap" data-s="7,1,0,0"></div><div class="product-corner">♀</div><div class="product-name">Bio-Pesto mit sizilianischem Basilikum</div><div class="product-reason">Basilikum — sanguinischste Venuspflanze (8 Pkt). Als ASC-Herrscherpflanze die ideale Wahl für Dein Temperament.</div><div class="phum sang">Sanguinisch 8 · Deine Wahl</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="7,1,0,0"></div><div class="product-corner">♀</div><div class="product-name">Bio-Wildfenchel-Pesto</div><div class="product-reason">Fenchel — wild und sanguinisch-luftig (Frühlingspflanze Deiner ASC-Herrscherin). Ausgleichend und erheiternd.</div><div class="phum sang">Sanguinisch 8 · Deine Wahl</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="6,1,0,1"></div><div class="product-corner">♀</div><div class="product-name">Bio-Wildblumenhonig</div><div class="product-reason">Frühlingshonig der ASC-Herrscherin. Ficino empfahl Honig für melancholische Gelehrte — er erheitert ohne zu erhitzen.</div><div class="phum sang">Sanguinisch 7 · Deine Wahl</div><div class="pprice">6,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="6,0,1,1"></div><div class="product-corner">♀</div><div class="product-name">Bio-Weißfeigenmarmelade</div><div class="product-reason">Feige — seit Homer der Venus heilig. Sanguinisch-warm, hebt Trockenheit auf. Venus-Signatur für Deinen Stier-ASC.</div><div class="phum sang">Sanguinisch 7 · Deine Wahl</div><div class="pprice">6,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="6,1,1,0"></div><div class="product-corner">♀</div><div class="product-name">Pesto von Trapani</div><div class="product-reason">Trapani — Heiligtum der Venus Erycina, Schutzgöttin Siziliens. Mandel und Basilikum — sanguinisch dominant.</div><div class="phum sang">Sanguinisch 7 · Deine Wahl</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,0,5,2"></div><div class="product-corner">♀</div><div class="product-name">Bio-Mandarinenmarmelade</div><div class="product-reason">Venus occidental — herbstlich-melancholisch. Entspricht Deinem melancholischen Pol, aber süß genug um nicht zu belasten.</div><div class="phum mel">Melancholisch (occidental)</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="1,0,5,2"></div><div class="product-corner">♀</div><div class="product-name">Bio-Zitronenmarmelade</div><div class="product-reason">Venus occidental — säuerlich-herbstlich; der melancholische Abendstern. Trifft Deinen Stier-ASC in seiner erdigsten Note.</div><div class="phum mel">Melancholisch (occidental)</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="5,2,0,1"></div><div class="product-corner">♀</div><div class="product-name">Bio-mediterrane Soße</div><div class="product-reason">Die Sauce der Waage — Ausgleich und Harmonie, sanguinisch-warm, die Venussignatur Siziliens in ihrer mildesten Form.</div><div class="phum sang">Sanguinisch · Harmonie</div><div class="pprice">2,50 €</div></div>
+      </div>
+    </section>
+
+    <div class="sdiv"><span>✦</span></div>
+
+    <!-- ☿ MERCURIUS -->
+    <section class="planet-section mer" data-planet="mer" data-temper="sang chol mel phleg">
+      <div class="planet-header">
+        <div class="planet-sigil">☿</div>
+        <div class="planet-info">
+          <div class="planet-name">Mercurius</div>
+          <div class="planet-meta">♊ Zwillinge · ♍ Jungfrau · Variabel</div>
+          <div><span class="tbadge dim">Nimmt Farbe des Nachbarn an</span></div>
+          <div class="ztag-row"><span class="ztag">Transformation</span><span class="ztag">Synthese</span></div>
+        </div>
+        <div class="planet-doctrine">Mercur ist neutral — er erschafft aus Gegensätzen neues Drittes. Das Agrodolce der Caponata ist seine vollkommenste Erscheinung.</div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card" style="border-color:rgba(138,106,191,.35);"><div class="sbar-wrap" data-s="2,2,2,2"></div><div class="product-corner">☿</div><div class="product-name">Sizilianische Bio-Caponata</div><div class="product-reason">Alle vier Humores ausgeglichen — die philosophisch vollkommenste Wahl für ein 3:3:2:2-Profil wie Deines. Universalempfehlung.</div><div class="phum" style="color:var(--mercury);">Alle vier Humores · Ausgeglichen</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="3,3,1,1"></div><div class="product-corner">☿</div><div class="product-name">Bio-Palermo-Sauce</div><div class="product-reason">Palermo — arabisch-normannisch-griechisch: mercurische Vielheit des Handels. Sanguinisch-cholerisch dominant.</div><div class="phum sang">Sanguinisch-Cholerisch</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="2,5,0,1"></div><div class="product-corner">☿</div><div class="product-name">Kirschtomatensauce mit Paprika</div><div class="product-reason">Tomate (Sol) + Paprika (Venus) — mercurische Synthese. Cholerisch dominant mit sanguinischem Zug.</div><div class="phum chol">Cholerisch-Sanguinisch</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,1,4,3"></div><div class="product-corner">☿</div><div class="product-name">Oliven Campagnole ohne Stein</div><div class="product-reason">Die entsteinte Olive — Werk des Verwandlers. Melancholisch-phlegmatisch, geerdet, mediterran.</div><div class="phum mel">Melancholisch-Phlegmatisch</div><div class="pprice">4,00 €</div></div>
+      </div>
+    </section>
+
+    <div class="sdiv"><span>✦</span></div>
+
+    <!-- ☽ LUNA -->
+    <section class="planet-section lun" data-planet="lun" data-temper="phleg">
+      <div class="planet-header">
+        <div class="planet-sigil">☽</div>
+        <div class="planet-info">
+          <div class="planet-name">Luna</div>
+          <div class="planet-meta">♋ Krebs · Dein Geburtsmond stand im Löwen</div>
+          <div><span class="tbadge phleg">Phlegmatisch</span><span class="tbadge dim">Kalt &amp; Feucht</span></div>
+          <div class="ztag-row"><span class="ztag">Wasser</span><span class="ztag">Winter · Hohes Alter</span><span class="ztag">Mondphase: abnehmend</span></div>
+        </div>
+        <div class="planet-doctrine">Dein Mond stand im Löwen (Feuer), aber die Luna als Prinzip regiert Phlegmatisches. Die abnehmende Mondphase gab Dir den melancholischen Zug.</div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card"><div class="sbar-wrap" data-s="0,1,2,5"></div><div class="product-corner">☽</div><div class="product-name">Bio-Normasauce</div><div class="product-reason">Norma — Bellinis Mondpriesterin. Aubergine phlegmatisch-lunisch; der cholerische Zug durch Tomate passt zu Deinem Löwen-Mond.</div><div class="phum phleg">Phlegmatisch-Lunisch</div><div class="pprice">2,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,0,2,6"></div><div class="product-corner">☽</div><div class="product-name">Bio-Auberginenpastete</div><div class="product-reason">Fast rein phlegmatisch (7 Pkt) — lunische Mondpflanze. Kühlt cholerisches Übermaß; gut als Gegengewicht.</div><div class="phum phleg">Phlegmatisch 7 · Kühlend</div><div class="pprice">5,00 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,0,1,7"></div><div class="product-corner">☽</div><div class="product-name">Sizilianische Artischocken</div><div class="product-reason">Mondpflanze nach Culpeper — phlegmatischstes Produkt der Mensa. Bei cholerischem Übermaß empfohlen; kühlt und befeuchtet.</div><div class="phum phleg">Phlegmatisch 7 · Maximum Luna</div><div class="pprice">5,50 €</div></div>
+        <div class="product-card"><div class="sbar-wrap" data-s="0,0,2,6"></div><div class="product-corner">☽</div><div class="product-name">Bio-Waldhonigtauhonig</div><div class="product-reason">Lunischer Tau — phlegmatisch und kühlend. Honig des letzten Mondviertels — Deine Mondphase. Eine astrologisch persönliche Entsprechung.</div><div class="phum phleg">Phlegmatisch · Deine Mondphase</div><div class="pprice">6,50 €</div></div>
+      </div>
+    </section>
+
+  </div><!-- /mensa-full -->
+</div><!-- /panel-mensa -->
+
+<!-- ========== PANEL III: TABULA & FORMULA ========== -->
+<div id="panel-tabula" class="panel">
+  <div class="temp-section">
+    <div class="slabel">✦ Analysis of Temperament — Peter Standaart · Astrology's Forgotten Key · Table 16 ✦</div>
+    <div style="overflow-x:auto;">
+      <table class="ttable">
+        <thead>
+          <tr>
+            <th class="rh"></th>
+            <th class="sang">Sanguinisch<br><em style="font-family:'IM Fell English',serif;font-size:.73rem;text-transform:none;letter-spacing:0;">(heiß &amp; feucht)</em></th>
+            <th class="chol">Cholerisch<br><em style="font-family:'IM Fell English',serif;font-size:.73rem;text-transform:none;letter-spacing:0;">(heiß &amp; trocken)</em></th>
+            <th class="mel">Melancholisch<br><em style="font-family:'IM Fell English',serif;font-size:.73rem;text-transform:none;letter-spacing:0;">(kalt &amp; trocken)</em></th>
+            <th class="phleg">Phlegmatisch<br><em style="font-family:'IM Fell English',serif;font-size:.73rem;text-transform:none;letter-spacing:0;">(kalt &amp; feucht)</em></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rh">Element</td><td class="sang">Luft ♊♎♒</td><td class="chol">Feuer ♈♌♐</td><td class="mel">Erde ♉♍♑</td><td class="phleg">Wasser ♋♏♓</td></tr>
+          <tr><td class="rh">Jahreszeit</td><td class="sang">Frühling</td><td class="chol">Sommer</td><td class="mel">Herbst</td><td class="phleg">Winter</td></tr>
+          <tr><td class="rh">Planeten *</td><td class="sang" style="font-size:1rem;">♃ (oriental)<br>♀ (oriental)</td><td class="chol" style="font-size:1rem;">☉ · ♂</td><td class="mel" style="font-size:1rem;">♄ · ♀ (occidental)</td><td class="phleg" style="font-size:1rem;">☽ · ♃ (occidental)</td></tr>
+          <tr><td class="rh">Mondphase</td><td class="sang">Neumond → 1. Viertel</td><td class="chol">1. Viertel → Vollmond</td><td class="mel">Vollmond → letzt. Viertel</td><td class="phleg">letzt. Viertel → Neumond</td></tr>
+          <tr><td class="rh">Humor</td><td class="sang">Blut</td><td class="chol">Gelbe Galle</td><td class="mel">Schwarze Galle</td><td class="phleg">Schleim</td></tr>
+          <tr><td class="rh">Lebensalter</td><td class="sang">Kindheit</td><td class="chol">Frühes Erw.</td><td class="mel">Reifes Alter</td><td class="phleg">Hohes Alter</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="onote">* <em>Oriental</em> = Planet geht vor der Sonne auf · <em>Occidental</em> = Planet geht nach der Sonne auf</div>
+
+    <div class="fbox" style="margin-top:2.5rem;">
+      <div class="ftitle">A New Formula for Temperament — Standaart · Table 16</div>
+      <div class="frow"><span class="fcrit">Ascendant Sign (by element) <em>= 2 Pkt</em></span><span class="fanl">→ Primärelement der Zutat</span><span class="fpts">2 Pkt</span></div>
+      <div class="frow"><span class="fcrit">Ascendant Ruler (intrinsic quality) <em>= 1 Pkt</em></span><span class="fanl">→ Herrscherplanet der Pflanze</span><span class="fpts">1 Pkt</span></div>
+      <div class="frow"><span class="fcrit">Ascendant Almuten (intrinsic quality) <em>= 1 Pkt</em></span><span class="fanl">→ Stärkste Dignität im Zeichen</span><span class="fpts">1 Pkt</span></div>
+      <div class="frow"><span class="fcrit">Moon Sign (by element) <em>= 2 Pkt</em></span><span class="fanl">→ Jahreszeit der Ernte</span><span class="fpts">2 Pkt</span></div>
+      <div class="frow"><span class="fcrit">Moon Ruler (by sign) <em>= 1 Pkt</em></span><span class="fanl">→ Mondzeichen der Pflanzentradition</span><span class="fpts">1 Pkt</span></div>
+      <div class="frow"><span class="fcrit">Moon Phase (Lilly) <em>= 1 Pkt</em></span><span class="fanl">→ Mondphase bei Verarbeitung</span><span class="fpts">1 Pkt</span></div>
+      <div class="frow"><span class="fcrit">Season of Birth <em>= 2 Pkt</em></span><span class="fanl">→ Klimatische Natur des Anbauorts</span><span class="fpts">2 Pkt</span></div>
+      <div class="frow" style="border-top:1px solid var(--border);margin-top:.5rem;"><span class="fcrit" style="color:var(--gold);">Maximum</span><span class="fanl"></span><span class="fpts" style="color:var(--gold);">10 Pkt</span></div>
+    </div>
+
+    <div style="max-width:660px;margin:1.5rem auto 3rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:var(--ink-dim);line-height:1.7;text-align:center;">
+      Standaart empfiehlt, bei ausgeglichenem Score — wie hier Cholerisch:Melancholisch = 3:3 — den Humor mit dem sekundären zu benennen. Nach Lilly: <em>„Choleric, Melancholly Choleric."</em><br>
+      Das persönliche Profil zeigt ein klassisch-ausgeglichenes Temperament, das in der Galenik als besonders günstig gilt — keine extreme Einseitigkeit, aber deutliche Signaturen des Feurigen und Erdigen.
+    </div>
+  </div>
+</div><!-- /panel-tabula -->
+
+<footer>
+  <div class="hdiv"></div>
+  <div class="colobox" style="margin-top:1.3rem;">
+    Marsilio Ficino · De Vita Coelitus Comparanda (1489) · Heinrich C. Agrippa · De Occulta Philosophia (1531)<br>
+    Ibn Sīnā · Kitāb al-Qānūn fī al-Ṭibb · Al-Kindī · De Radiis · Ptolemaeus · Tetrabiblos<br>
+    Peter Standaart · Astrology's Forgotten Key · Tab. 16 · Petronius · Satyricon XXXV<br>
+    Nativitas: 21.I.1981 · 11:25 Uhr · Reutte in Tirol · 47°29′N 10°43′E<br><br>
+    ✦ &nbsp; CONVIVIA CAELESTE — Mensa Planetarum &nbsp; ✦ &nbsp; Gravina di Catania · Sizilien
+  </div>
+</footer>
+</div>
+
+<script>
+  function showPanel(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Score-Balken
+  document.querySelectorAll('.sbar-wrap').forEach(bar => {
+    const vals = (bar.dataset.s||'0,0,0,0').split(',').map(Number);
+    const total = vals.reduce((a,b)=>a+b,0)||1;
+    ['sang','chol','mel','phleg'].forEach((c,i) => {
+      if (vals[i]>0) {
+        const s = document.createElement('div');
+        s.className = 'sseg '+c;
+        s.style.width = (vals[i]/total*100)+'%';
+        bar.appendChild(s);
+      }
+    });
+  });
+
+  function toggleScore(btn) {
+    const bd = btn.nextElementSibling;
+    const op = bd.classList.contains('open');
+    bd.classList.toggle('open',!op);
+    btn.textContent = op ? '▸ Scoring' : '▾ Scoring';
+  }
+
+  let activeP='all', activeT=null;
+  function applyFilter() {
+    document.querySelectorAll('.planet-section').forEach(s => {
+      const match_p = activeP==='all' || s.dataset.planet===activeP;
+      const match_t = !activeT || (s.dataset.temper||'').includes(activeT);
+      s.classList.toggle('hidden', !(match_p && match_t));
+    });
+  }
+  function filterP(p,btn) {
+    activeP=p;
+    document.querySelectorAll('.fbtn:not(.t-sang):not(.t-chol):not(.t-mel):not(.t-phleg)').forEach(b=>b.classList.remove('act-p'));
+    btn.classList.add('act-p'); applyFilter();
+  }
+  function filterT(t,btn) {
+    if(activeT===t){activeT=null;btn.classList.remove('act-t');}
+    else{document.querySelectorAll('.t-sang,.t-chol,.t-mel,.t-phleg').forEach(b=>b.classList.remove('act-t'));activeT=t;btn.classList.add('act-t');}
+    applyFilter();
+  }
+</script>
+</body>
+</html>
