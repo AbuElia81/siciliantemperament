@@ -1,0 +1,47 @@
+name: Deploy Sicilian Temperament to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verkaufsseite als index.html montieren
+        run: |
+          mkdir -p _site
+          cp "01_website/sicilian-temperament.html" "_site/index.html"
+          # Referenzfassung (Fundus) mit veroeffentlichen, unter eigenem Pfad
+          cp "02_kalkulator-vollversion/convivia-caeleste.html" "_site/convivia-caeleste.html"
+          # Falls ein CNAME (Custom Domain) im Repo liegt, mit ausliefern
+          if [ -f CNAME ]; then cp CNAME _site/CNAME; fi
+
+      - name: Pages-Artefakt hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Auf GitHub Pages deployen
+        id: deployment
+        uses: actions/deploy-pages@v4
