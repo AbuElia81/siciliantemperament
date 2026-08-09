@@ -133,16 +133,16 @@
           <div class="verdict-main" id="verdictMain"></div>
           <div class="verdict-sub" id="verdictSub"></div>
         </div>
+        <div class="deutung" id="deutung"></div>
       </div>
     </div>
 
     <!-- SEITENPANEL: Titelbild + Anlässe -->
     <div class="calc-side">
       <div class="calc-photo">
-        <img src="images/hero.png" alt="Sizilianischer Geschenkkorb nach den vier Temperamenten" onerror="this.closest('.calc-photo').style.display='none'">
+        <img src="images/hauptbild.jpg" alt="Sizilianische Delikatessen auf einem Markttisch" onerror="this.closest('.calc-photo').style.display='none'">
       </div>
       <div class="occasions occ-side">
-        <div class="occ-side-title">Anlässe</div>
         <div class="occ"><span class="occ-icon">🎂</span>Geburtstag</div>
         <div class="occ"><span class="occ-icon">💍</span>Hochzeit</div>
         <div class="occ"><span class="occ-icon">🌿</span>Aufmerksamkeit</div>
@@ -442,6 +442,13 @@ function calculate(){
  document.getElementById('verdictSub').textContent=tie
   ?`Ausgeglichen (${so[0].v}:${so[1].v}) — nach Lilly: „${HUM[D].name}, ${HUM[S].name} ${HUM[D].name}"`
   :`Dominant: ${HUM[D].name} (${so[0].v}) · Sekundär: ${HUM[S].name} (${so[1].v})`;
+ const ELEMN={chol:'Feuer',sang:'Luft',mel:'Erde',phleg:'Wasser'};
+ const weak=so.filter(x=>x.v<=1).map(x=>`<span style="color:${HUM[x.k].col}">${HUM[x.k].name}${x.v===0?' (fehlt)':''}</span>`);
+ const oD=OPP[D],oS=OPP[S];
+ document.getElementById('deutung').innerHTML=
+  `<div class="deutung-title">Deutung der Elementgewichtung</div>
+   <p>Dein Profil wird vom <strong style="color:${HUM[D].col}">${HUM[D].name}en</strong> getragen — <em>${ELEMN[D]}, ${HUM[D].q}</em> — ergänzt vom <strong style="color:${HUM[S].col}">${HUM[S].name}en</strong> <em>(${ELEMN[S]}, ${HUM[S].q})</em>.${weak.length?` Schwach oder gar nicht vertreten: ${weak.join(' · ')}.`:''}</p>
+   <p>Der Kalkulator ermittelt diese vorherrschenden Temperamente und stellt den Korb dann nach dem galenischen Grundsatz <em>contraria contrariis</em> zusammen — Gegensätzliches gleicht Gegensätzliches aus. Er wählt bewusst die <strong>fehlenden</strong> Temperamente: vorwiegend <strong style="color:${HUM[oD].col}">${HUM[oD].name}e</strong> Speisen <em>(${ELEMN[oD]}, ${HUM[oD].q})</em>, ergänzt durch <strong style="color:${HUM[oS].col}">${HUM[oS].name}e</strong> Kost <em>(${ELEMN[oS]})</em>. So bringt der Korb genau die Elemente mit, die Deiner Natur zur Waage fehlen.</p>`;
  document.getElementById('result').style.display='block';
  lastCalc={sc,D,S,asc:`${GLYPH[ai]} ${SIGNS[ai]} ${(asc%30).toFixed(0)}°`,
   moon:`${GLYPH[mi]} ${SIGNS[mi]} ${(ml%30).toFixed(0)}° · ${phN}`,
@@ -482,7 +489,9 @@ function renderOptions(D,S){
   const sel=ranked.slice(0,o.count);
   const tot=sel.reduce((a,x)=>a+x.p.pr,0);
   const idxs=JSON.stringify(sel.map(x=>x.i));
+  const pmap={emp:'korb-empedokles',ari:'korb-aristoteles',gal:'korb-galen'};
   return `<div class="opt-card" id="oc-${o.id}">
+   <div class="opt-photo"><img src="images/${pmap[o.id]}.jpg" alt="${o.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
    <div class="opt-basket">${o.icon}</div>
    <div class="opt-fig">${o.svg}</div>
    <div class="opt-name">${o.name}</div>

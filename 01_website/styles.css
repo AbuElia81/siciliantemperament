@@ -80,7 +80,8 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .calc-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .occ-side{order:1;flex:none;flex-direction:column;align-items:center;gap:.55rem;max-width:none;margin:0;padding:1.3rem 1.2rem;justify-content:center;text-align:center;border:1px solid var(--border);border-radius:14px;background-image:linear-gradient(rgba(255,253,248,.82),rgba(255,253,248,.82)),url('images/anlaesse-bg.jpg');background-size:cover;background-position:center;}
 .occ-side-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem;text-align:center;}
-.occ-side .occ{display:flex;align-items:center;justify-content:center;gap:.6rem;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.12rem;color:var(--ink);}
+.occ-side .occ{display:flex;align-items:center;justify-content:center;gap:.6rem;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);}
+.occ-side .occ .occ-icon{font-size:1.35rem;}
 .occ-side .occ .occ-icon{font-size:1.1rem;margin:0;}
 .calc-title{font-family:'Cinzel Decorative',serif;font-size:1.12rem;color:var(--gold);margin-bottom:.25rem;text-align:center;}
 .calc-sub{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);text-align:center;margin-bottom:1.3rem;}
@@ -110,6 +111,10 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .rbar-f{height:100%;transition:width .9s ease;}
 .rbar-p{font-family:'Cinzel',serif;font-size:.6rem;width:2.4rem;flex-shrink:0;}
 .verdict{text-align:center;margin-top:1rem;padding:.9rem;border:1px solid var(--border);background:rgba(201,168,76,.03);}
+.deutung{max-width:660px;margin:1.2rem auto 0;padding:1.15rem 1.35rem;border:1px solid var(--border);border-radius:12px;background:rgba(201,168,76,.04);font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--ink);line-height:1.72;text-align:left;}
+.deutung-title{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:.7rem;}
+.deutung p{margin-bottom:.65rem;}
+.deutung p:last-child{margin-bottom:0;}
 .verdict-main{font-family:'Cinzel Decorative',serif;font-size:clamp(.92rem,1.85vw,1.28rem);margin-bottom:.22rem;}
 .verdict-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:.78rem;color:var(--ink-dim);}
 
