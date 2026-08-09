@@ -25,6 +25,9 @@ jobs:
         run: |
           mkdir -p _site
           cp "01_website/sicilian-temperament.html" "_site/index.html"
+          # Gemeinsames Stylesheet und Unterseite(n) mit ausliefern
+          cp "01_website/styles.css" "_site/styles.css"
+          cp "01_website/lehre.html" "_site/lehre.html"
           # Bilder-Ordner (Produktfotos, Titelbild) mit ausliefern, falls vorhanden
           if [ -d "01_website/images" ]; then cp -r "01_website/images" "_site/images"; fi
           # Referenzfassung (Fundus) mit veroeffentlichen, unter eigenem Pfad
