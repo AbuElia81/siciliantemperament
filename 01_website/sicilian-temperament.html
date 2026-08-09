@@ -49,6 +49,14 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,8,4,.96);border-bottom:
 /* HERO */
 .hero{text-align:center;padding:3.2rem 1.5rem 1.8rem;}
 .hero-orna{font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.5em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:1.1rem;}
+/* HERO-FOTO (Platzhalter, blendet echtes Bild ein sobald vorhanden) */
+.hero-photo{position:relative;max-width:960px;margin:2rem auto 0;aspect-ratio:16/7;overflow:hidden;border:1px solid var(--border);background:linear-gradient(135deg,#1c1712,#26201a);}
+.hero-photo-img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero-photo-ph{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--gold-dim);}
+.hero-photo.noimg .hero-photo-img{display:none;}
+.hero-photo.noimg .hero-photo-ph{display:flex;}
+.hero-photo-gl{font-size:2.4rem;opacity:.5;}
+.hero-photo-tx{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;opacity:.6;}
 h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,5.2vw,3.8rem);color:var(--gold);text-shadow:0 0 45px rgba(201,168,76,.3);line-height:1.08;margin-bottom:.35rem;}
 .hero-sub{font-family:'Cinzel',serif;font-size:clamp(.62rem,1.5vw,.9rem);color:var(--gold-dim);letter-spacing:.3em;text-transform:uppercase;margin-bottom:1.4rem;}
 .hdiv{width:280px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:1.2rem auto;position:relative;}
@@ -143,6 +151,14 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .pcard:hover{transform:translateY(-3px);border-color:var(--gold-dim);box-shadow:0 6px 22px rgba(0,0,0,.5);}
 .pstripe{display:flex;gap:1px;height:3px;margin-bottom:.62rem;}
 .pseg{height:100%;}
+/* PRODUKT-FOTO (Platzhalter, blendet echtes Foto ein sobald vorhanden) */
+.pphoto{position:relative;width:calc(100% + 2rem);margin:-1rem -1rem .75rem;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#1c1712,#26201a);border-bottom:1px solid var(--border);}
+.pphoto-img{width:100%;height:100%;object-fit:cover;display:block;}
+.pphoto-ph{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;color:var(--gold-dim);}
+.pphoto.noimg .pphoto-img{display:none;}
+.pphoto.noimg .pphoto-ph{display:flex;}
+.pphoto-gl{font-size:1.6rem;opacity:.55;}
+.pphoto-tx{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;opacity:.6;}
 .pcorner{position:absolute;top:.38rem;right:.48rem;font-size:.84rem;opacity:.32;}
 .pname{font-family:'Cormorant Garamond',serif;font-size:.94rem;color:var(--ink);line-height:1.3;margin-bottom:.28rem;padding-right:1rem;}
 .pit{font-family:'IM Fell English',serif;font-style:italic;font-size:.68rem;color:var(--gold-dim);margin-bottom:.3rem;}
@@ -260,6 +276,11 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
     für sie gemacht ist — weil er es ist.
   </div>
   <a class="cta" href="#kalkulator">Geschenkkorb zusammenstellen</a>
+
+  <div class="hero-photo">
+    <img class="hero-photo-img" src="images/hero.jpg" alt="Sizilianische Temperamentenlehre" onerror="this.closest('.hero-photo').classList.add('noimg')">
+    <div class="hero-photo-ph"><span class="hero-photo-gl">✦</span><span class="hero-photo-tx">Titelbild — Foto folgt</span></div>
+  </div>
 
   <div class="occasions">
     <div class="occ"><div class="occ-icon">🎂</div><div class="occ-name">Geburtstag</div><div class="occ-sub">Das Horoskop liegt ohnehin auf dem Tisch</div></div>
@@ -658,7 +679,8 @@ const eur=x=>x.toFixed(2).replace('.',',')+' €';
 function stripe(s){const t=s.reduce((a,b)=>a+b,0)||1;
  return '<div class="pstripe">'+HK.map((k,i)=>s[i]>0?`<div class="pseg" style="width:${s[i]/t*100}%;background:${HUM[k].col}"></div>`:'').join('')+'</div>';}
 function card(p,i){const d=dom(p.s);
- return `<div class="pcard">${stripe(p.s)}<div class="pcorner">${p.pl}</div>
+ const img=p.img||('images/produkte/'+String(i+1).padStart(2,'0')+'.jpg');
+ return `<div class="pcard"><div class="pphoto"><img class="pphoto-img" src="${img}" alt="${p.n}" loading="lazy" onerror="this.closest('.pphoto').classList.add('noimg')"><div class="pphoto-ph"><span class="pphoto-gl">${p.pl}</span><span class="pphoto-tx">Foto folgt</span></div></div>${stripe(p.s)}<div class="pcorner">${p.pl}</div>
  <div class="pname">${p.n}</div><div class="pit">${p.it} · ${p.g}</div>
  <div class="pwhy">${p.w}</div>
  <div class="phumor" style="color:${HUM[d].col}">${HUM[d].name} · ${HUM[d].q}</div>

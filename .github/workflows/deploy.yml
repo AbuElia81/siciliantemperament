@@ -25,6 +25,8 @@ jobs:
         run: |
           mkdir -p _site
           cp "01_website/sicilian-temperament.html" "_site/index.html"
+          # Bilder-Ordner (Produktfotos, Titelbild) mit ausliefern, falls vorhanden
+          if [ -d "01_website/images" ]; then cp -r "01_website/images" "_site/images"; fi
           # Referenzfassung (Fundus) mit veroeffentlichen, unter eigenem Pfad
           cp "02_kalkulator-vollversion/convivia-caeleste.html" "_site/convivia-caeleste.html"
           # Falls ein CNAME (Custom Domain) im Repo liegt, mit ausliefern
