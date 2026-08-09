@@ -152,8 +152,9 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .pstripe{display:flex;gap:1px;height:3px;margin-bottom:.62rem;}
 .pseg{height:100%;}
 /* PRODUKT-FOTO (Platzhalter, blendet echtes Foto ein sobald vorhanden) */
-.pphoto{position:relative;width:calc(100% + 2rem);margin:-1rem -1rem .75rem;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#1c1712,#26201a);border-bottom:1px solid var(--border);}
-.pphoto-img{width:100%;height:100%;object-fit:cover;display:block;}
+.pphoto{position:relative;width:calc(100% + 2rem);margin:-1rem -1rem .75rem;aspect-ratio:1/1;overflow:hidden;background:#f4efe4;border-bottom:1px solid var(--border);}
+.pphoto.noimg{background:linear-gradient(135deg,#1c1712,#26201a);}
+.pphoto-img{width:100%;height:100%;object-fit:contain;display:block;padding:.5rem;}
 .pphoto-ph{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;color:var(--gold-dim);}
 .pphoto.noimg .pphoto-img{display:none;}
 .pphoto.noimg .pphoto-ph{display:flex;}
