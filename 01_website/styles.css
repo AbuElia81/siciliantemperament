@@ -126,6 +126,9 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 #options{display:none;margin-top:2.4rem;}
 .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.3rem;margin-top:1.6rem;}
 .opt-card{border:1px solid var(--border);background:var(--card);padding:1.5rem 1.3rem;display:flex;flex-direction:column;transition:all .25s;position:relative;}
+.basket-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-top:1rem;}
+.basket-photos img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#f4efe4;border:1px solid var(--border);padding:.2rem;}
+.basket-eg{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);text-align:center;margin-top:.5rem;}
 .opt-card:hover{border-color:var(--gold-dim);box-shadow:0 8px 30px rgba(0,0,0,.5);}
 .opt-card.chosen{border-color:var(--gold);box-shadow:0 0 30px rgba(201,168,76,.18);}
 .opt-basket{position:absolute;top:.7rem;right:.8rem;font-size:1.1rem;opacity:.5;}
