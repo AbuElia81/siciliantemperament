@@ -11,6 +11,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--ink);font-family:'IM Fell English',serif;font-size:17px;font-weight:600;min-height:100vh;overflow-x:hidden;}
+body.home{background-image:linear-gradient(rgba(250,246,238,.93),rgba(250,246,238,.94)),url('images/geschenke-hero.jpg');background-attachment:fixed;background-size:cover;background-position:center;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:
  radial-gradient(1px 1px at 8% 12%,rgba(255,255,200,.5) 0%,transparent 100%),
  radial-gradient(1.5px 1.5px at 38% 8%,rgba(255,255,200,.6) 0%,transparent 100%),
@@ -110,6 +111,8 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .rbar-t{flex:1;height:13px;background:rgba(60,45,20,.06);border:1px solid rgba(60,45,20,.12);overflow:hidden;}
 .rbar-f{height:100%;transition:width .9s ease;}
 .rbar-p{font-family:'Cinzel',serif;font-size:.6rem;width:2.4rem;flex-shrink:0;}
+.analyse-title{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:var(--gold);text-align:center;margin-bottom:.15rem;}
+.analyse-sub{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);text-align:center;margin-bottom:1.1rem;}
 .verdict{text-align:center;margin-top:1rem;padding:.9rem;border:1px solid var(--border);background:rgba(201,168,76,.03);}
 .deutung{max-width:660px;margin:1.2rem auto 0;padding:1.15rem 1.35rem;border:1px solid var(--border);border-radius:12px;background:rgba(201,168,76,.04);font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--ink);line-height:1.72;text-align:left;}
 .deutung-title{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:.7rem;}
@@ -266,9 +269,12 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .print-close{font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid var(--gold-dim);padding:.75rem 1.8rem;cursor:pointer;}
 
 @media print {
+  @page{margin:1.1cm;}
   body{background:#fff;}
   body::before,body::after{display:none;}
-  nav,.hero,.occasions,section,footer,.cart-drawer,.overlay,.toast,.print-actions{display:none !important;}
-  #certificate{display:block !important;}
-  .cert-page{margin:0 auto;box-shadow:none;page-break-inside:avoid;}
+  body *{visibility:hidden;}
+  #certificate,#certificate *{visibility:visible;}
+  #certificate{display:block !important;position:absolute;left:0;top:0;width:100%;}
+  .print-actions{display:none !important;}
+  .cert-page{margin:0 auto;box-shadow:none;page-break-inside:avoid;max-width:100%;padding:1.3rem 1.7rem;font-size:.86em;}
 }
