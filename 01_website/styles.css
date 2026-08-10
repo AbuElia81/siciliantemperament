@@ -287,8 +287,15 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .cert-bar-t{flex:1;height:11px;background:rgba(138,111,53,.1);border:1px solid #c9b788;}
 .cert-bar-f{height:100%;}
 .cert-bar-p{font-family:'Cinzel',serif;font-size:.62rem;width:2.5rem;color:#6b5a35;}
-.cert-products-title{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:#8a6f35;text-align:center;margin:1.2rem 0 .65rem;}
-.cert-prod{display:flex;justify-content:space-between;gap:1rem;padding:.26rem 0;border-bottom:1px dotted #c9b788;font-size:.9rem;}
+.cert-products-title{font-family:'Cinzel Decorative',serif;font-size:1.15rem;letter-spacing:.06em;color:#7a5f28;text-align:center;margin:1.5rem 0 .8rem;}
+.cert-prod{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px dotted #c9b788;font-size:1.08rem;color:#2a2113;}
+.cert-analyse-h{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:#8a6f35;text-align:center;margin:1.3rem 0 .55rem;border-top:1px solid #d8c99a;padding-top:.85rem;}
+.cert-korb-intro{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#5a4a28;text-align:center;margin:.15rem auto .7rem;max-width:92%;line-height:1.55;}
+body.certwin{background:#e6dcc0;padding:1.6rem 0;}
+body.certwin #certificate{display:block !important;}
+.certwin-actions{display:flex;gap:.7rem;justify-content:center;margin:1.3rem;}
+.certwin-actions button{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#fffdf8;background:var(--gold);border:none;border-radius:8px;padding:.62rem 1.5rem;cursor:pointer;}
+.certwin-actions button:hover{background:var(--gold-lt);}
 .cert-prod span:last-child{font-family:'Cinzel',serif;font-size:.66rem;color:#7a5f28;white-space:nowrap;align-self:center;}
 .cert-total{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.12em;color:#7a5f28;margin-top:.55rem;padding-top:.5rem;border-top:1px solid #b59a55;}
 .cert-foot{font-style:italic;font-size:.7rem;color:#8a7a55;text-align:center;margin-top:1.4rem;line-height:1.6;}
@@ -305,6 +312,6 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
   body *{visibility:hidden;}
   #certificate,#certificate *{visibility:visible;}
   #certificate{display:block !important;position:absolute;left:0;top:0;width:100%;}
-  .print-actions{display:none !important;}
+  .print-actions,.certwin-actions{display:none !important;}
   .cert-page{margin:0 auto;box-shadow:none;page-break-inside:avoid;max-width:100%;padding:1.3rem 1.7rem;font-size:.86em;}
 }
