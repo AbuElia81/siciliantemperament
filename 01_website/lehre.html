@@ -16,8 +16,10 @@
     <a href="geschenke.html">Geschenkkörbe</a>
     <a href="lehre.html">Die Lehre</a>
     <a href="index.html">Zurück zur Startseite</a>
+    <span class="lang-switch"><button onclick="setLang('de')">DE</button><button onclick="setLang('en')">EN</button><button onclick="setLang('it')">IT</button></span>
   </div>
 </nav>
+<div id="google_translate_element" style="display:none"></div>
 
 <div class="hero" id="top">
   <div class="hero-orna">✦ Empedokles · Aristoteles · Galen ✦</div>
@@ -143,5 +145,22 @@
 </footer>
 
 </div>
+<script>
+function setLang(l){
+ var expire='; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+ if(l==='de'){
+  document.cookie='googtrans='+expire;
+  document.cookie='googtrans='+expire+'; domain=.siciliantemperament.org';
+ }else{
+  document.cookie='googtrans=/de/'+l+'; path=/';
+  document.cookie='googtrans=/de/'+l+'; path=/; domain=.siciliantemperament.org';
+ }
+ location.reload();
+}
+function googleTranslateElementInit(){
+ new google.translate.TranslateElement({pageLanguage:'de',includedLanguages:'en,it',autoDisplay:false},'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
