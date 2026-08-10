@@ -763,7 +763,6 @@ function renderOptions(D,S){
   const pmap={emp:'korb-empedokles',ari:'korb-aristoteles',gal:'korb-galen'};
   return `<div class="opt-card" id="oc-${o.id}">
    <div class="opt-photo"><img src="images/${pmap[o.id]}.jpg" alt="${o.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
-   <div class="opt-basket">${o.icon}</div>
    <div class="opt-fig">${o.svg}</div>
    <div class="opt-name">${o.name}</div>
    <div class="opt-years">${o.years}</div>
