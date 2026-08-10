@@ -10,11 +10,11 @@
 <div class="wrap">
 
 <nav>
-  <a class="nav-logo" href="#top">SICILIAN TEMPERAMENT<span>Geschenkkörbe · Convivia</span></a>
+  <a class="nav-logo" href="#top">SICILIAN TEMPERAMENT<span>Geschenkkörbe</span></a>
   <div class="nav-links">
     <a href="geschenke.html">Geschenkkörbe</a>
     <a href="lehre.html">Die Lehre</a>
-    <a href="#kontakt">Kontakt</a>
+    <a href="kontakt.html">Kontakt</a>
     <button class="cart-btn" onclick="toggleCart()">Warenkorb <span class="cart-count" id="cartCount">0</span></button>
   </div>
 </nav>
@@ -332,7 +332,7 @@
       <button class="calc-go" onclick="calculate()">✦ &nbsp;Temperament und Geschenkkorb-Vorschlag ermitteln&nbsp; ✦</button>
       <div id="result">
         <div class="analyse-title">Astrologische Analyse</div>
-        <div class="analyse-sub">nach der Elementlehre der Astrologie</div>
+        <div class="analyse-sub">nach der Temperamentenlehre</div>
         <table class="factor-table" id="factorTable"></table>
         <div class="rbars" id="rbars"></div>
         <div class="verdict">
@@ -393,99 +393,10 @@
   <div class="shop-grid" id="shopGrid"></div>
 </section>
 
-<!-- ===== IMPRESSUM & DATENSCHUTZ ===== -->
-<!-- ===== KONTAKT ===== -->
-<section id="kontakt">
-  <div class="sec-title">Kontakt</div>
-  <div class="sec-label" style="margin-top:.4rem;text-transform:none;letter-spacing:.04em;font-size:.9rem;">Schreib uns — wir freuen uns auf Deine Nachricht</div>
-
-  <div class="kontakt-layout">
-    <div class="kontakt-info">
-      <p>Zwei Freunde, zwei Städte, eine Idee: gute Lebensmittel aus Sizilien nach Bayern bringen —
-      und die alte sizilianische Temperamentenlehre wieder auf den Tisch.</p>
-      <div class="kontakt-row"><span class="kontakt-lbl">E-Mail</span><a href="mailto:trinacriaexpress26@gmail.com">trinacriaexpress26@gmail.com</a></div>
-      <div class="kontakt-row"><span class="kontakt-lbl">Telefon</span><a href="tel:+4915778389906">0157 78389906</a></div>
-      <div class="kontakt-row"><span class="kontakt-lbl">Trinacriaexpress</span>Massimiliano Di Lorenzo · Michael Schnitzer-Trpin</div>
-    </div>
-
-    <form class="kontakt-form" onsubmit="sendKontakt(event)">
-      <input type="hidden" name="_subject" value="Neue Kontaktanfrage — Sicilian Temperament">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <div class="fgroup full"><label>Dein Name</label><input type="text" name="name" required autocomplete="name"></div>
-      <div class="fgroup full"><label>Deine E-Mail</label><input type="email" name="email" required autocomplete="email"></div>
-      <div class="fgroup full"><label>Betreff</label><input type="text" name="subject" required placeholder="Worum geht's?"></div>
-      <div class="fgroup full"><label>Nachricht</label><textarea name="message" rows="5" required></textarea></div>
-      <button type="submit" class="calc-go" style="margin-top:.4rem;">✦ &nbsp;Nachricht senden&nbsp; ✦</button>
-      <div class="kontakt-note" id="kStatus">Mit „Nachricht senden" geht Deine Nachricht direkt an trinacriaexpress26@gmail.com — wir antworten meist in ein bis zwei Werktagen.</div>
-    </form>
-  </div>
-</section>
-
-<section id="rechtliches">
-  <div class="sec-label">✦ Rechtliches ✦</div>
-
-  <div class="legal-box">
-    <div class="legal-title">Impressum</div>
-    <div class="legal-text">
-      <p>Angaben gemäß § 5 TMG / § 5 ECG:</p>
-      <p>
-        <strong>Trinacriaexpress — Michael Schnitzer-Trpin</strong><br>
-        [ Rechtsform, z. B. Einzelunternehmen / GbR / GmbH ]<br>
-        Spitalgasse 11<br>
-        87629 Füssen, Deutschland
-      </p>
-      <p>
-        Vertreten durch: Michael Schnitzer-Trpin<br>
-        Telefon: 0157 78389906<br>
-        E-Mail: trinacriaexpress26@gmail.com
-      </p>
-      <p>
-        Umsatzsteuer-Identifikationsnummer (§ 27a UStG): [ USt-IdNr. — falls Kleinunternehmer nach § 19 UStG: entfällt ]<br>
-        Inhaltlich verantwortlich (§ 18 Abs. 2 MStV): Michael Schnitzer-Trpin, Spitalgasse 11, 87629 Füssen
-      </p>
-      <p class="legal-note">
-        Die angebotenen Produkte stammen von Convivia · INTEX s.r.l. · Gravina di Catania (CT), Italien
-        (<span class="legal-ext">www.convivia.it</span>). Die Bestellung wird auf convivia.it abgeschlossen;
-        Vertragspartner und Verantwortlicher für die Kaufabwicklung ist der dort ausgewiesene Anbieter.
-        Diese Seite vermittelt die Zusammenstellung der Geschenkkörbe.
-      </p>
-    </div>
-  </div>
-
-  <div class="legal-box">
-    <div class="legal-title">Datenschutz</div>
-    <div class="legal-text">
-      <p>
-        Der Temperament-Kalkulator dieser Seite verarbeitet Deine Eingaben (Name, Geburtsdatum,
-        -zeit und -ort) <strong>ausschließlich lokal in Deinem Browser</strong>. Diese Daten werden
-        nicht an einen Server übertragen und nicht gespeichert; sie dienen allein der Berechnung und
-        der druckbaren Urkunde und sind nach dem Schließen der Seite verschwunden.
-      </p>
-      <p>
-        Beim Klick auf „Zur Kasse" wirst Du auf die externe Seite <span class="legal-ext">convivia.it</span>
-        weitergeleitet; dort gilt deren eigene Datenschutzerklärung.
-      </p>
-      <p>
-        <strong>Kontaktformular:</strong> Die im Formular eingegebenen Angaben (Name, E-Mail, Betreff,
-        Nachricht) werden über den Dienst <span class="legal-ext">FormSubmit</span> (formsubmit.co)
-        verarbeitet und als E-Mail an uns zugestellt. Wir verwenden diese Daten ausschließlich zur
-        Bearbeitung Deiner Anfrage. Alternativ kannst Du uns direkt an trinacriaexpress26@gmail.com schreiben.
-      </p>
-      <p class="legal-note">
-        Hinweis: Diese Seite lädt Schriftarten von Google Fonts. Dabei wird eine Verbindung zu
-        Google-Servern aufgebaut. Für eine vollständig datensparsame Fassung können die Schriften
-        selbst gehostet werden. Verantwortliche Stelle im Sinne der DSGVO ist der oben im Impressum
-        genannte Betreiber.
-      </p>
-    </div>
-  </div>
-</section>
-
 <footer>
   <div class="hdiv"></div>
   <div class="footer-links">
-    <a href="#rechtliches">Impressum</a> · <a href="#rechtliches">Datenschutz</a>
+    <a href="kontakt.html#rechtliches">Impressum</a> · <a href="kontakt.html#rechtliches">Datenschutz</a>
   </div>
   <div class="colo" style="margin-top:1.2rem;">
     Empedokles · Peri Physeos · Aristoteles · De Generatione et Corruptione<br>
@@ -545,8 +456,17 @@
         <div class="cert-verdict-main" id="cVerdict">—</div>
         <div class="cert-verdict-sub" id="cVerdictSub">—</div>
       </div>
-      <div class="cert-analyse-h">Ist-Analyse · die vier Temperamente der Person</div>
-      <div class="cert-bars" id="cBars"></div>
+      <div class="cert-analysis-cols">
+        <div class="cert-analysis-col">
+          <div class="cert-analyse-h">Ist-Analyse</div>
+          <div class="cert-bars" id="cBars"></div>
+        </div>
+        <div class="cert-analysis-col">
+          <div class="cert-analyse-h">Korb-Analyse</div>
+          <div class="cert-korb-intro" id="cKorbIntro"></div>
+          <div class="cert-bars" id="cKorbBars"></div>
+        </div>
+      </div>
       <div class="cert-products-title" id="cOptName">✦ Korb ✦</div>
       <div id="cProducts"></div>
       <div class="cert-foot">
@@ -558,11 +478,6 @@
         Produkte: Convivia · INTEX s.r.l. · Gravina di Catania (CT)
       </div>
       <div class="cert-date" id="cToday"></div>
-      <div class="cert-page2">
-      <div class="cert-analyse-h">Korbanalyse · die vier Temperamente des Korbes</div>
-      <div class="cert-korb-intro" id="cKorbIntro"></div>
-      <div class="cert-bars" id="cKorbBars"></div>
-      </div>
     </div>
   </div>
   <div class="print-actions">
@@ -636,19 +551,6 @@ function updCart(){const it=Object.entries(cart);
 updCart();
 function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
 function checkout(){alert('Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau. Schau in Kürze wieder vorbei!');}
-async function sendKontakt(e){e.preventDefault();
- const form=e.target,st=document.getElementById('kStatus'),btn=form.querySelector('button[type=submit]');
- btn.disabled=true;if(st)st.textContent='Wird gesendet …';
- try{
-  const res=await fetch('https://formsubmit.co/ajax/trinacriaexpress26@gmail.com',
-   {method:'POST',headers:{Accept:'application/json'},body:new FormData(form)});
-  if(!res.ok)throw new Error('HTTP '+res.status);
-  form.reset();
-  if(st)st.textContent='Danke! Deine Nachricht ist raus — wir melden uns.';
-  toast('Nachricht gesendet');
- }catch(err){
-  if(st)st.innerHTML='Senden hat gerade nicht geklappt. Schreib uns bitte direkt an <a href="mailto:trinacriaexpress26@gmail.com">trinacriaexpress26@gmail.com</a>.';
- }finally{btn.disabled=false;}}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
 
 /* ============ ASTRONOMIE ============ */
@@ -751,7 +653,7 @@ function renderOptions(D,S){
  const box=document.getElementById('options');
  const nm=lastCalc.name!=='—'?` für ${lastCalc.name}`:'';
  document.getElementById('optTitle').innerHTML=
-  `Drei Körbe${nm} — <span style="color:${HUM[D].col}">${HUM[D].name.toLowerCase()}</span>-<span style="color:${HUM[S].col}">${HUM[S].name.toLowerCase()}es</span> Temperament`;
+  `Vier Körbe${nm} — <span style="color:${HUM[D].col}">${HUM[D].name.toLowerCase()}</span>-<span style="color:${HUM[S].col}">${HUM[S].name.toLowerCase()}es</span> Temperament`;
  document.getElementById('optIntro').innerHTML=
   `Nach Galens Grundsatz <em>contraria contrariis</em> halten
   <span style="color:${HUM[OPP[D]].col}">${HUM[OPP[D]].name.toLowerCase()}e</span> Speisen (${HUM[OPP[D]].q}) dem Temperament die Waage,
@@ -764,16 +666,23 @@ function renderOptions(D,S){
   const pmap={emp:'korb-empedokles',ari:'korb-aristoteles',gal:'korb-galen'};
   return `<div class="opt-card" id="oc-${o.id}">
    <div class="opt-photo"><img src="images/${pmap[o.id]}.jpg" alt="${o.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
-   <div class="opt-fig">${o.svg}</div>
    <div class="opt-name">${o.name}</div>
    <div class="opt-years">${o.years}</div>
-   <div class="opt-contrib">${o.contrib}</div>
    <div class="opt-count">${o.count} Produkte · inkl. Urkunde</div>
-   <div class="opt-list">${sel.map(x=>`<div class="opt-item"><span>${x.p.pl} ${x.p.n}</span></div>`).join('')}</div>
+   <div class="opt-list">${sel.map(x=>`<div class="opt-item"><img class="opt-item-img" src="images/produkte/${String(x.i+1).padStart(2,'0')}.jpg" alt="${x.p.n}" loading="lazy" onerror="this.style.display='none'"><span>${x.p.pl} ${x.p.n}</span></div>`).join('')}</div>
    <div class="opt-btns">
     <button class="opt-add" onclick='addSet(${idxs},"${o.name}")'>In den Korb</button>
     <button class="opt-print" onclick='showCert("${o.id}")'>Urkunde</button>
-   </div></div>`;}).join('');
+   </div></div>`;}).join('')
+  +`<div class="opt-card opt-own">
+   <div class="opt-photo opt-own-ph"><span>✦</span></div>
+   <div class="opt-name">Dein eigener Korb</div>
+   <div class="opt-years">Individuell zusammengestellt</div>
+   <div class="opt-count">So viele Produkte, wie Du möchtest</div>
+   <div class="opt-own-text">Stell Dir Deinen Korb selbst aus allen Convivia-Delikatessen zusammen — im Sortiment weiter unten.</div>
+   <div class="opt-btns">
+    <button class="opt-add" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Zum Sortiment</button>
+   </div></div>`;
  box.style.display='block';
 }
 
