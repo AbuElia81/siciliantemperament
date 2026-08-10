@@ -212,12 +212,15 @@
     </div>
 
     <form class="kontakt-form" onsubmit="sendKontakt(event)">
-      <div class="fgroup full"><label>Dein Name</label><input type="text" id="kName" required></div>
-      <div class="fgroup full"><label>Deine E-Mail</label><input type="email" id="kMail" required></div>
-      <div class="fgroup full"><label>Betreff</label><input type="text" id="kSubj" placeholder="Worum geht's?"></div>
-      <div class="fgroup full"><label>Nachricht</label><textarea id="kMsg" rows="5" required></textarea></div>
+      <input type="hidden" name="_subject" value="Neue Kontaktanfrage — Sicilian Temperament">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <div class="fgroup full"><label>Dein Name</label><input type="text" name="name" required autocomplete="name"></div>
+      <div class="fgroup full"><label>Deine E-Mail</label><input type="email" name="email" required autocomplete="email"></div>
+      <div class="fgroup full"><label>Betreff</label><input type="text" name="subject" required placeholder="Worum geht's?"></div>
+      <div class="fgroup full"><label>Nachricht</label><textarea name="message" rows="5" required></textarea></div>
       <button type="submit" class="calc-go" style="margin-top:.4rem;">✦ &nbsp;Nachricht senden&nbsp; ✦</button>
-      <div class="kontakt-note">Beim Absenden öffnet sich Dein E-Mail-Programm mit der fertigen Nachricht an uns.</div>
+      <div class="kontakt-note" id="kStatus">Mit „Nachricht senden" geht Deine Nachricht direkt an trinacriaexpress26@gmail.com — wir antworten meist in ein bis zwei Werktagen.</div>
     </form>
   </div>
 </section>
@@ -267,6 +270,12 @@
       <p>
         Beim Klick auf „Zur Kasse" wirst Du auf die externe Seite <span class="legal-ext">convivia.it</span>
         weitergeleitet; dort gilt deren eigene Datenschutzerklärung.
+      </p>
+      <p>
+        <strong>Kontaktformular:</strong> Die im Formular eingegebenen Angaben (Name, E-Mail, Betreff,
+        Nachricht) werden über den Dienst <span class="legal-ext">FormSubmit</span> (formsubmit.co)
+        verarbeitet und als E-Mail an uns zugestellt. Wir verwenden diese Daten ausschließlich zur
+        Bearbeitung Deiner Anfrage. Alternativ kannst Du uns direkt an trinacriaexpress26@gmail.com schreiben.
       </p>
       <p class="legal-note">
         Hinweis: Diese Seite lädt Schriftarten von Google Fonts. Dabei wird eine Verbindung zu
@@ -409,12 +418,19 @@ function updCart(){const it=Object.entries(cart);
 updCart();
 function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
 function checkout(){alert('Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau. Schau in Kürze wieder vorbei!');}
-function sendKontakt(e){e.preventDefault();
- const n=document.getElementById('kName').value.trim(),m=document.getElementById('kMail').value.trim();
- const s=document.getElementById('kSubj').value.trim()||'Anfrage über siciliantemperament.org';
- const msg=document.getElementById('kMsg').value.trim();
- const body='Name: '+n+'\nE-Mail: '+m+'\n\n'+msg;
- window.location.href='mailto:trinacriaexpress26@gmail.com?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(body);}
+async function sendKontakt(e){e.preventDefault();
+ const form=e.target,st=document.getElementById('kStatus'),btn=form.querySelector('button[type=submit]');
+ btn.disabled=true;if(st)st.textContent='Wird gesendet …';
+ try{
+  const res=await fetch('https://formsubmit.co/ajax/trinacriaexpress26@gmail.com',
+   {method:'POST',headers:{Accept:'application/json'},body:new FormData(form)});
+  if(!res.ok)throw new Error('HTTP '+res.status);
+  form.reset();
+  if(st)st.textContent='Danke! Deine Nachricht ist raus — wir melden uns.';
+  toast('Nachricht gesendet');
+ }catch(err){
+  if(st)st.innerHTML='Senden hat gerade nicht geklappt. Schreib uns bitte direkt an <a href="mailto:trinacriaexpress26@gmail.com">trinacriaexpress26@gmail.com</a>.';
+ }finally{btn.disabled=false;}}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
 
 /* ============ ASTRONOMIE ============ */
