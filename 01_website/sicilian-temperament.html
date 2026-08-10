@@ -14,6 +14,7 @@
   <div class="nav-links">
     <a href="geschenke.html">Geschenkkörbe</a>
     <a href="lehre.html">Die Lehre</a>
+    <a href="#kontakt">Kontakt</a>
     <button class="cart-btn" onclick="toggleCart()">Warenkorb <span class="cart-count" id="cartCount">0</span></button>
   </div>
 </nav>
@@ -196,6 +197,31 @@
 </section>
 
 <!-- ===== IMPRESSUM & DATENSCHUTZ ===== -->
+<!-- ===== KONTAKT ===== -->
+<section id="kontakt">
+  <div class="sec-title">Kontakt</div>
+  <div class="sec-label" style="margin-top:.4rem;text-transform:none;letter-spacing:.04em;font-size:.9rem;">Schreib uns — wir freuen uns auf Deine Nachricht</div>
+
+  <div class="kontakt-layout">
+    <div class="kontakt-info">
+      <p>Zwei Freunde, zwei Städte, eine Idee: gute Lebensmittel aus Sizilien nach Bayern bringen —
+      und die alte sizilianische Temperamentenlehre wieder auf den Tisch.</p>
+      <div class="kontakt-row"><span class="kontakt-lbl">E-Mail</span><a href="mailto:trinacriaexpress26@gmail.com">trinacriaexpress26@gmail.com</a></div>
+      <div class="kontakt-row"><span class="kontakt-lbl">Telefon</span><a href="tel:+4915778389906">0157 78389906</a></div>
+      <div class="kontakt-row"><span class="kontakt-lbl">Trinacriaexpress</span>Massimiliano Di Lorenzo · Michael Schnitzer-Trpin</div>
+    </div>
+
+    <form class="kontakt-form" onsubmit="sendKontakt(event)">
+      <div class="fgroup full"><label>Dein Name</label><input type="text" id="kName" required></div>
+      <div class="fgroup full"><label>Deine E-Mail</label><input type="email" id="kMail" required></div>
+      <div class="fgroup full"><label>Betreff</label><input type="text" id="kSubj" placeholder="Worum geht's?"></div>
+      <div class="fgroup full"><label>Nachricht</label><textarea id="kMsg" rows="5" required></textarea></div>
+      <button type="submit" class="calc-go" style="margin-top:.4rem;">✦ &nbsp;Nachricht senden&nbsp; ✦</button>
+      <div class="kontakt-note">Beim Absenden öffnet sich Dein E-Mail-Programm mit der fertigen Nachricht an uns.</div>
+    </form>
+  </div>
+</section>
+
 <section id="rechtliches">
   <div class="sec-label">✦ Rechtliches ✦</div>
 
@@ -383,6 +409,12 @@ function updCart(){const it=Object.entries(cart);
 updCart();
 function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
 function checkout(){alert('Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau. Schau in Kürze wieder vorbei!');}
+function sendKontakt(e){e.preventDefault();
+ const n=document.getElementById('kName').value.trim(),m=document.getElementById('kMail').value.trim();
+ const s=document.getElementById('kSubj').value.trim()||'Anfrage über siciliantemperament.org';
+ const msg=document.getElementById('kMsg').value.trim();
+ const body='Name: '+n+'\nE-Mail: '+m+'\n\n'+msg;
+ window.location.href='mailto:trinacriaexpress26@gmail.com?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(body);}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
 
 /* ============ ASTRONOMIE ============ */
