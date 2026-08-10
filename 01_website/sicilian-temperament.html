@@ -35,8 +35,7 @@
 
   <div class="calc-layout">
     <div class="calc-box">
-      <div class="calc-title">Nativitas</div>
-      <div class="calc-sub">Geburtsdaten der geschätzten Person</div>
+      <div class="calc-title" style="font-size:2rem;line-height:1.1;">Temperament-Kalkulator</div>
       <svg class="meander" width="230" height="14" viewBox="0 0 230 14" aria-hidden="true">
         <defs><pattern id="mea" width="23" height="14" patternUnits="userSpaceOnUse">
           <path d="M2 12 V2 H17 V12 H7 V6 H12" fill="none" stroke="var(--gold-dim)" stroke-width="1.4"/>
@@ -230,8 +229,6 @@
 <section id="rechtliches">
   <div class="sec-label">✦ Rechtliches ✦</div>
 
-  <details class="legal-details">
-  <summary class="legal-toggle">Impressum &amp; Datenschutz anzeigen</summary>
   <div class="legal-box">
     <div class="legal-title">Impressum</div>
     <div class="legal-text">
@@ -287,7 +284,6 @@
       </p>
     </div>
   </div>
-  </details>
 </section>
 
 <footer>
@@ -324,13 +320,11 @@
       <div class="cert-title">Temperament-Urkunde</div>
       <div class="cert-sub">Analysis of Temperament · nach historischer Formel</div>
       <div class="cert-occ" id="cOcc"></div>
-      <div class="cert-div"></div>
-      <div class="cert-row"><span class="cl">Name</span><span class="cv" id="cName">—</span></div>
-      <div class="cert-row"><span class="cl">Geburtsdatum</span><span class="cv" id="cDate">—</span></div>
-      <div class="cert-row"><span class="cl">Geburtszeit</span><span class="cv" id="cTime">—</span></div>
-      <div class="cert-row"><span class="cl">Geburtsort</span><span class="cv" id="cPlace">—</span></div>
-      <div class="cert-row"><span class="cl">Aszendent</span><span class="cv" id="cAsc">—</span></div>
-      <div class="cert-row"><span class="cl">Mond</span><span class="cv" id="cMoon">—</span></div>
+      <div class="cert-flow">
+        <div class="cert-name-big" id="cName">—</div>
+        <div class="cert-birth" id="cBirth"></div>
+        <div class="cert-astro" id="cAstro"></div>
+      </div>
       <div class="cert-verdict">
         <div class="cert-verdict-main" id="cVerdict">—</div>
         <div class="cert-verdict-sub" id="cVerdictSub">—</div>
@@ -574,13 +568,10 @@ function showCert(optId){
  document.getElementById('oc-'+optId).classList.add('chosen');
  const{sc,D,S,name,occ,date,time,place,asc,moon}=lastCalc;
  const ranked=P.map((p,i)=>({p,i,f:fitScore(p,D,S)})).sort((a,b)=>b.f-a.f).slice(0,o.count);
- document.getElementById('cOcc').textContent=`${occ}${name!=='—'?' — '+name:''}`;
+ document.getElementById('cOcc').textContent=occ;
  document.getElementById('cName').textContent=name;
- document.getElementById('cDate').textContent=date;
- document.getElementById('cTime').textContent=time;
- document.getElementById('cPlace').textContent=place;
- document.getElementById('cAsc').textContent=asc;
- document.getElementById('cMoon').textContent=moon;
+ document.getElementById('cBirth').textContent=`${date}  ·  ${time}  ·  ${place}`;
+ document.getElementById('cAstro').innerHTML=`Aszendent ${asc} &nbsp;·&nbsp; Mond ${moon}`;
  document.getElementById('cVerdict').textContent=`${HUM[D].name} · ${HUM[S].name}`;
  document.getElementById('cVerdictSub').textContent=`Dominanter Humor: ${HUM[D].name} (${HUM[D].q}) · Sekundär: ${HUM[S].name} (${HUM[S].q})`;
  document.getElementById('cBars').innerHTML=HK.map(k=>({k,v:sc[k]})).sort((a,b)=>b.v-a.v)
