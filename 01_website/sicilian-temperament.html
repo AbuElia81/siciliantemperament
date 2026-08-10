@@ -267,9 +267,8 @@
   <div class="cart-head"><h3>Warenkorb</h3><button class="cart-close" onclick="toggleCart()">×</button></div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-foot">
-    <div class="cart-total"><span>Summe</span><span id="cartTotal">0,00 €</span></div>
     <button class="checkout-btn" onclick="checkout()">Zur Kasse</button>
-    <div class="cart-note">Demo-Shop: Die Bestellung wird auf convivia.it abgeschlossen.<br>Endkundenpreise · Körbe inkl. Urkunde.</div>
+    <div class="cart-note">Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau.</div>
   </div>
 </div>
 <div class="toast" id="toast">In den Korb gelegt</div>
@@ -296,7 +295,6 @@
       <div class="cert-bars" id="cBars"></div>
       <div class="cert-products-title" id="cOptName">✦ Korb ✦</div>
       <div id="cProducts"></div>
-      <div class="cert-total"><span>Warenwert des Korbes</span><span id="cTotal">—</span></div>
       <div class="cert-foot">
         Dieser Korb wurde nach dem galenischen Grundsatz <em>contraria contrariis</em> zusammengestellt:
         Die Speisen ergänzen die fehlenden Elemente und halten dem Temperament der beschenkten Person
@@ -340,6 +338,31 @@ const P=[
  {n:"Pistaziencreme",it:"Crema dolce di pistacchio (45%)",pr:8.78,g:"190 g",pl:"♃",s:[6,1,0,1],w:"Jovialisch nach Ficino — warm, nährend, dem Geist zuträglich."},
  {n:"Mandelcreme",it:"Crema dolce di mandorle (38%)",pr:6.48,g:"190 g",pl:"♃",s:[6,1,1,0],w:"Ibn Sīnā verschrieb Mandeln gegen Übermaß schwarzer Galle."},
  {n:"Haselnusscreme",it:"Crema dolce di nocciole (38%)",pr:6.08,g:"190 g",pl:"♃",s:[5,0,0,3],w:"Dem Jupiter geweiht — festlich, erheiternd, sanguinisch-weich."},
+ /* ===== Pepino Gelato & Sorbetti ===== */
+ {n:"Gelato Crema Pepino",it:"Crema PEPINO",pr:0,g:"Pepino Gelato",pl:"♃",s:[5,1,0,2],w:"Die Signatur-Creme des Hauses Pepino — Ei, Sahne, Vanille; jovialisch-nährend, sanguinisch-warm."},
+ {n:"Gelato Schokolade",it:"Cioccolato con Scaglie",pr:0,g:"Pepino Gelato",pl:"♄",s:[1,1,5,1],w:"Schokolade mit Splittern — saturninisch, erdig-tief, melancholisch."},
+ {n:"Gelato Kakao",it:"Cacao",pr:0,g:"Pepino Gelato",pl:"♄",s:[1,1,6,0],w:"Reiner Kakao — bitter-erdig, das Schwarzgallige in seiner edelsten Form."},
+ {n:"Gelato Zartbitter",it:"Fondente senza latte",pr:0,g:"Pepino Gelato",pl:"♄",s:[0,2,6,0],w:"Zartbitter ohne Milch — konzentrierte saturninische Tiefe."},
+ {n:"Gelato Fior di Latte",it:"Fior di Latte INALPI",pr:0,g:"Pepino Gelato",pl:"☽",s:[2,0,0,6],w:"Reine Milch — kühl und feucht, lunisch-phlegmatisch, mild."},
+ {n:"Gelato Gianduja",it:"Gianduja",pr:0,g:"Pepino Gelato",pl:"♃",s:[3,0,3,2],w:"Schokolade und Piemonteser Haselnuss — jovialische Süße auf saturninischem Grund."},
+ {n:"Gelato Stracciatella",it:"Stracciatella",pr:0,g:"Pepino Gelato",pl:"☽",s:[1,0,2,5],w:"Fior di Latte mit Schokoladensplittern — phlegmatisch mit erdigem Bruch."},
+ {n:"Gelato Haselnuss",it:"Nocciola",pr:0,g:"Pepino Gelato",pl:"♃",s:[5,0,1,2],w:"Piemonteser Haselnuss — jovialisch, erheiternd, sanguinisch-weich."},
+ {n:"Gelato Pistazie",it:"Pistacchio",pr:0,g:"Pepino Gelato",pl:"♃",s:[6,1,1,0],w:"Sizilianische Pistazie — grün und nährend, die sanguinischste Frucht Jupiters."},
+ {n:"Gelato Gesalzenes Karamell",it:"Caramello Salato",pr:0,g:"Pepino Gelato",pl:"☉",s:[4,3,0,1],w:"Gesalzenes Karamell — warme Süße mit solarem Feuer, sanguinisch-cholerisch."},
+ {n:"Gelato Amarena",it:"Fior di Amarena",pr:0,g:"Pepino Gelato",pl:"♀",s:[4,0,2,2],w:"Amarena-Kirsche — venusisch-süß mit dunkler, herbstlicher Note."},
+ {n:"Gelato Minze",it:"Menta",pr:0,g:"Pepino Gelato",pl:"☽",s:[1,0,1,6],w:"Minze — kühlend und feucht, das phlegmatische Erfrischende schlechthin."},
+ {n:"Gelato Veilchen",it:"Violetta",pr:0,g:"Pepino Gelato",pl:"♀",s:[2,0,3,3],w:"Veilchen — venusisch-zart, kühl-blumig, melancholisch angehaucht."},
+ {n:"Gelato Lakritz",it:"Liquirizia",pr:0,g:"Pepino Gelato",pl:"♄",s:[0,1,6,1],w:"Lakritz — bitter-erdig, saturninisch, das Dunkle und Tiefe."},
+ {n:"Gelato Zabaione",it:"Zabajone",pr:0,g:"Pepino Gelato",pl:"♃",s:[4,3,0,1],w:"Zabaione mit Marsala — Ei und Wein, warm und belebend, jovialisch-cholerisch."},
+ {n:"Gelato Espresso",it:"Caffè VERGNANO",pr:0,g:"Pepino Gelato",pl:"☉",s:[1,6,1,0],w:"Espresso von Vergnano — heiß, bitter, belebend; solar-cholerisch."},
+ {n:"Gelato Torrone",it:"Torrone RELANGHE",pr:0,g:"Pepino Gelato",pl:"♃",s:[5,1,1,1],w:"Nougat mit Honig und Mandeln — festlich, jovialisch, sanguinisch-süß."},
+ {n:"Sorbetto Erdbeere",it:"Sorbetto Fragola BIO",pr:0,g:"Pepino Sorbetto",pl:"♀",s:[5,0,1,2],w:"Bio-Erdbeersorbet — venusisch-frisch, sanguinisch, fruchtig-leicht."},
+ {n:"Sorbetto Zitrone",it:"Sorbetto Limone BIO",pr:0,g:"Pepino Sorbetto",pl:"♀",s:[2,0,3,3],w:"Bio-Zitronensorbet — säuerlich-kühl, venusisch als Abendstern, melancholisch-phlegmatisch."},
+ {n:"Sorbetto Heidelbeere",it:"Sorbetto Mirtillo BIO",pr:0,g:"Pepino Sorbetto",pl:"♄",s:[2,0,5,1],w:"Bio-Heidelbeersorbet — dunkel und herbstlich, saturninisch-melancholisch."},
+ {n:"Sorbetto Himbeere",it:"Sorbetto Lampone BIO",pr:0,g:"Pepino Sorbetto",pl:"♀",s:[5,0,1,2],w:"Bio-Himbeersorbet — venusisch-hell, sanguinisch, frisch."},
+ {n:"Sorbetto Kokos",it:"Sorbetto Cocco BIO",pr:0,g:"Pepino Sorbetto",pl:"☽",s:[2,0,0,6],w:"Bio-Kokossorbet — kühl-cremig, lunisch-phlegmatisch, tropisch-mild."},
+ {n:"Sorbetto Mango",it:"Sorbetto Mango BIO",pr:0,g:"Pepino Sorbetto",pl:"☉",s:[5,1,0,2],w:"Bio-Mangosorbet — solar-tropisch, süß und warm, sanguinisch."},
+ {n:"Sorbetto Waldfrüchte",it:"Frutti di Bosco BIO",pr:0,g:"Pepino Sorbetto",pl:"♀",s:[3,0,3,2],w:"Bio-Waldfrüchte — venusisch-süß mit melancholischer Waldtiefe."},
 ];
 const HUM={sang:{name:"Sanguinisch",col:"var(--sang)",hex:"#5a82bf",q:"heiß & feucht"},
  chol:{name:"Cholerisch",col:"var(--chol)",hex:"#bf5a2a",q:"heiß & trocken"},
@@ -358,7 +381,7 @@ function card(p,i){const d=dom(p.s);
  <div class="pname">${p.n}</div><div class="pit">${p.it} · ${p.g}</div>
  <div class="pwhy">${p.w}</div>
  <div class="phumor" style="color:${HUM[d].col}">${HUM[d].name} · ${HUM[d].q}</div>
- <div class="pfoot"><div class="pprice">${eur(p.pr)}</div><button class="addbtn" onclick="addCart(${i})">+ Korb</button></div></div>`;}
+ <div class="pfoot"><button class="addbtn" onclick="addCart(${i})">+ Korb</button></div></div>`;}
 function renderShop(f){document.getElementById('shopGrid').innerHTML=
  P.map((p,i)=>(f&&f!=='all'&&dom(p.s)!==f)?'':card(p,i)).join('');}
 function filterShop(f,btn){document.querySelectorAll('#shopFilters .fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderShop(f);}
@@ -374,12 +397,11 @@ function updCart(){const it=Object.entries(cart);
  const box=document.getElementById('cartItems');
  box.innerHTML=it.length?it.map(([i,q])=>`<div class="citem"><div class="citem-name">${P[i].n}</div>
   <div class="citem-qty"><button class="qbtn" onclick="chg(${i},-1)">−</button><span style="font-family:Cinzel,serif;font-size:.7rem;">${q}</span><button class="qbtn" onclick="chg(${i},1)">+</button></div>
-  <div class="citem-price">${eur(P[i].pr*q)}</div></div>`).join('')
- :'<div style="font-family:\'IM Fell English\',serif;font-style:italic;color:var(--ink-faint);text-align:center;padding:2rem 0;">Der Korb ist noch leer.</div>';
- document.getElementById('cartTotal').textContent=eur(it.reduce((a,[i,q])=>a+P[i].pr*q,0));}
+  </div>`).join('')
+ :'<div style="font-family:\'IM Fell English\',serif;font-style:italic;color:var(--ink-faint);text-align:center;padding:2rem 0;">Der Korb ist noch leer.</div>';}
 updCart();
 function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
-function checkout(){window.open('https://www.convivia.it','_blank');}
+function checkout(){alert('Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau. Schau in Kürze wieder vorbei!');}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
 
 /* ============ ASTRONOMIE ============ */
@@ -501,8 +523,7 @@ function renderOptions(D,S){
    <div class="opt-years">${o.years}</div>
    <div class="opt-contrib">${o.contrib}</div>
    <div class="opt-count">${o.count} Produkte · inkl. Urkunde</div>
-   <div class="opt-list">${sel.map(x=>`<div class="opt-item"><span>${x.p.pl} ${x.p.n}</span><span>${eur(x.p.pr)}</span></div>`).join('')}</div>
-   <div class="opt-total"><span>Warenwert</span><span>${eur(tot)}</span></div>
+   <div class="opt-list">${sel.map(x=>`<div class="opt-item"><span>${x.p.pl} ${x.p.n}</span></div>`).join('')}</div>
    <div class="opt-btns">
     <button class="opt-add" onclick='addSet(${idxs},"${o.name}")'>In den Korb</button>
     <button class="opt-print" onclick='showCert("${o.id}")'>Urkunde</button>
@@ -533,8 +554,7 @@ function showCert(optId){
   <div class="cert-bar-p">${v} Pkt</div></div>`).join('');
  document.getElementById('cOptName').textContent=`✦ ${o.name} · ${o.count} Produkte ✦`;
  document.getElementById('cProducts').innerHTML=ranked.map(x=>
-  `<div class="cert-prod"><span>${x.p.pl} ${x.p.n} <em style="color:#8a7a55;font-size:.78rem;">(${x.p.it}, ${x.p.g})</em></span><span>${eur(x.p.pr)}</span></div>`).join('');
- document.getElementById('cTotal').textContent=eur(ranked.reduce((a,x)=>a+x.p.pr,0));
+  `<div class="cert-prod"><span>${x.p.pl} ${x.p.n} <em style="color:#8a7a55;font-size:.78rem;">(${x.p.it}, ${x.p.g})</em></span></div>`).join('');
  const now=new Date();
  document.getElementById('cToday').textContent=`Ausgestellt am ${String(now.getDate()).padStart(2,'0')}.${String(now.getMonth()+1).padStart(2,'0')}.${now.getFullYear()} · sicilian-temperament · convivia.it`;
  document.getElementById('certificate').style.display='block';
