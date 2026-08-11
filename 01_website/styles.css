@@ -41,6 +41,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,246,238,.94);backdrop-
 .cart-btn{position:relative;cursor:pointer;background:none;border:1px solid var(--border);color:var(--gold);
  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.4rem .9rem;transition:all .2s;}
 .cart-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.06);}
+.lang-switch{display:inline-flex;gap:.3rem;align-items:center;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.08em;}
+.lang-switch .lang-cur{color:var(--gold);padding:.2rem .3rem;}
+.lang-switch a{color:var(--gold-dim);text-decoration:none;padding:.2rem .3rem;border:1px solid var(--border);border-radius:5px;transition:all .2s;}
+.lang-switch a:hover{color:var(--gold);border-color:var(--gold);}
 .cart-count{position:absolute;top:-8px;right:-8px;background:var(--chol);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.62rem;display:flex;align-items:center;justify-content:center;font-family:sans-serif;}
 
 /* HERO */
@@ -174,7 +178,8 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .opt-item-img{width:30px;height:30px;object-fit:contain;background:#f4efe4;border:1px solid var(--border);border-radius:4px;flex-shrink:0;padding:2px;}
 .opt-item span:last-child{font-family:'Cinzel',serif;font-size:.66rem;color:var(--gold-dim);white-space:nowrap;}
 .opt-total{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;color:var(--gold);margin:.8rem 0;}
-.opt-btns{display:flex;gap:.5rem;}
+.opt-btns{display:flex;flex-wrap:wrap;gap:.5rem;}
+.opt-btns .opt-print{min-width:90px;}
 .opt-add{flex:1;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:#fffdf8;background:var(--gold);border:none;padding:.6rem;cursor:pointer;transition:all .2s;}
 .opt-add:hover{background:var(--gold-lt);}
 .opt-print{flex:1;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid var(--gold-dim);padding:.6rem;cursor:pointer;transition:all .2s;}
