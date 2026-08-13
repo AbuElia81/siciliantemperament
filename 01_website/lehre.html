@@ -16,6 +16,8 @@
     <a href="geschenke.html">Geschenkkörbe</a>
     <a href="sortiment.html">Sortiment</a>
     <a href="lehre.html">Die Lehre</a>
+    <a href="kontakt.html">Kontakt</a>
+    <button class="cart-btn" onclick="toggleCart()">Warenkorb <span class="cart-count" id="cartCount">0</span></button>
     <span class="lang-switch">
       <span class="lang-cur">DE</span>
       <a href="https://translate.google.com/translate?sl=de&amp;tl=en&amp;u=https://siciliantemperament.org/lehre.html" target="_blank" rel="noopener">EN</a>
@@ -245,6 +247,19 @@
   </div>
 </footer>
 
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head"><h3>Warenkorb</h3><button class="cart-close" onclick="toggleCart()">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <button class="checkout-btn" onclick="checkout()">Zur Kasse</button>
+    <div class="cart-note">Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau.</div>
+  </div>
 </div>
+<div class="toast" id="toast">In den Korb gelegt</div>
+
+</div>
+<script src="data.js"></script>
+<script src="cart.js"></script>
 </body>
 </html>
