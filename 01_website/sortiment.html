@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sortiment — Alle Produkte einzeln · Sicilian Temperament</title>
+<meta name="description" content="Alle 23 biologischen Convivia-Delikatessen einzeln, gefiltert nach Temperament — stell Dir Deinen eigenen Geschenkkorb zusammen.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="nav-logo nav-back" href="index.html">← Zurück zu Sicilian Temperament</a>
+  <div class="nav-links">
+    <a href="geschenke.html">Geschenkkörbe</a>
+    <a href="sortiment.html">Sortiment</a>
+    <a href="lehre.html">Die Lehre</a>
+    <a href="kontakt.html">Kontakt</a>
+    <button class="cart-btn" onclick="toggleCart()">Warenkorb <span class="cart-count" id="cartCount">0</span></button>
+    <span class="lang-switch">
+      <span class="lang-cur">DE</span>
+      <a href="https://translate.google.com/translate?sl=de&amp;tl=en&amp;u=https://siciliantemperament.org/sortiment.html" target="_blank" rel="noopener">EN</a>
+      <a href="https://translate.google.com/translate?sl=de&amp;tl=it&amp;u=https://siciliantemperament.org/sortiment.html" target="_blank" rel="noopener">IT</a>
+    </span>
+  </div>
+</nav>
+
+<div class="hero" id="top">
+  <h1>Sortiment</h1>
+  <div class="hero-sub">Alle 23 Produkte einzeln für Deinen eigenen Korb</div>
+  <div class="hdiv"></div>
+</div>
+
+<section id="shop">
+  <div class="sec-label">✦ Convivia · Listino Biologico · Gravina di Catania ✦</div>
+  <div class="sec-title">Alle Produkte — auch einzeln für den eigenen Korb</div>
+  <div class="shop-filters" id="shopFilters">
+    <button class="fbtn on" onclick="filterShop('all',this)">Alle</button>
+    <button class="fbtn" onclick="filterShop('chol',this)">🔥 Cholerisch</button>
+    <button class="fbtn" onclick="filterShop('sang',this)">🌬 Sanguinisch</button>
+    <button class="fbtn" onclick="filterShop('mel',this)">🌍 Melancholisch</button>
+    <button class="fbtn" onclick="filterShop('phleg',this)">💧 Phlegmatisch</button>
+  </div>
+  <div class="shop-grid" id="shopGrid"></div>
+</section>
+
+<footer>
+  <div class="hdiv"></div>
+  <div class="footer-links">
+    <a href="kontakt.html#rechtliches">Impressum</a> · <a href="kontakt.html#rechtliches">Datenschutz</a>
+  </div>
+  <div class="colo" style="margin-top:1.2rem;">
+    Empedokles · Peri Physeos · Hippokrates · De Natura Hominis<br>
+    Claudius Ptolemäus · Tetrabiblos · Ibn Sīnā · al-Qānūn fī aṭ-Ṭibb<br>
+    ✦ SICILIAN TEMPERAMENT — Geschenkkörbe mit Produkten von Convivia · INTEX s.r.l. · Gravina di Catania (CT) ✦<br>
+    Historische Unterhaltung · Keine medizinische Beratung
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head"><h3>Warenkorb</h3><button class="cart-close" onclick="toggleCart()">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <button class="checkout-btn" onclick="checkout()">Zur Kasse</button>
+    <div class="cart-note">Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau.</div>
+  </div>
+</div>
+<div class="toast" id="toast">In den Korb gelegt</div>
+
+</div>
+<script src="data.js"></script>
+<script src="cart.js"></script>
+<script>
+/* ============ SHOP (nur auf dieser Seite) ============ */
+const dom=s=>{let m=-1,mi=0;s.forEach((v,i)=>{if(v>m){m=v;mi=i;}});return HK[mi];};
+function stripe(s){const t=s.reduce((a,b)=>a+b,0)||1;
+ return '<div class="pstripe">'+HK.map((k,i)=>s[i]>0?`<div class="pseg" style="width:${s[i]/t*100}%;background:${HUM[k].col}"></div>`:'').join('')+'</div>';}
+function card(p,i){const d=dom(p.s);
+ const img=p.img||('images/produkte/'+String(i+1).padStart(2,'0')+'.jpg');
+ return `<div class="pcard"><div class="pphoto"><img class="pphoto-img" src="${img}" alt="${p.n}" loading="lazy" onerror="this.closest('.pphoto').classList.add('noimg')"><div class="pphoto-ph"><span class="pphoto-gl">${p.pl}</span><span class="pphoto-tx">Foto folgt</span></div></div>${stripe(p.s)}<div class="pcorner">${p.pl}</div>
+ <div class="pname">${p.n}</div><div class="pit">${p.it} · ${p.g}</div>
+ <div class="pwhy">${p.w}</div>
+ <div class="phumor" style="color:${HUM[d].col}">${HUM[d].name} · ${HUM[d].q}</div>
+ <div class="pfoot"><button class="addbtn" onclick="addCart(${i})">+ Korb</button></div></div>`;}
+function renderShop(f){document.getElementById('shopGrid').innerHTML=
+ P.map((p,i)=>(f&&f!=='all'&&dom(p.s)!==f)?'':card(p,i)).join('');}
+function filterShop(f,btn){document.querySelectorAll('#shopFilters .fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderShop(f);}
+renderShop('all');
+</script>
+</body>
+</html>

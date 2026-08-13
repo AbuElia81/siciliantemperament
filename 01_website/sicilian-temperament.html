@@ -13,6 +13,7 @@
   <a class="nav-logo" href="#top">SICILIAN TEMPERAMENT<span>Geschenkkörbe</span></a>
   <div class="nav-links">
     <a href="geschenke.html">Geschenkkörbe</a>
+    <a href="sortiment.html">Sortiment</a>
     <a href="lehre.html">Die Lehre</a>
     <a href="kontakt.html">Kontakt</a>
     <button class="cart-btn" onclick="toggleCart()">Warenkorb <span class="cart-count" id="cartCount">0</span></button>
@@ -35,8 +36,8 @@
   <div class="hero-top-row">
     <div class="korb-photo-band">
       <a href="geschenke.html" class="korb-photo"><img src="images/korb-empedokles.jpg" alt="Italienischer Geschenkkorb — Korb Empedokles" loading="lazy"></a>
-      <a href="geschenke.html" class="korb-photo"><img src="images/korb-aristoteles.jpg" alt="Italienischer Geschenkkorb — Korb Aristoteles" loading="lazy"></a>
-      <a href="geschenke.html" class="korb-photo"><img src="images/korb-galen.jpg" alt="Italienischer Geschenkkorb — Korb Galen" loading="lazy"></a>
+      <a href="geschenke.html" class="korb-photo"><img src="images/korb-aristoteles.jpg" alt="Italienischer Geschenkkorb — Dein eigener Korb" loading="lazy"></a>
+      <a href="geschenke.html" class="korb-photo"><img src="images/korb-galen.jpg" alt="Italienischer Geschenkkorb — Korb Ptolemäus" loading="lazy"></a>
       <a href="geschenke.html" class="korb-photo"><img src="images/geschenke-hero.jpg" alt="Sizilianischer Korbladen" loading="lazy"></a>
     </div>
     <div class="elem-band">
@@ -386,28 +387,14 @@
   für sie gemacht ist — weil er es ist.
 </div>
 
-<!-- ===== SHOP ===== -->
-<section id="shop">
-  <div class="sec-label">✦ Convivia · Listino Biologico · Gravina di Catania ✦</div>
-  <div class="sec-title">Alle Produkte — auch einzeln für den eigenen Korb</div>
-  <div class="shop-filters" id="shopFilters">
-    <button class="fbtn on" onclick="filterShop('all',this)">Alle</button>
-    <button class="fbtn" onclick="filterShop('chol',this)">🔥 Cholerisch</button>
-    <button class="fbtn" onclick="filterShop('sang',this)">🌬 Sanguinisch</button>
-    <button class="fbtn" onclick="filterShop('mel',this)">🌍 Melancholisch</button>
-    <button class="fbtn" onclick="filterShop('phleg',this)">💧 Phlegmatisch</button>
-  </div>
-  <div class="shop-grid" id="shopGrid"></div>
-</section>
-
 <footer>
   <div class="hdiv"></div>
   <div class="footer-links">
     <a href="kontakt.html#rechtliches">Impressum</a> · <a href="kontakt.html#rechtliches">Datenschutz</a>
   </div>
   <div class="colo" style="margin-top:1.2rem;">
-    Empedokles · Peri Physeos · Aristoteles · De Generatione et Corruptione<br>
-    Galenos · De Temperamentis · De Alimentorum Facultatibus · Ibn Sīnā · al-Qānūn fī aṭ-Ṭibb<br>
+    Empedokles · Peri Physeos · Hippokrates · De Natura Hominis<br>
+    Claudius Ptolemäus · Tetrabiblos · Ibn Sīnā · al-Qānūn fī aṭ-Ṭibb<br>
     ✦ SICILIAN TEMPERAMENT — Geschenkkörbe mit Produkten von Convivia · INTEX s.r.l. · Gravina di Catania (CT) ✦<br>
     Historische Unterhaltung · Keine medizinische Beratung
   </div>
@@ -481,7 +468,7 @@
         Die Speisen ergänzen die fehlenden Elemente und halten dem Temperament der beschenkten Person
         die Waage — sie helfen, im Gleichgewicht der vier Temperamente <em>ganz</em> zu sein.<br>
         Die Urkunde dokumentiert ein historisches Rechenspiel nach der Temperamentenlehre von
-        Empedokles bis Galen — sie ist keine medizinische Beratung.<br>
+        Empedokles bis Ptolemäus — sie ist keine medizinische Beratung.<br>
         Produkte: Convivia · INTEX s.r.l. · Gravina di Catania (CT)
       </div>
       <div class="cert-date" id="cToday"></div>
@@ -493,73 +480,9 @@
   </div>
 </div>
 
+<script src="data.js"></script>
+<script src="cart.js"></script>
 <script>
-/* ============ PRODUKTE — Listino Biologico 2023 (23 Positionen) ============ */
-const P=[
- {n:"Kirschtomatensauce",it:"Salsa pronta di pomodoro ciliegino",pr:2.16,g:"330 g",pl:"☉",s:[0,7,0,1],w:"Solarfrucht vom Ätna-Hang — heiß & trocken, cholerisch-vital."},
- {n:"Kirschtomatensauce mit Paprika",it:"Salsa ciliegino con peperoni",pr:2.43,g:"330 g",pl:"☿",s:[2,5,0,1],w:"Mercurische Synthese zweier Früchte — cholerisch mit sanguinischer Note."},
- {n:"Datterino-Tomatensauce",it:"Salsa pronta di pomodoro datterino",pr:2.43,g:"330 g",pl:"☉",s:[1,6,0,1],w:"Die süße Datteltomate — Solarfrucht mit sanguinischer Milde."},
- {n:"Sugo alla Siciliana",it:"Sugo pronto alla Siciliana",pr:2.43,g:"250 g",pl:"☉",s:[1,6,0,1],w:"Kapern, Sellerie, Zitrone — das cholerische Fundament Siziliens."},
- {n:"Sugo all'Arrabbiata",it:"Sugo pronto all'Arrabbiata",pr:2.43,g:"250 g",pl:"♂",s:[0,7,1,0],w:"Die Wütende — marsisch-cholerisch, heiß im dritten Grad."},
- {n:"Sugo alla Puttanesca",it:"Sugo pronto alla Puttanesca",pr:2.43,g:"250 g",pl:"♂",s:[1,6,0,1],w:"Oliven, Kapern, Fenchelsamen — provokant-cholerisch, salzige Tiefe."},
- {n:"Sugo alla Palermitana",it:"Sugo pronto alla Palermitana",pr:2.43,g:"250 g",pl:"☿",s:[3,3,1,1],w:"Sultaninen & Fenchel — arabisch-normannische Mischung, mercurisch."},
- {n:"Sugo alla Norma",it:"Sugo pronto alla Norma",pr:2.43,g:"250 g",pl:"☽",s:[0,1,2,5],w:"Bellinis Mondpriesterin — Aubergine kalt & feucht, lunisch-phlegmatisch."},
- {n:"Sugo alla Mediterranea",it:"Sugo pronto alla Mediterranea",pr:2.43,g:"250 g",pl:"♀",s:[4,3,1,0],w:"Rosmarin, Oregano, Kapern — die harmonische Venussauce der Waage."},
- {n:"Passata di Pomodoro",it:"Passata di pomodoro (99%)",pr:2.57,g:"420 g",pl:"☉",s:[0,8,0,0],w:"Reine Sonnenessenz — 99% Tomate, cholerisch im höchsten Grad."},
- {n:"Wildfenchel-Pesto",it:"Pesto finocchietto selvatico",pr:4.46,g:"190 g",pl:"♀",s:[7,1,0,0],w:"Wilder Fenchel (48%) — luftig-sanguinisch, Frühlingskraft der Venus."},
- {n:"Pesto Trapanese",it:"Pesto trapanese",pr:4.46,g:"190 g",pl:"♀",s:[5,2,1,0],w:"Vom Heiligtum der Venus Erycina — Tomate, Mandel, Basilikum."},
- {n:"Sizilianisches Basilikum-Pesto",it:"Pesto di basilico alla siciliana",pr:4.46,g:"190 g",pl:"♀",s:[7,1,0,0],w:"Basilikum (53%) mit Mandeln — sanguinischste Venuspflanze, erheiternd."},
- {n:"Auberginen-Paté",it:"Patè di melanzane",pr:4.46,g:"190 g",pl:"☽",s:[0,0,2,6],w:"Die Mondpflanze der arabischen Ärzte — kühlend, phlegmatisch."},
- {n:"Chili-Paté",it:"Patè di peperoncino (83%)",pr:4.46,g:"190 g",pl:"♂",s:[0,8,0,0],w:"Peperoncino heiß im vierten Grad — rein marsisch-cholerisch."},
- {n:"Caponata Siciliana",it:"Caponata siciliana",pr:4.46,g:"190 g",pl:"☿",s:[2,2,2,2],w:"Agrodolce — alle vier Qualitäten in einem Glas. Die Quintessenz."},
- {n:"Blutorangen-Marmelade",it:"Marmellata di arance rosse",pr:4.32,g:"360 g",pl:"☉",s:[1,5,2,0],w:"Die Moro — Purpursonne des Winters, cholerisch mit melancholischem Zug."},
- {n:"Zitronen-Marmelade",it:"Marmellata di limoni",pr:4.32,g:"360 g",pl:"♀",s:[1,0,5,2],w:"Venus als Abendstern — säuerlich-herb, melancholisch konserviert."},
- {n:"Mandarinen-Marmelade",it:"Marmellata di mandarini",pr:4.32,g:"360 g",pl:"♀",s:[1,0,5,2],w:"Herbstfrucht des Abendsterns — süß-bitter, melancholisch-mild."},
- {n:"Weiße-Feigen-Konfitüre extra",it:"Confettura extra di fichi bianchi",pr:5.27,g:"360 g",pl:"♀",s:[6,0,1,1],w:"90g Frucht je 100g — die Feige, seit Homer der Venus heilig, warm & saftig."},
- {n:"Pistaziencreme",it:"Crema dolce di pistacchio (45%)",pr:8.78,g:"190 g",pl:"♃",s:[6,1,0,1],w:"Jovialisch nach Ficino — warm, nährend, dem Geist zuträglich."},
- {n:"Mandelcreme",it:"Crema dolce di mandorle (38%)",pr:6.48,g:"190 g",pl:"♃",s:[6,1,1,0],w:"Ibn Sīnā verschrieb Mandeln gegen Übermaß schwarzer Galle."},
- {n:"Haselnusscreme",it:"Crema dolce di nocciole (38%)",pr:6.08,g:"190 g",pl:"♃",s:[5,0,0,3],w:"Dem Jupiter geweiht — festlich, erheiternd, sanguinisch-weich."},
-];
-const HUM={sang:{name:"Sanguinisch",col:"var(--sang)",hex:"#5a82bf",q:"heiß & feucht"},
- chol:{name:"Cholerisch",col:"var(--chol)",hex:"#bf5a2a",q:"heiß & trocken"},
- mel:{name:"Melancholisch",col:"var(--mel)",hex:"#6a8060",q:"kalt & trocken"},
- phleg:{name:"Phlegmatisch",col:"var(--phleg)",hex:"#4a8aaa",q:"kalt & feucht"}};
-const HK=["sang","chol","mel","phleg"];
-const dom=s=>{let m=-1,mi=0;s.forEach((v,i)=>{if(v>m){m=v;mi=i;}});return HK[mi];};
-const eur=x=>x.toFixed(2).replace('.',',')+' €';
-
-/* ============ SHOP ============ */
-function stripe(s){const t=s.reduce((a,b)=>a+b,0)||1;
- return '<div class="pstripe">'+HK.map((k,i)=>s[i]>0?`<div class="pseg" style="width:${s[i]/t*100}%;background:${HUM[k].col}"></div>`:'').join('')+'</div>';}
-function card(p,i){const d=dom(p.s);
- const img=p.img||('images/produkte/'+String(i+1).padStart(2,'0')+'.jpg');
- return `<div class="pcard"><div class="pphoto"><img class="pphoto-img" src="${img}" alt="${p.n}" loading="lazy" onerror="this.closest('.pphoto').classList.add('noimg')"><div class="pphoto-ph"><span class="pphoto-gl">${p.pl}</span><span class="pphoto-tx">Foto folgt</span></div></div>${stripe(p.s)}<div class="pcorner">${p.pl}</div>
- <div class="pname">${p.n}</div><div class="pit">${p.it} · ${p.g}</div>
- <div class="pwhy">${p.w}</div>
- <div class="phumor" style="color:${HUM[d].col}">${HUM[d].name} · ${HUM[d].q}</div>
- <div class="pfoot"><button class="addbtn" onclick="addCart(${i})">+ Korb</button></div></div>`;}
-function renderShop(f){document.getElementById('shopGrid').innerHTML=
- P.map((p,i)=>(f&&f!=='all'&&dom(p.s)!==f)?'':card(p,i)).join('');}
-function filterShop(f,btn){document.querySelectorAll('#shopFilters .fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderShop(f);}
-renderShop('all');
-
-/* ============ CART ============ */
-let cart={};
-function addCart(i){cart[i]=(cart[i]||0)+1;updCart();toast('In den Korb gelegt');}
-function addSet(idxs,label){idxs.forEach(i=>cart[i]=(cart[i]||0)+1);updCart();toast(label+' im Warenkorb');toggleCart();}
-function chg(i,d){cart[i]=(cart[i]||0)+d;if(cart[i]<=0)delete cart[i];updCart();}
-function updCart(){const it=Object.entries(cart);
- document.getElementById('cartCount').textContent=it.reduce((a,[,q])=>a+q,0);
- const box=document.getElementById('cartItems');
- box.innerHTML=it.length?it.map(([i,q])=>`<div class="citem"><div class="citem-name">${P[i].n}</div>
-  <div class="citem-qty"><button class="qbtn" onclick="chg(${i},-1)">−</button><span style="font-family:Cinzel,serif;font-size:.7rem;">${q}</span><button class="qbtn" onclick="chg(${i},1)">+</button></div>
-  </div>`).join('')
- :'<div style="font-family:\'IM Fell English\',serif;font-style:italic;color:var(--ink-faint);text-align:center;padding:2rem 0;">Der Korb ist noch leer.</div>';}
-updCart();
-function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
-function checkout(){alert('Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau. Schau in Kürze wieder vorbei!');}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
-
 /* ============ ASTRONOMIE ============ */
 const rad=x=>x*Math.PI/180,deg=x=>x*180/Math.PI,norm=x=>((x%360)+360)%360;
 const SIGNS=['Widder','Stier','Zwillinge','Krebs','Löwe','Jungfrau','Waage','Skorpion','Schütze','Steinbock','Wassermann','Fische'];
@@ -649,9 +572,9 @@ const OPTS=[
  {id:'emp',name:'Korb Empedokles',years:'494–434 v. Chr. · Akragas, Sizilien',count:7,icon:'🌿',
   contrib:'Der Sizilianer erfand die vier Wurzelkräfte — Feuer, Wasser, Luft, Erde. Sieben Gaben, wie die sieben Sphären: der Einstiegskorb, die perfekte Aufmerksamkeit.',
   svg:'<svg width="86" height="86" viewBox="0 0 110 110"><circle cx="55" cy="55" r="52" fill="none" stroke="var(--gold-dim)" stroke-width="1.5"/><path d="M38 78 Q36 60 42 48 Q45 38 55 35 Q66 37 69 47 Q73 58 70 68 Q69 74 66 78 L62 76 Q66 68 66 58 Q66 46 57 43 Q60 52 58 60 L54 58 Q56 48 52 44 Q45 48 44 58 Q43 70 46 78 Z" fill="var(--gold-dim)" opacity=".85"/><path d="M42 48 Q38 44 40 38 Q46 30 55 30 Q65 30 70 38 Q72 44 69 47" fill="none" stroke="var(--gold-dim)" stroke-width="2.4" opacity=".8"/><text x="55" y="100" text-anchor="middle" font-family="Cinzel,serif" font-size="7" fill="var(--gold-dim)" letter-spacing="1.5">ΕΜΠΕΔΟΚΛΗΣ</text></svg>'},
- {id:'gal',name:'Korb Galen',years:'129 – ca. 216 n. Chr. · Pergamon & Rom',count:12,icon:'💍',
-  contrib:'Der kaiserliche Leibarzt vollendete die Temperamentenlehre und schrieb das erste große Buch über die Kräfte der Speisen. Zwölf Gaben, wie die zwölf Zeichen: der große Festkorb für Hochzeit und Jubiläum.',
-  svg:'<svg width="86" height="86" viewBox="0 0 110 110"><circle cx="55" cy="55" r="52" fill="none" stroke="var(--gold-dim)" stroke-width="1.5"/><path d="M40 80 Q39 64 43 53 Q47 42 56 40 Q65 42 68 51 Q71 61 68 71 Q67 76 64 80 L60 78 Q64 68 63 58 Q62 48 56 46 Q58 55 56 63 L52 61 Q54 51 51 47 Q47 52 46 61 Q45 71 48 80 Z" fill="var(--gold-dim)" opacity=".85"/><path d="M43 50 Q40 42 46 36 Q53 31 61 34 Q68 38 68 47 M45 54 Q41 57 42 63 M67 53 Q71 57 70 63" fill="none" stroke="var(--gold-dim)" stroke-width="1.8" opacity=".7"/><path d="M49 84 Q55 88 61 84" fill="none" stroke="var(--gold-dim)" stroke-width="1.6" opacity=".6"/><text x="55" y="100" text-anchor="middle" font-family="Cinzel,serif" font-size="7" fill="var(--gold-dim)" letter-spacing="2">ΓΑΛΗΝΟΣ</text></svg>'},
+ {id:'pto',name:'Korb Ptolemäus',years:'ca. 100–170 n. Chr. · Alexandria',count:12,icon:'💍',
+  contrib:'Der Astronom von Alexandria ordnete den Planeten die Temperamente zu und öffnete die Lehre für die Sprache der Sterne. Zwölf Gaben, wie die zwölf Zeichen des Tierkreises: der große Festkorb für Hochzeit und Jubiläum.',
+  svg:'<svg width="86" height="86" viewBox="0 0 110 110"><circle cx="55" cy="55" r="52" fill="none" stroke="var(--gold-dim)" stroke-width="1.5"/><path d="M40 80 Q39 64 43 53 Q47 42 56 40 Q65 42 68 51 Q71 61 68 71 Q67 76 64 80 L60 78 Q64 68 63 58 Q62 48 56 46 Q58 55 56 63 L52 61 Q54 51 51 47 Q47 52 46 61 Q45 71 48 80 Z" fill="var(--gold-dim)" opacity=".85"/><path d="M43 50 Q40 42 46 36 Q53 31 61 34 Q68 38 68 47 M45 54 Q41 57 42 63 M67 53 Q71 57 70 63" fill="none" stroke="var(--gold-dim)" stroke-width="1.8" opacity=".7"/><path d="M49 84 Q55 88 61 84" fill="none" stroke="var(--gold-dim)" stroke-width="1.6" opacity=".6"/><text x="55" y="100" text-anchor="middle" font-family="Cinzel,serif" font-size="6" fill="var(--gold-dim)" letter-spacing="1.2">ΠΤΟΛΕΜΑΙΟΣ</text></svg>'},
 ];
 function renderOptions(D,S){
  const box=document.getElementById('options');
@@ -659,7 +582,7 @@ function renderOptions(D,S){
  document.getElementById('optTitle').innerHTML=
   `Vier Körbe${nm} — <span style="color:${HUM[D].col}">${HUM[D].name.toLowerCase()}</span>-<span style="color:${HUM[S].col}">${HUM[S].name.toLowerCase()}es</span> Temperament`;
  document.getElementById('optIntro').innerHTML=
-  `Nach Galens Grundsatz <em>contraria contrariis</em> halten
+  `Nach dem galenischen Grundsatz <em>contraria contrariis</em> halten
   <span style="color:${HUM[OPP[D]].col}">${HUM[OPP[D]].name.toLowerCase()}e</span> Speisen (${HUM[OPP[D]].q}) dem Temperament die Waage,
   ergänzt durch <span style="color:${HUM[OPP[S]].col}">${HUM[OPP[S]].name.toLowerCase()}e</span> Kost. Wähle die Größe des Geschenks:`;
  const ranked=P.map((p,i)=>({p,i,f:fitScore(p,D,S)})).sort((a,b)=>b.f-a.f);
@@ -667,7 +590,7 @@ function renderOptions(D,S){
   const sel=ranked.slice(0,o.count);
   const tot=sel.reduce((a,x)=>a+x.p.pr,0);
   const idxs=JSON.stringify(sel.map(x=>x.i));
-  const pmap={emp:'korb-empedokles',gal:'korb-galen'};
+  const pmap={emp:'korb-empedokles',pto:'korb-galen'};
   return `<div class="opt-card" id="oc-${o.id}">
    <div class="opt-photo"><img src="images/${pmap[o.id]}.jpg" alt="${o.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
    <div class="opt-name">${o.name}</div>
@@ -686,7 +609,7 @@ function renderOptions(D,S){
    <div class="opt-count">So viele Produkte, wie Du möchtest</div>
    <div class="opt-own-text">Stell Dir Deinen Korb selbst aus allen Convivia-Delikatessen zusammen — im Sortiment weiter unten.</div>
    <div class="opt-btns">
-    <button class="opt-add" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Zum Sortiment</button>
+    <button class="opt-add" onclick="location.href='sortiment.html'">Zum Sortiment</button>
    </div></div>`;
  box.style.display='block';
 }

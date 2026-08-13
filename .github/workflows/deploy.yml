@@ -30,6 +30,9 @@ jobs:
           cp "01_website/lehre.html" "_site/lehre.html"
           cp "01_website/geschenke.html" "_site/geschenke.html"
           cp "01_website/kontakt.html" "_site/kontakt.html"
+          cp "01_website/sortiment.html" "_site/sortiment.html"
+          cp "01_website/data.js" "_site/data.js"
+          cp "01_website/cart.js" "_site/cart.js"
           # Bilder-Ordner (Produktfotos, Titelbild) mit ausliefern, falls vorhanden
           if [ -d "01_website/images" ]; then cp -r "01_website/images" "_site/images"; fi
           # Referenzfassung (Fundus) mit veroeffentlichen, unter eigenem Pfad

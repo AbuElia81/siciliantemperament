@@ -150,6 +150,15 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .planet-strip-dual{background:linear-gradient(to right,var(--pc) 0%,var(--pc) 48%,var(--pc2) 52%,var(--pc2) 100%);}
 .planet-strip-mixed{background:linear-gradient(to right,var(--sang) 0%,var(--sang) 25%,var(--chol) 25%,var(--chol) 50%,var(--mel) 50%,var(--mel) 75%,var(--phleg) 75%,var(--phleg) 100%);}
 @media(max-width:520px){.planet-row{flex-direction:column;gap:.3rem;}.planet-id{flex:none;}}
+/* ROHSTOFF-TABELLE */
+.ingredient-box{max-width:760px;margin:0 auto 2.5rem;border:1px solid var(--gold-dim);border-radius:12px;background:#fffdf8;padding:.4rem 1.2rem;overflow-x:auto;}
+.ingredient-table{width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;}
+.ingredient-table th{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);text-align:left;padding:.7rem .5rem;border-bottom:1px solid var(--gold-dim);}
+.ingredient-table th:nth-child(2){text-align:center;}
+.ingredient-table td{padding:.5rem;font-size:.95rem;color:var(--ink);border-bottom:1px solid rgba(201,168,76,.12);vertical-align:middle;}
+.ingredient-table td:nth-child(2){text-align:center;font-size:1.15rem;color:var(--gold);}
+.ing-tag{display:inline-block;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .5rem;border:1px solid;border-radius:5px;}
+.ing-tag-mixed{color:var(--mercury);border-color:var(--mercury);}
 .lore-card{border:1px solid var(--border);background:var(--card);padding:1.3rem;}
 .lore-fig{display:flex;justify-content:center;margin-bottom:.85rem;}
 .lore-portrait{width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:top center;border:6px solid #c9a227;border-image:var(--tile) 7 round;box-shadow:0 6px 20px rgba(60,45,20,.2);}
