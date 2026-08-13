@@ -36,7 +36,7 @@
   <div class="hero-top-row">
     <div class="korb-photo-band">
       <a href="geschenke.html" class="korb-photo"><img src="images/korb-empedokles.jpg" alt="Italienischer Geschenkkorb — Korb Empedokles" loading="lazy"></a>
-      <a href="geschenke.html" class="korb-photo"><img src="images/korb-aristoteles.jpg" alt="Italienischer Geschenkkorb — Dein eigener Korb" loading="lazy"></a>
+      <a href="geschenke.html" class="korb-photo"><img src="images/korb-aristoteles.jpg" alt="Italienischer Geschenkkorb — Korb Galen" loading="lazy"></a>
       <a href="geschenke.html" class="korb-photo"><img src="images/korb-galen.jpg" alt="Italienischer Geschenkkorb — Korb Ptolemäus" loading="lazy"></a>
       <a href="geschenke.html" class="korb-photo"><img src="images/geschenke-hero.jpg" alt="Sizilianischer Korbladen" loading="lazy"></a>
     </div>
@@ -573,6 +573,9 @@ const OPTS=[
  {id:'emp',name:'Korb Empedokles',years:'494–434 v. Chr. · Akragas, Sizilien',count:7,icon:'🌿',
   contrib:'Der Sizilianer erfand die vier Wurzelkräfte — Feuer, Wasser, Luft, Erde. Sieben Gaben, wie die sieben Sphären: der Einstiegskorb, die perfekte Aufmerksamkeit.',
   svg:'<svg width="86" height="86" viewBox="0 0 110 110"><circle cx="55" cy="55" r="52" fill="none" stroke="var(--gold-dim)" stroke-width="1.5"/><path d="M38 78 Q36 60 42 48 Q45 38 55 35 Q66 37 69 47 Q73 58 70 68 Q69 74 66 78 L62 76 Q66 68 66 58 Q66 46 57 43 Q60 52 58 60 L54 58 Q56 48 52 44 Q45 48 44 58 Q43 70 46 78 Z" fill="var(--gold-dim)" opacity=".85"/><path d="M42 48 Q38 44 40 38 Q46 30 55 30 Q65 30 70 38 Q72 44 69 47" fill="none" stroke="var(--gold-dim)" stroke-width="2.4" opacity=".8"/><text x="55" y="100" text-anchor="middle" font-family="Cinzel,serif" font-size="7" fill="var(--gold-dim)" letter-spacing="1.5">ΕΜΠΕΔΟΚΛΗΣ</text></svg>'},
+ {id:'gal',name:'Korb Galen',years:'129 – ca. 216 n. Chr. · Pergamon &amp; Rom',count:9,icon:'🎂',
+  contrib:'Der kaiserliche Leibarzt wandte die Säftelehre erstmals systematisch auf die Nahrungsmittel selbst an — in De Alimentorum Facultatibus. Neun Gaben, wie die neun Musen: der Korb für Geburtstag und Genesungswunsch.',
+  svg:'<svg width="86" height="86" viewBox="0 0 110 110"><circle cx="55" cy="55" r="52" fill="none" stroke="var(--gold-dim)" stroke-width="1.5"/><path d="M40 80 Q39 64 43 53 Q47 42 56 40 Q65 42 68 51 Q71 61 68 71 Q67 76 64 80 L60 78 Q64 68 63 58 Q62 48 56 46 Q58 55 56 63 L52 61 Q54 51 51 47 Q47 52 46 61 Q45 71 48 80 Z" fill="var(--gold-dim)" opacity=".85"/><path d="M43 50 Q40 42 46 36 Q53 31 61 34 Q68 38 68 47 M45 54 Q41 57 42 63 M67 53 Q71 57 70 63" fill="none" stroke="var(--gold-dim)" stroke-width="1.8" opacity=".7"/><path d="M49 84 Q55 88 61 84" fill="none" stroke="var(--gold-dim)" stroke-width="1.6" opacity=".6"/><text x="55" y="100" text-anchor="middle" font-family="Cinzel,serif" font-size="7" fill="var(--gold-dim)" letter-spacing="2">ΓΑΛΗΝΟΣ</text></svg>'},
  {id:'pto',name:'Korb Ptolemäus',years:'ca. 100–170 n. Chr. · Alexandria',count:12,icon:'💍',
   contrib:'Der Astronom von Alexandria ordnete den Planeten die Temperamente zu und öffnete die Lehre für die Sprache der Sterne. Zwölf Gaben, wie die zwölf Zeichen des Tierkreises: der große Festkorb für Hochzeit und Jubiläum.',
   svg:'<svg width="86" height="86" viewBox="0 0 110 110"><circle cx="55" cy="55" r="52" fill="none" stroke="var(--gold-dim)" stroke-width="1.5"/><path d="M40 80 Q39 64 43 53 Q47 42 56 40 Q65 42 68 51 Q71 61 68 71 Q67 76 64 80 L60 78 Q64 68 63 58 Q62 48 56 46 Q58 55 56 63 L52 61 Q54 51 51 47 Q47 52 46 61 Q45 71 48 80 Z" fill="var(--gold-dim)" opacity=".85"/><path d="M43 50 Q40 42 46 36 Q53 31 61 34 Q68 38 68 47 M45 54 Q41 57 42 63 M67 53 Q71 57 70 63" fill="none" stroke="var(--gold-dim)" stroke-width="1.8" opacity=".7"/><path d="M49 84 Q55 88 61 84" fill="none" stroke="var(--gold-dim)" stroke-width="1.6" opacity=".6"/><text x="55" y="100" text-anchor="middle" font-family="Cinzel,serif" font-size="6" fill="var(--gold-dim)" letter-spacing="1.2">ΠΤΟΛΕΜΑΙΟΣ</text></svg>'},
@@ -591,7 +594,7 @@ function renderOptions(D,S){
   const sel=ranked.slice(0,o.count);
   const tot=sel.reduce((a,x)=>a+x.p.pr,0);
   const idxs=JSON.stringify(sel.map(x=>x.i));
-  const pmap={emp:'korb-empedokles',pto:'korb-galen'};
+  const pmap={emp:'korb-empedokles',gal:'korb-aristoteles',pto:'korb-galen'};
   return `<div class="opt-card" id="oc-${o.id}">
    <div class="opt-photo"><img src="images/${pmap[o.id]}.jpg" alt="${o.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
    <div class="opt-name">${o.name}</div>
@@ -604,11 +607,11 @@ function renderOptions(D,S){
     <button class="opt-print" onclick='showCert("${o.id}",true)'>🖨 Drucken</button>
    </div></div>`;}).join('')
   +`<div class="opt-card opt-own">
-   <div class="opt-photo"><img src="images/korb-aristoteles.jpg" alt="Dein persönlicher Korb" loading="lazy"></div>
+   <div class="opt-photo opt-own-ph"><span>✦</span></div>
    <div class="opt-name">Dein eigener Korb</div>
    <div class="opt-years">Individuell zusammengestellt</div>
    <div class="opt-count">So viele Produkte, wie Du möchtest</div>
-   <div class="opt-own-text">Stell Dir Deinen Korb selbst aus allen Convivia-Delikatessen zusammen — im Sortiment weiter unten.</div>
+   <div class="opt-own-text">Stell Dir Deinen Korb selbst aus allen Convivia-Delikatessen zusammen — im Sortiment.</div>
    <div class="opt-btns">
     <button class="opt-add" onclick="location.href='sortiment.html'">Zum Sortiment</button>
    </div></div>`;
