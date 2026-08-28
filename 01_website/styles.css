@@ -310,7 +310,6 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .cert-page{background:#f7f0dd;color:#2a2113;max-width:760px;margin:2rem auto;padding:2.4rem 2.6rem;border:14px solid #c9a227;border-image:var(--tile) 16 round;position:relative;font-family:'Cormorant Garamond',serif;}
 .cert-inner{border:1px solid #b59a55;padding:1.9rem 2.1rem;position:relative;z-index:1;}
 .cert-orna{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.45em;color:#8a6f35;text-transform:uppercase;text-align:center;margin-bottom:.75rem;}
-.cert-title{font-family:'Cinzel Decorative',serif;font-size:1.65rem;color:#7a5f28;text-align:center;line-height:1.15;margin-bottom:.18rem;}
 .cert-sub{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;color:#8a6f35;text-transform:uppercase;text-align:center;margin-bottom:1.3rem;}
 .cert-occ{font-family:'Cinzel Decorative',serif;font-size:1.7rem;color:#7a5f28;text-align:center;margin:.4rem 0 .9rem;line-height:1.15;}
 .cert-div{width:220px;height:1px;background:linear-gradient(to right,transparent,#8a6f35,transparent);margin:.9rem auto;}
@@ -321,7 +320,7 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 /* Elemente-Rad als latentes Wasserzeichen hinter dem Urkundentext */
 .cert-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:78%;max-width:560px;opacity:.07;pointer-events:none;z-index:0;}
 .cert-bg svg{width:100%;height:auto;display:block;}
-.cert-name{font-family:'Uncial Antiqua',serif;font-size:clamp(1.5rem,4.6vw,2.3rem);color:#5a4520;line-height:1.15;margin-bottom:.5rem;overflow-wrap:break-word;}
+.cert-name{font-family:'Uncial Antiqua',serif;font-size:clamp(1.5rem,4.6vw,2.3rem);color:#5a4520;line-height:1.15;text-align:center;margin:.2rem 0 1rem;overflow-wrap:break-word;}
 /* VIER-ELEMENTE-BAND */
 .hero-top-row{max-width:1000px;margin:0 auto 2rem;padding:0 1.5rem;}
 .occ-line{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 1.8rem;margin-bottom:1.1rem;}
