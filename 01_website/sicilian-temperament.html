@@ -863,7 +863,7 @@ function renderOptions(D,S){
   const sel=ranked.slice(0,o.count);
   const tot=sel.reduce((a,x)=>a+x.p.pr,0);
   const idxs=JSON.stringify(sel.map(x=>x.i));
-  const pmap={emp:'korb-empedokles',hip:'geschenke-hero',gal:'korb-aristoteles',pto:'korb-galen'};
+  const pmap={emp:'korb-empedokles',hip:'korb-hippokrates',gal:'korb-aristoteles',pto:'korb-galen'};
   return `<div class="opt-card" id="oc-${o.id}">
    <div class="opt-photo"><img src="images/${pmap[o.id]}.jpg" alt="${o.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
    <div class="opt-name">${o.name}</div>
@@ -876,7 +876,7 @@ function renderOptions(D,S){
     <button class="opt-print" onclick='showCert("${o.id}",true)'>🖨 Drucken</button>
    </div></div>`;}).join('')
   +`<div class="opt-card opt-own">
-   <div class="opt-photo opt-own-ph"><span>✦</span></div>
+   <div class="opt-photo"><img src="images/korb-eigener.jpg" alt="Weidenkorb mit frischem sizilianischem Gemüse" loading="lazy" onerror="this.closest('.opt-photo').classList.add('opt-own-ph');this.remove()"></div>
    <div class="opt-name">Dein eigener Korb</div>
    <div class="opt-years">Individuell zusammengestellt</div>
    <div class="opt-count">So viele Produkte, wie Du möchtest</div>
