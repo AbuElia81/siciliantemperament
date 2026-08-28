@@ -640,6 +640,23 @@
 <!-- ===== URKUNDE ===== -->
 <div id="certificate">
   <div class="cert-page">
+    <!-- Elemente-Rad nur noch als schwaches Wasserzeichen im Hintergrund -->
+    <div class="cert-bg" aria-hidden="true">
+      <svg viewBox="0 0 340 340">
+        <circle cx="170" cy="170" r="150" fill="none" stroke="#8a6f35" stroke-width="1"/>
+        <circle cx="170" cy="170" r="105" fill="none" stroke="#8a6f35" stroke-width=".8"/>
+        <line x1="170" y1="20" x2="170" y2="320" stroke="#8a6f35" stroke-width=".7"/>
+        <line x1="20" y1="170" x2="320" y2="170" stroke="#8a6f35" stroke-width=".7"/>
+        <path d="M170 38 L182 62 L158 62 Z" fill="none" stroke="var(--chol)" stroke-width="2"/>
+        <text x="170" y="84" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--chol)" letter-spacing="2">FEUER</text>
+        <path d="M268 104 L280 128 L256 128 Z M260 122 L276 122" fill="none" stroke="var(--sang)" stroke-width="2"/>
+        <text x="268" y="146" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--sang)" letter-spacing="2">LUFT</text>
+        <path d="M170 302 L182 278 L158 278 Z" fill="none" stroke="var(--phleg)" stroke-width="2"/>
+        <text x="170" y="264" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--phleg)" letter-spacing="2">WASSER</text>
+        <path d="M72 104 L84 128 L60 128 Z M66 116 L78 116" fill="none" stroke="var(--mel)" stroke-width="2"/>
+        <text x="72" y="146" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--mel)" letter-spacing="2">ERDE</text>
+      </svg>
+    </div>
     <div class="cert-inner">
       <div class="cert-orna">✦ Sicilian Temperament ✦</div>
       <div class="cert-title">Temperament-Urkunde</div>
@@ -648,33 +665,12 @@
         <div class="cert-verdict-main" id="cVerdict">—</div>
         <div class="cert-verdict-sub" id="cVerdictSub">—</div>
       </div>
-      <div class="cert-wheel">
-        <svg class="cert-wheel-svg" viewBox="0 0 340 340" aria-hidden="true">
-          <circle cx="170" cy="170" r="150" fill="none" stroke="#8a6f35" stroke-width="1"/>
-          <circle cx="170" cy="170" r="105" fill="none" stroke="#c9b788" stroke-width=".8"/>
-          <line x1="170" y1="20" x2="170" y2="320" stroke="#c9b788" stroke-width=".7"/>
-          <line x1="20" y1="170" x2="320" y2="170" stroke="#c9b788" stroke-width=".7"/>
-          <path d="M170 38 L182 62 L158 62 Z" fill="none" stroke="var(--chol)" stroke-width="2"/>
-          <text x="170" y="84" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--chol)" letter-spacing="2">FEUER</text>
-          <text x="170" y="97" text-anchor="middle" font-family="IM Fell English,serif" font-size="8.5" fill="#8a7a55" font-style="italic">heiß &amp; trocken · Cholerisch</text>
-          <path d="M268 104 L280 128 L256 128 Z M260 122 L276 122" fill="none" stroke="var(--sang)" stroke-width="2"/>
-          <text x="268" y="146" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--sang)" letter-spacing="2">LUFT</text>
-          <text x="268" y="158" text-anchor="middle" font-family="IM Fell English,serif" font-size="8.5" fill="#8a7a55" font-style="italic">heiß &amp; feucht</text>
-          <text x="268" y="169" text-anchor="middle" font-family="IM Fell English,serif" font-size="8.5" fill="#8a7a55" font-style="italic">Sanguinisch</text>
-          <path d="M170 302 L182 278 L158 278 Z" fill="none" stroke="var(--phleg)" stroke-width="2"/>
-          <text x="170" y="264" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--phleg)" letter-spacing="2">WASSER</text>
-          <text x="170" y="251" text-anchor="middle" font-family="IM Fell English,serif" font-size="8.5" fill="#8a7a55" font-style="italic">kalt &amp; feucht · Phlegmatisch</text>
-          <path d="M72 104 L84 128 L60 128 Z M66 116 L78 116" fill="none" stroke="var(--mel)" stroke-width="2"/>
-          <text x="72" y="146" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="var(--mel)" letter-spacing="2">ERDE</text>
-          <text x="72" y="158" text-anchor="middle" font-family="IM Fell English,serif" font-size="8.5" fill="#8a7a55" font-style="italic">kalt &amp; trocken</text>
-          <text x="72" y="169" text-anchor="middle" font-family="IM Fell English,serif" font-size="8.5" fill="#8a7a55" font-style="italic">Melancholisch</text>
-        </svg>
-        <div class="cw-name" id="cName">—</div>
-      </div>
       <div class="cert-flow">
+        <div class="cert-name" id="cName">—</div>
         <div class="cert-birth" id="cBirth"></div>
         <div class="cert-astro" id="cAstro"></div>
       </div>
+
       <div class="cert-korb-block">
         <div class="cert-analyse-h">Korb-Zusammensetzung</div>
         <div class="cert-korb-intro" id="cKorbIntro"></div>
@@ -907,8 +903,18 @@ function showCert(optId,autoPrint){
  document.getElementById('cVerdict').textContent=`${HUM[D].name} · ${HUM[S].name}`;
  document.getElementById('cVerdictSub').textContent=`Dominanter Humor: ${HUM[D].name} (${HUM[D].q}) · Sekundär: ${HUM[S].name} (${HUM[S].q})`;
  document.getElementById('cOptName').textContent=`✦ ${o.name} · ${o.count} Produkte ✦`;
- document.getElementById('cProducts').innerHTML=ranked.map(x=>
-  `<div class="cert-prod"><span>${x.p.pl} ${x.p.n} <em style="color:#8a7a55;font-size:.78rem;">(${x.p.it}, ${x.p.g})</em></span></div>`).join('');
+ /* Je Produkt rechts sein Temperament: farbiger Balken + Name des vorherrschenden Humors */
+ document.getElementById('cProducts').innerHTML=ranked.map(x=>{
+  const su=x.p.s.reduce((a,b)=>a+b,0)||1;
+  const seg=HK.map((k,i)=>x.p.s[i]?`<i style="width:${x.p.s[i]/su*100}%;background:${HUM[k].hex}"></i>`:'').join('');
+  /* Teilen sich mehrere Humores die Spitze, waere ein einzelner Name willkuerlich */
+  const mx=Math.max(...x.p.s),top=HK.filter((k,i)=>x.p.s[i]===mx);
+  const lab=top.length>1?'Ausgeglichen':HUM[top[0]].name;
+  const col=top.length>1?'#7a5f28':HUM[top[0]].hex;
+  return `<div class="cert-prod">
+   <span>${x.p.pl} ${x.p.n} <em style="color:#8a7a55;font-size:.78rem;">(${x.p.it}, ${x.p.g})</em></span>
+   <span class="cert-prod-t"><span class="cpt-bar">${seg}</span><span class="cpt-n" style="color:${col}">${lab}</span></span>
+  </div>`;}).join('');
  const ktot={sang:0,chol:0,mel:0,phleg:0};
  ranked.forEach(x=>HK.forEach((k,i)=>ktot[k]+=x.p.s[i]));
  const kmax=Math.max(1,...HK.map(k=>ktot[k]));
@@ -918,7 +924,7 @@ function showCert(optId,autoPrint){
  document.getElementById('cKorbBars').innerHTML=ks.map(({k,v})=>
   `<div class="cert-bar"><div class="cert-bar-l">${HUM[k].name}</div>
   <div class="cert-bar-t"><div class="cert-bar-f" style="width:${Math.round(v/kmax*100)}%;background:${HUM[k].hex}"></div></div>
-  <div class="cert-bar-p">${v} Pkt</div></div>`).join('');
+  </div>`).join('');
  const now=new Date();
  document.getElementById('cToday').textContent=`Ausgestellt am ${String(now.getDate()).padStart(2,'0')}.${String(now.getMonth()+1).padStart(2,'0')}.${now.getFullYear()} · siciliantemperament.org`;
  openCertWindow(autoPrint);
