@@ -334,7 +334,15 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .korb-slide{position:relative;flex:0 0 100%;display:block;aspect-ratio:16/9;overflow:hidden;}
 @media(max-width:640px){.korb-slide{aspect-ratio:4/3;}}
 .korb-slide img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none;}
-.korb-elem{position:absolute;left:1rem;bottom:1rem;background:var(--ec);padding:.6rem 1.4rem;border:3px solid rgba(255,253,248,.75);border-radius:3px;font-family:'Cinzel Decorative',serif;font-size:1.25rem;letter-spacing:.05em;color:#fffdf8;text-shadow:0 1px 4px rgba(0,0,0,.45);box-shadow:0 4px 16px rgba(0,0,0,.3);}
+/* Element fliesst mittig ins Foto ein: alchemistisches Zeichen ueber dem Wort */
+.korb-elem{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;color:#fff8ec;pointer-events:none;
+  background:
+    radial-gradient(ellipse 58% 62% at 50% 48%,rgba(20,12,4,.62),rgba(20,12,4,0) 72%),
+    radial-gradient(ellipse 50% 54% at 50% 48%,color-mix(in srgb,var(--ec) 82%,transparent),transparent 76%);}
+.korb-sigil{width:clamp(3.4rem,9vw,6.2rem);height:clamp(3.4rem,9vw,6.2rem);fill:none;stroke:currentColor;stroke-width:4.5;stroke-linejoin:round;stroke-linecap:round;opacity:.94;
+  filter:drop-shadow(0 0 14px color-mix(in srgb,var(--ec) 85%,transparent)) drop-shadow(0 2px 6px rgba(0,0,0,.55));}
+.korb-word{font-family:'Uncial Antiqua','Cinzel Decorative',serif;font-size:clamp(2.1rem,7.4vw,4.8rem);line-height:1;letter-spacing:.04em;
+  text-shadow:0 0 18px color-mix(in srgb,var(--ec) 95%,transparent),0 0 48px color-mix(in srgb,var(--ec) 70%,transparent),0 2px 10px rgba(0,0,0,.6),0 1px 2px rgba(0,0,0,.55);}
 .korb-nav{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border:none;border-radius:50%;background:rgba(255,253,248,.85);color:var(--gold);font-size:1.8rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.25);transition:background .2s;}
 .korb-nav:hover{background:#fffdf8;}
 .korb-prev{left:.7rem;}
@@ -342,7 +350,7 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .korb-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;}
 .korb-dots button{width:.62rem;height:.62rem;padding:0;border:1px solid rgba(255,253,248,.85);border-radius:50%;background:transparent;cursor:pointer;transition:background .2s;}
 .korb-dots button[aria-current="true"]{background:#fffdf8;}
-@media(max-width:480px){.korb-elem{font-size:1rem;padding:.45rem 1rem;left:.7rem;bottom:2.2rem;}.korb-nav{width:2.1rem;height:2.1rem;font-size:1.4rem;}}
+@media(max-width:480px){.korb-nav{width:2.1rem;height:2.1rem;font-size:1.4rem;}}
 .cert-row{display:flex;justify-content:space-between;gap:1.5rem;padding:.32rem 0;border-bottom:1px dotted #c9b788;font-size:.94rem;}
 .cert-row .cl{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#8a6f35;align-self:center;}
 .cert-row .cv{color:#2a2113;font-size:1rem;}
