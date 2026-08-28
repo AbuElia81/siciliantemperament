@@ -674,16 +674,10 @@
         <div class="cert-verdict-main" id="cVerdict">—</div>
         <div class="cert-verdict-sub" id="cVerdictSub">—</div>
       </div>
-      <div class="cert-analysis-cols">
-        <div class="cert-analysis-col">
-          <div class="cert-analyse-h">Ist-Analyse</div>
-          <div class="cert-bars" id="cBars"></div>
-        </div>
-        <div class="cert-analysis-col">
-          <div class="cert-analyse-h">Korb-Analyse</div>
-          <div class="cert-korb-intro" id="cKorbIntro"></div>
-          <div class="cert-bars" id="cKorbBars"></div>
-        </div>
+      <div class="cert-korb-block">
+        <div class="cert-analyse-h">Korb-Zusammensetzung</div>
+        <div class="cert-korb-intro" id="cKorbIntro"></div>
+        <div class="cert-bars" id="cKorbBars"></div>
       </div>
       <div class="cert-products-title" id="cOptName">✦ Korb ✦</div>
       <div id="cProducts"></div>
@@ -761,6 +755,8 @@
 /* ============ ASTRONOMIE ============ */
 const rad=x=>x*Math.PI/180,deg=x=>x*180/Math.PI,norm=x=>((x%360)+360)%360;
 const SIGNS=['Widder','Stier','Zwillinge','Krebs','Löwe','Jungfrau','Waage','Skorpion','Schütze','Steinbock','Wassermann','Fische'];
+const RULER=[['Mars','chol'],['Venus','sang'],['Merkur','sang'],['Luna','phleg'],['Sol','chol'],['Merkur','mel'],
+ ['Venus','sang'],['Mars','chol'],['Jupiter','sang'],['Saturn','mel'],['Saturn','mel'],['Jupiter','phleg']];
 const GLYPH=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
 const ELEM=['chol','mel','sang','phleg','chol','mel','sang','phleg','chol','mel','sang','phleg'];
 function jdn(y,m,d,h){const A=Math.floor((14-m)/12),Y=y+4800-A,M=m+12*A-3;
@@ -796,13 +792,18 @@ function calculate(){
  const sl=sunLon(T),ml=moonLon(T),asc=ascendant(jd,T,lat,lon);
  const ai=Math.floor(asc/30),mi=Math.floor(ml/30);
  const[seasN,seasT]=season(m,d),[phN,phT]=moonPhase(sl,ml);
+ const[arN,arT]=RULER[ai],[mrN,mrT]=RULER[mi];
  const sc={sang:0,chol:0,mel:0,phleg:0},rows=[];
- const add=(l,v,t,p)=>{sc[t]+=p;rows.push([l,v,t,p]);};
+ let maxP=0;
+ /* show=false: fliesst in die Wertung ein, wird in der Analyse aber nicht aufgefuehrt */
+ const add=(l,v,t,p,show=true)=>{sc[t]+=p;maxP+=p;if(show)rows.push([l,v,t,p]);};
  add('Aszendent-Zeichen (Element)',`${GLYPH[ai]} ${SIGNS[ai]} ${(asc%30).toFixed(0)}°`,ELEM[ai],2);
+ add('Aszendent-Herrscher',arN,arT,1,false);
+ add('Almuten des Aszendenten',arN+' (Domizil)',arT,1,false);
  add('Mond-Zeichen (Element)',`${GLYPH[mi]} ${SIGNS[mi]} ${(ml%30).toFixed(0)}°`,ELEM[mi],2);
+ add('Mond-Herrscher',mrN,mrT,1,false);
  add('Mondphase (Lilly)',phN,phT,1);
  add('Jahreszeit der Geburt',seasN,seasT,2);
- const maxP=rows.reduce((a,r)=>a+r[3],0);
  document.getElementById('factorTable').innerHTML=rows.map(([l,v,t,p])=>
   `<tr><td>${l}</td><td class="fv">${v}</td><td class="fp"><span class="c-${t}">+${p} ${HUM[t].name.slice(0,4)}</span></td></tr>`).join('');
  document.getElementById('rbars').innerHTML=HK.map(k=>({k,v:sc[k]})).sort((a,b)=>b.v-a.v)
@@ -904,10 +905,6 @@ function showCert(optId,autoPrint){
  document.getElementById('cAstro').innerHTML=`Aszendent ${asc} &nbsp;·&nbsp; Mond ${moon}`;
  document.getElementById('cVerdict').textContent=`${HUM[D].name} · ${HUM[S].name}`;
  document.getElementById('cVerdictSub').textContent=`Dominanter Humor: ${HUM[D].name} (${HUM[D].q}) · Sekundär: ${HUM[S].name} (${HUM[S].q})`;
- document.getElementById('cBars').innerHTML=HK.map(k=>({k,v:sc[k]})).sort((a,b)=>b.v-a.v)
-  .map(({k,v})=>`<div class="cert-bar"><div class="cert-bar-l">${HUM[k].name}</div>
-  <div class="cert-bar-t"><div class="cert-bar-f" style="width:${v/10*100}%;background:${HUM[k].hex}"></div></div>
-  <div class="cert-bar-p">${v} Pkt</div></div>`).join('');
  document.getElementById('cOptName').textContent=`✦ ${o.name} · ${o.count} Produkte ✦`;
  document.getElementById('cProducts').innerHTML=ranked.map(x=>
   `<div class="cert-prod"><span>${x.p.pl} ${x.p.n} <em style="color:#8a7a55;font-size:.78rem;">(${x.p.it}, ${x.p.g})</em></span></div>`).join('');

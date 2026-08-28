@@ -366,9 +366,9 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .cert-products-title{font-family:'Cinzel Decorative',serif;font-size:1.15rem;letter-spacing:.06em;color:#7a5f28;text-align:center;margin:1.5rem 0 .8rem;}
 .cert-prod{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px dotted #c9b788;font-size:1.08rem;color:#2a2113;}
 .cert-analyse-h{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:#8a6f35;text-align:center;margin:1.3rem 0 .55rem;border-top:1px solid #d8c99a;padding-top:.85rem;}
-.cert-analysis-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;align-items:start;}
-.cert-analysis-col .cert-analyse-h{margin-top:.6rem;}
-@media(max-width:560px){.cert-analysis-cols{grid-template-columns:1fr;}}
+.cert-korb-block{max-width:30rem;margin:0 auto;text-align:center;}
+.cert-korb-block .cert-analyse-h{margin-top:.6rem;}
+.cert-korb-block .cert-bars{display:inline-block;width:100%;text-align:left;}
 .cert-korb-intro{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#5a4a28;text-align:center;margin:.15rem auto .7rem;max-width:92%;line-height:1.55;}
 body.certwin{background:#e6dcc0;padding:1.6rem 0;}
 body.certwin #certificate{display:block !important;}
