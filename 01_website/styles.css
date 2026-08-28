@@ -162,9 +162,12 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .swipe-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;z-index:2;}
 .swipe-dots button{width:.6rem;height:.6rem;padding:0;border:1px solid var(--gold-dim);border-radius:50%;background:transparent;cursor:pointer;}
 .swipe-dots button[aria-current="true"]{background:var(--gold);}
-@media(max-width:560px){.lore-carousel .lore-card{padding:1.4rem 3.4rem 2.6rem;}
- .lore-carousel .lore-portrait{width:130px;height:130px;}
- .lore-carousel .lore-text{font-size:1rem;}
+@media(max-width:560px){.lore-carousel .lore-card{padding:1.2rem 3.7rem 2.4rem;}
+ .lore-carousel .lore-portrait{width:110px;height:110px;}
+ /* Kleiner gesetzt, damit die Karte auf dem Handy nicht zu hoch wird */
+ .lore-carousel .lore-title{font-size:.72rem;letter-spacing:.2em;}
+ .lore-carousel .lore-sub{font-size:.86rem;}
+ .lore-carousel .lore-text{font-size:.86rem;line-height:1.62;}
  .swipe-nav{width:2.7rem;height:2.7rem;font-size:1.9rem;}}
 .lore-text a{color:var(--gold);text-decoration:underline;}
 /* GALEN-AUSZUG */
