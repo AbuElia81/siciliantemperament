@@ -110,20 +110,20 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .papyrus-rod::after{right:-14px;}
 .papyrus-rod-top{margin-bottom:-6px;}
 .papyrus-rod-bottom{margin-top:-6px;}
-/* Die Bahn selbst: 0fr = aufgerollt, 1fr = ausgerollt */
-.papyrus-sheet{display:grid;grid-template-rows:0fr;
-  transition:grid-template-rows 1.9s cubic-bezier(.22,.61,.36,1);}
-.papyrus.unrolled .papyrus-sheet{grid-template-rows:1fr;}
-.papyrus-sheet-inner{overflow:hidden;position:relative;}
+/* Die Bahn: standardmaessig offen, damit der Kalkulator auch ohne
+   JavaScript sichtbar bleibt. Ein winziges Skript direkt hinter der Rolle
+   setzt .rolled noch vor dem ersten Zeichnen; die Hoehe wird beim Entrollen
+   in JS gemessen und animiert (ein fr-Track loeste hier zu 0 auf). */
+.papyrus-sheet{overflow:hidden;transition:height 1.9s cubic-bezier(.22,.61,.36,1);}
+.papyrus.rolled .papyrus-sheet{height:0;}
+.papyrus-sheet-inner{position:relative;}
 /* Schattenkante direkt unter dem oberen Stab, wie bei aufgerolltem Papier */
 .papyrus-sheet-inner::before{content:'';position:absolute;left:0;right:0;top:0;height:26px;z-index:3;
   pointer-events:none;background:linear-gradient(180deg,rgba(40,28,10,.34),rgba(40,28,10,0));}
-/* Inhalt blendet leicht verzoegert ein, damit erst die Bahn erscheint */
-.papyrus .calc-box{opacity:0;transition:opacity .8s ease .55s;}
-.papyrus.unrolled .calc-box{opacity:1;}
-@media(prefers-reduced-motion:reduce){
-  .papyrus-sheet{transition:none;}
-  .papyrus .calc-box{transition:none;opacity:1;}}
+/* Bewusst keine zusaetzliche Einblendung des Inhalts: Eine unterbrochene
+   oder gedrosselte Opazitaets-Transition kann den Kalkulator unsichtbar
+   stehen lassen. Das Entrollen allein traegt den Effekt. */
+@media(prefers-reduced-motion:reduce){.papyrus-sheet{transition:none;}}
 .calc-box{position:relative;border:15px solid #c9a227;border-image:var(--tile) 16 round;border-radius:6px;
   background:
     radial-gradient(circle at 18% 12%,rgba(180,150,90,.12),transparent 42%),

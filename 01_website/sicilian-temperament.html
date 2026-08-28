@@ -587,6 +587,9 @@
       </div></div>
       <div class="papyrus-rod papyrus-rod-bottom" aria-hidden="true"></div>
     </div>
+    <!-- Rollt die Bahn noch vor dem ersten Zeichnen ein. Bewusst hier und
+         nicht im Hauptskript: ohne JavaScript bleibt der Kalkulator offen. -->
+    <script>document.getElementById('papyrus').classList.add('rolled');</script>
   </div>
 
   <!-- KÖRBE -->
@@ -703,7 +706,27 @@
 (function(){
  const pap=document.getElementById('papyrus');
  if(!pap)return;
- const auf=()=>pap.classList.add('unrolled');
+ const bahn=pap.querySelector('.papyrus-sheet');
+ let offen=false;
+ function auf(){
+  if(offen)return;
+  offen=true;
+  /* Zielhoehe messen, solange die Bahn noch zu ist, dann darauf animieren
+     und anschliessend auf auto zurueck, damit spaetere Inhalte (Ergebnis,
+     Koerbe) die Rolle mitwachsen lassen */
+  const ziel=bahn.scrollHeight;
+  bahn.style.height='0px';
+  void bahn.offsetHeight;
+  pap.classList.remove('rolled');
+  bahn.style.height=ziel+'px';
+  const fertig=function(e){
+   if(e&&e.propertyName!=='height')return;
+   bahn.style.height='';
+   bahn.removeEventListener('transitionend',fertig);
+  };
+  bahn.addEventListener('transitionend',fertig);
+  setTimeout(fertig,2400);   /* falls transitionend ausbleibt */
+ }
  if(!('IntersectionObserver' in window)){auf();return;}
  const beob=new IntersectionObserver(function(eintraege){
   eintraege.forEach(function(e){
