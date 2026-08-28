@@ -763,8 +763,6 @@ const rad=x=>x*Math.PI/180,deg=x=>x*180/Math.PI,norm=x=>((x%360)+360)%360;
 const SIGNS=['Widder','Stier','Zwillinge','Krebs','Löwe','Jungfrau','Waage','Skorpion','Schütze','Steinbock','Wassermann','Fische'];
 const GLYPH=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
 const ELEM=['chol','mel','sang','phleg','chol','mel','sang','phleg','chol','mel','sang','phleg'];
-const RULER=[['Mars','chol'],['Venus','sang'],['Merkur','sang'],['Luna','phleg'],['Sol','chol'],['Merkur','mel'],
- ['Venus','sang'],['Mars','chol'],['Jupiter','sang'],['Saturn','mel'],['Saturn','mel'],['Jupiter','phleg']];
 function jdn(y,m,d,h){const A=Math.floor((14-m)/12),Y=y+4800-A,M=m+12*A-3;
  return d+Math.floor((153*M+2)/5)+365*Y+Math.floor(Y/4)-Math.floor(Y/100)+Math.floor(Y/400)-32045+(h-12)/24;}
 function sunLon(T){const L0=norm(280.46646+36000.76983*T),M=rad(norm(357.52911+35999.05029*T));
@@ -798,21 +796,18 @@ function calculate(){
  const sl=sunLon(T),ml=moonLon(T),asc=ascendant(jd,T,lat,lon);
  const ai=Math.floor(asc/30),mi=Math.floor(ml/30);
  const[seasN,seasT]=season(m,d),[phN,phT]=moonPhase(sl,ml);
- const[arN,arT]=RULER[ai],[mrN,mrT]=RULER[mi];
  const sc={sang:0,chol:0,mel:0,phleg:0},rows=[];
  const add=(l,v,t,p)=>{sc[t]+=p;rows.push([l,v,t,p]);};
  add('Aszendent-Zeichen (Element)',`${GLYPH[ai]} ${SIGNS[ai]} ${(asc%30).toFixed(0)}°`,ELEM[ai],2);
- add('Aszendent-Herrscher',arN,arT,1);
- add('Almuten des Aszendenten',arN+' (Domizil)',arT,1);
  add('Mond-Zeichen (Element)',`${GLYPH[mi]} ${SIGNS[mi]} ${(ml%30).toFixed(0)}°`,ELEM[mi],2);
- add('Mond-Herrscher',mrN,mrT,1);
  add('Mondphase (Lilly)',phN,phT,1);
  add('Jahreszeit der Geburt',seasN,seasT,2);
+ const maxP=rows.reduce((a,r)=>a+r[3],0);
  document.getElementById('factorTable').innerHTML=rows.map(([l,v,t,p])=>
   `<tr><td>${l}</td><td class="fv">${v}</td><td class="fp"><span class="c-${t}">+${p} ${HUM[t].name.slice(0,4)}</span></td></tr>`).join('');
  document.getElementById('rbars').innerHTML=HK.map(k=>({k,v:sc[k]})).sort((a,b)=>b.v-a.v)
   .map(({k,v})=>`<div class="rbar"><div class="rbar-l" style="color:${HUM[k].col}">${HUM[k].name}</div>
-  <div class="rbar-t"><div class="rbar-f" style="width:${v/10*100}%;background:${HUM[k].col}"></div></div>
+  <div class="rbar-t"><div class="rbar-f" style="width:${v/maxP*100}%;background:${HUM[k].col}"></div></div>
   <div class="rbar-p" style="color:${HUM[k].col}">${v} Pkt</div></div>`).join('');
  const so=HK.map(k=>({k,v:sc[k]})).sort((a,b)=>b.v-a.v);
  const D=so[0].k,S=so[1].k,tie=so[0].v===so[1].v;
