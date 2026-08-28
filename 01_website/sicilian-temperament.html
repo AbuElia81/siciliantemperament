@@ -928,12 +928,57 @@ function showCert(optId,autoPrint){
  document.getElementById('cToday').textContent=`Ausgestellt am ${String(now.getDate()).padStart(2,'0')}.${String(now.getMonth()+1).padStart(2,'0')}.${now.getFullYear()} · siciliantemperament.org`;
  openCertWindow(autoPrint);
 }
+/* ============ DRUCK: URKUNDE AUF GENAU EINE SEITE ============
+   Die Korbgroessen schwanken (7 bis 14 Produkte), ebenso die Namenslaenge.
+   Statt fester Schriftgroessen wird vor dem Druck die tatsaechliche Hoehe
+   unter Druckmassen gemessen und die Seite bei Bedarf herunterskaliert. */
+function fitCertToOnePage(doc){
+ doc=doc||document;
+ const page=doc.querySelector('#certificate .cert-page');
+ if(!page)return 1;
+ const PAGE_H_CM=29.7,PAGE_W_CM=21,MARGIN_CM=1.1;         /* A4 mit @page-Rand */
+ const availH=PAGE_H_CM-2*MARGIN_CM,availW=PAGE_W_CM-2*MARGIN_CM;
+ /* 1cm in px messen — haengt vom Zoom des Browsers ab */
+ const ruler=doc.createElement('div');
+ ruler.style.cssText='position:absolute;visibility:hidden;height:10cm;';
+ doc.body.appendChild(ruler);
+ const pxPerCm=ruler.getBoundingClientRect().height/10;
+ ruler.remove();
+ /* Klon unter Druckmassen und Druckbreite ausmessen */
+ const holder=doc.createElement('div');
+ holder.className='printfit';
+ holder.style.cssText='position:absolute;left:-10000px;top:0;visibility:hidden;width:'+availW+'cm;';
+ const probe=page.cloneNode(true);
+ probe.style.zoom='1';
+ holder.appendChild(probe);
+ doc.body.appendChild(holder);
+ const h=probe.getBoundingClientRect().height;
+ holder.remove();
+ const scale=Math.min(1,(availH*pxPerCm*0.985)/h);        /* 1,5 % Sicherheit */
+ page.style.zoom=scale;
+ return scale;
+}
+function certPrintHooks(win){
+ win.addEventListener('beforeprint',function(){
+  win.document.body.classList.add('printfit');
+  fitCertToOnePage(win.document);
+ });
+ win.addEventListener('afterprint',function(){
+  win.document.body.classList.remove('printfit');
+  const p=win.document.querySelector('#certificate .cert-page');
+  if(p)p.style.zoom='';
+ });
+}
+certPrintHooks(window);
+
 function openCertWindow(autoPrint){
  const cert=document.querySelector('#certificate .cert-page').outerHTML;
  const w=window.open('','_blank','width=860,height=1100');
  if(!w){document.getElementById('certificate').style.display='block';document.getElementById('certificate').scrollIntoView({behavior:'smooth'});return;}
+ /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
+ const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div></body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};

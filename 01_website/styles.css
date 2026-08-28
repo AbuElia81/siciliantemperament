@@ -389,6 +389,20 @@ body.certwin #certificate{display:block !important;}
 .print-btn:hover{background:var(--gold-lt);}
 .print-close{font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid var(--gold-dim);padding:.75rem 1.8rem;cursor:pointer;}
 
+/* Kompakte Druckmasse. Als Klasse, damit dieselben Werte vor dem Druck
+   zum Ausmessen der Hoehe dienen (siehe fitCertToOnePage) und nicht
+   zwischen Mess- und Druckzustand auseinanderlaufen koennen. */
+.printfit .cert-page{margin:0 auto;box-shadow:none;max-width:100%;padding:.9rem 1.5rem;font-size:.78em;}
+.printfit .cert-inner{padding:1.1rem 1.3rem;}
+.printfit .cert-bg{opacity:.1;width:70%;}
+.printfit .cert-flow,.printfit .cert-verdict,.printfit .cert-analyse-h,
+.printfit .cert-korb-intro,.printfit .cert-bars,.printfit .cert-products-title{margin-top:.35rem;margin-bottom:.35rem;}
+.printfit .cert-analyse-h{padding-top:.35rem;}
+.printfit .cert-verdict{padding:.5rem;}
+.printfit .cert-name{margin:.15rem 0 .4rem;}
+.printfit .cert-prod{padding:.14rem 0;}
+.printfit .cert-foot{font-size:.9em;margin-top:.5rem;}
+
 @media print {
   @page{margin:1.1cm;}
   body{background:#fff;}
@@ -397,12 +411,7 @@ body.certwin #certificate{display:block !important;}
   #certificate,#certificate *{visibility:visible;}
   #certificate{display:block !important;position:absolute;left:0;top:0;width:100%;}
   .print-actions,.certwin-actions{display:none !important;}
-  .cert-page{margin:0 auto;box-shadow:none;max-width:100%;padding:.9rem 1.5rem;font-size:.78em;}
-  .cert-bg{opacity:.1 !important;width:70% !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .cpt-bar i,.cert-bar-f{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .cert-flow,.cert-verdict,.cert-analyse-h,.cert-korb-intro,.cert-bars,.cert-products-title{margin-top:.35rem !important;margin-bottom:.35rem !important;}
-  .cert-analyse-h{padding-top:.35rem !important;}
-  .cert-analysis-cols{gap:.8rem !important;}
-  .cert-prod{padding:.14rem 0 !important;}
-  .cert-foot{font-size:.9em;}
+  /* Farbflaechen (Wasserzeichen, Balken) sollen mitgedruckt werden */
+  .cert-bg,.cpt-bar i,.cert-bar-f,.cert-bar-t{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cert-page{break-inside:avoid;page-break-inside:avoid;}
 }
