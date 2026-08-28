@@ -27,13 +27,14 @@
 </nav>
 
 <div class="hero" id="top">
-  <div class="hero-orna">✦ Empedokles · Hippokrates · Ptolemäus · Galen ✦</div>
+  <div class="hero-orna">✦ Sicilian Temperament ✦</div>
   <h1>Geschenkkörbe</h1>
   <div class="hdiv"></div>
 </div>
 
 <section id="baskets">
-  <div class="opt-grid">
+  <div class="korb-slider swipe">
+    <div class="opt-grid swipe-track">
 
     <div class="opt-card opt-clickable" onclick="location.href='sortiment.html'">
       <div class="opt-photo"><img src="images/korb-empedokles.jpg" alt="Geschenkkorb mit sizilianischen Delikatessen" loading="lazy"></div>
@@ -97,6 +98,10 @@
       </div>
     </div>
 
+    </div>
+    <button class="swipe-nav swipe-prev" type="button" aria-label="Vorheriger Korb">‹</button>
+    <button class="swipe-nav swipe-next" type="button" aria-label="Nächster Korb">›</button>
+    <div class="swipe-dots"></div>
   </div>
 
   <div class="hero-text" style="margin:2.4rem auto 0;">
@@ -145,12 +150,13 @@
   <div class="cart-foot">
     <button class="checkout-btn" onclick="checkout()">Zur Kasse</button>
     <div class="cart-note">Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau.</div>
-  </div>
+    </div>
 </div>
 <div class="toast" id="toast">In den Korb gelegt</div>
 
 </div>
 <script src="data.js"></script>
+<script src="carousel.js"></script>
 <script src="cart.js"></script>
 </body>
 </html>

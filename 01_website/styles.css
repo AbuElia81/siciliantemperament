@@ -145,17 +145,22 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .lore-carousel .lore-title{font-size:.86rem;letter-spacing:.28em;}
 .lore-carousel .lore-sub{font-size:1rem;}
 .lore-carousel .lore-text{font-size:1.12rem;line-height:1.75;}
-.lore-nav{position:absolute;top:50%;transform:translateY(-50%);width:2.4rem;height:2.4rem;border:1px solid var(--border);border-radius:50%;background:rgba(255,253,248,.9);color:var(--gold);font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.lore-nav:hover{background:#fffdf8;}
+/* Grundgestalt fuer Pfeile und Punkte — gilt fuer alle Karussells.
+   Das Korb-Karussell auf der Startseite ueberschreibt sie weiter unten,
+   weil es auf dunklen Fotos liegt. */
+.swipe-nav{position:absolute;top:50%;transform:translateY(-50%);width:2.4rem;height:2.4rem;border:1px solid var(--border);border-radius:50%;background:rgba(255,253,248,.9);color:var(--gold);font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+.swipe-nav:hover{background:#fffdf8;}
+.swipe-prev{left:.5rem;}
+.swipe-next{right:.5rem;}
 .lore-carousel .swipe-prev{left:.4rem;}
 .lore-carousel .swipe-next{right:.4rem;}
-.lore-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;}
-.lore-dots button{width:.6rem;height:.6rem;padding:0;border:1px solid var(--gold-dim);border-radius:50%;background:transparent;cursor:pointer;}
-.lore-dots button[aria-current="true"]{background:var(--gold);}
+.swipe-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;z-index:2;}
+.swipe-dots button{width:.6rem;height:.6rem;padding:0;border:1px solid var(--gold-dim);border-radius:50%;background:transparent;cursor:pointer;}
+.swipe-dots button[aria-current="true"]{background:var(--gold);}
 @media(max-width:560px){.lore-carousel .lore-card{padding:1.4rem 2.8rem 2.6rem;}
  .lore-carousel .lore-portrait{width:130px;height:130px;}
  .lore-carousel .lore-text{font-size:1rem;}
- .lore-nav{width:2rem;height:2rem;font-size:1.3rem;}}
+ .swipe-nav{width:2rem;height:2rem;font-size:1.3rem;}}
 .lore-text a{color:var(--gold);text-decoration:underline;}
 /* GALEN-AUSZUG */
 .galen-excerpt{max-width:640px;margin:2.2rem auto 0;border:1px solid var(--gold-dim);border-radius:12px;background:#fffdf8;padding:1.4rem 1.6rem;text-align:center;}
@@ -196,6 +201,21 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 /* OPTIONEN / KÖRBE */
 #options{display:none;margin-top:2.4rem;}
 .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.3rem;margin-top:1.6rem;}
+/* Geschenkkoerbe-Seite: dieselben Karten, aber einzeln und gross zum Wischen.
+   Das Raster oben bleibt fuer die Vorschlaege auf der Startseite unveraendert. */
+.korb-slider{position:relative;overflow:hidden;max-width:820px;margin:1.6rem auto 0;}
+.korb-slider .opt-grid{display:flex;grid-template-columns:none;gap:0;margin-top:0;}
+.korb-slider .opt-card{flex:0 0 100%;box-sizing:border-box;padding:2rem 3.4rem 3rem;}
+.korb-slider .opt-photo{margin:-2rem -3.4rem 1.4rem;aspect-ratio:16/9;}
+.korb-slider .opt-name{font-size:1.6rem;}
+.korb-slider .opt-count{font-size:.72rem;}
+.korb-slider .basket-photos{gap:.7rem;margin-top:1.4rem;}
+.korb-slider .basket-eg{font-size:.6rem;margin-top:.8rem;}
+.korb-slider .opt-own-text{font-size:1.14rem;}
+@media(max-width:560px){
+ .korb-slider .opt-card{padding:1.4rem 2.6rem 2.8rem;}
+ .korb-slider .opt-photo{margin:-1.4rem -2.6rem 1.1rem;}
+ .korb-slider .opt-name{font-size:1.25rem;}}
 .opt-own{border-style:dashed;}
 .opt-own-ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f4efe4,#e9e0cc);font-size:2.4rem;color:var(--gold-dim);}
 .opt-own-text{flex:1;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--ink-dim);line-height:1.6;padding:.3rem 0 .8rem;}
