@@ -140,9 +140,25 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 
 /* LORE */
 .lore-panel{display:flex;flex-direction:column;gap:1.2rem;}
-.lore-panel-page{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;max-width:1200px;margin:0 auto;}
-@media(max-width:980px){.lore-panel-page{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:560px){.lore-panel-page{grid-template-columns:1fr;}}
+/* Lehrmeister als Swipe-Karussell: eine grosse Karte statt vier schmaler Spalten */
+.lore-carousel{position:relative;overflow:hidden;max-width:760px;margin:0 auto;}
+.lore-panel-page{display:flex;flex-direction:row;gap:0;max-width:none;margin:0;}
+.lore-carousel .lore-card{flex:0 0 100%;box-sizing:border-box;padding:2rem 3.6rem 2.8rem;}
+.lore-carousel .lore-portrait{width:180px;height:180px;}
+.lore-carousel .lore-title{font-size:.86rem;letter-spacing:.28em;}
+.lore-carousel .lore-sub{font-size:1rem;}
+.lore-carousel .lore-text{font-size:1.12rem;line-height:1.75;}
+.lore-nav{position:absolute;top:50%;transform:translateY(-50%);width:2.4rem;height:2.4rem;border:1px solid var(--border);border-radius:50%;background:rgba(255,253,248,.9);color:var(--gold);font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.lore-nav:hover{background:#fffdf8;}
+.lore-carousel .swipe-prev{left:.4rem;}
+.lore-carousel .swipe-next{right:.4rem;}
+.lore-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;}
+.lore-dots button{width:.6rem;height:.6rem;padding:0;border:1px solid var(--gold-dim);border-radius:50%;background:transparent;cursor:pointer;}
+.lore-dots button[aria-current="true"]{background:var(--gold);}
+@media(max-width:560px){.lore-carousel .lore-card{padding:1.4rem 2.8rem 2.6rem;}
+ .lore-carousel .lore-portrait{width:130px;height:130px;}
+ .lore-carousel .lore-text{font-size:1rem;}
+ .lore-nav{width:2rem;height:2rem;font-size:1.3rem;}}
 .lore-text a{color:var(--gold);text-decoration:underline;}
 /* GALEN-AUSZUG */
 .galen-excerpt{max-width:640px;margin:2.2rem auto 0;border:1px solid var(--gold-dim);border-radius:12px;background:#fffdf8;padding:1.4rem 1.6rem;text-align:center;}
@@ -328,9 +344,9 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .occ-line .occ .occ-icon{font-size:1.1rem;}
 @media(max-width:480px){.occ-line{gap:.45rem 1.1rem;}.occ-line .occ{font-size:1.1rem;}}
 .korb-carousel{position:relative;overflow:hidden;border:7px solid #c9a227;border-image:var(--tile) 8 round;border-radius:4px;box-shadow:0 8px 26px rgba(60,45,20,.2);background:#000;}
-.korb-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.4,0,.2,1);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;}
-.korb-track.dragging{cursor:grabbing;}
-.korb-track.dragging{transition:none;}
+.swipe-track{transition:transform .45s cubic-bezier(.4,0,.2,1);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;}
+.swipe-track.dragging{transition:none;cursor:grabbing;}
+.korb-track{display:flex;height:100%;}
 .korb-slide{position:relative;flex:0 0 100%;display:block;aspect-ratio:16/9;overflow:hidden;}
 @media(max-width:640px){.korb-slide{aspect-ratio:4/3;}}
 .korb-slide img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none;}
@@ -345,8 +361,8 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
   text-shadow:0 0 18px color-mix(in srgb,var(--ec) 95%,transparent),0 0 48px color-mix(in srgb,var(--ec) 70%,transparent),0 2px 10px rgba(0,0,0,.6),0 1px 2px rgba(0,0,0,.55);}
 .korb-nav{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border:none;border-radius:50%;background:rgba(255,253,248,.85);color:var(--gold);font-size:1.8rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.25);transition:background .2s;}
 .korb-nav:hover{background:#fffdf8;}
-.korb-prev{left:.7rem;}
-.korb-next{right:.7rem;}
+.korb-carousel .swipe-prev{left:.7rem;}
+.korb-carousel .swipe-next{right:.7rem;}
 .korb-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;}
 .korb-dots button{width:.62rem;height:.62rem;padding:0;border:1px solid rgba(255,253,248,.85);border-radius:50%;background:transparent;cursor:pointer;transition:background .2s;}
 .korb-dots button[aria-current="true"]{background:#fffdf8;}

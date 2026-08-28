@@ -52,9 +52,15 @@
     2500-jährigen sizilianischen Idee.
   </div>
 
+  <div class="hero-photo" style="margin:2.6rem auto 1rem;">
+    <img class="hero-photo-img" src="images/lehre.jpg" alt="Der Gelehrte mit dem Kalkulator der vier Temperamente vor sizilianischer Landschaft" loading="lazy" onerror="this.closest('.hero-photo').classList.add('noimg')">
+    <div class="hero-photo-ph"><span class="hero-photo-gl">✦</span><span class="hero-photo-tx">Bild — Foto folgt</span></div>
+  </div>
+
   <div class="sec-title" style="margin-top:3rem;">Vier bedeutende Lehrmeister</div>
 
-  <div class="lore-panel lore-panel-page">
+  <div class="lore-carousel swipe">
+    <div class="lore-panel lore-panel-page swipe-track">
     <div class="lore-card">
       <div class="lore-fig"><img class="lore-portrait" src="images/lehrer-empedokles.png" alt="Porträt Empedokles" loading="lazy"></div>
       <div class="lore-title">Empedokles von Akragas</div>
@@ -79,6 +85,10 @@
       <div class="lore-sub">129 – ca. 216 n. Chr. · Pergamon &amp; Rom</div>
       <div class="lore-text">Leibarzt der Kaiser und Vollender der Säftelehre. In <em>De Alimentorum Facultatibus</em> — <a href="http://cmg.bbaw.de/epubl/online/cmg_05_04_02.php" target="_blank" rel="noopener">im Original online bei der Corpus Medicorum Graecorum</a> — wandte er die Lehre erstmals systematisch auf die Nahrungsmittel selbst an: ein Katalog von Getreide, Hülsenfrüchten, Fleisch und Fisch, jedes nach Grad von heiß, kalt, feucht und trocken bestimmt.</div>
     </div>
+    </div>
+    <button class="lore-nav swipe-nav swipe-prev" type="button" aria-label="Vorheriger Lehrmeister">‹</button>
+    <button class="lore-nav swipe-nav swipe-next" type="button" aria-label="Nächster Lehrmeister">›</button>
+    <div class="lore-dots swipe-dots"></div>
   </div>
 
   <div class="galen-excerpt">
@@ -97,6 +107,44 @@
       moderne englische Übersetzung mit Kommentar stammt von Owen Powell (Cambridge University
       Press, 2003).
     </div>
+  </div>
+
+  <div class="sec-label" style="margin-top:3rem;">✦ Materia Prima ✦</div>
+  <div class="sec-title">Die Rohstoffe unserer Produkte</div>
+  <div style="max-width:700px;margin:0 auto 1.6rem;font-family:'Cormorant Garamond',serif;font-size:1.02rem;color:var(--ink);line-height:1.72;text-align:center;">
+    Jedes Produkt im Sortiment geht auf einen Rohstoff der sizilianischen Erde zurück — hier, welchem
+    Planeten und Temperament die antike Lehre ihn zuordnet:
+  </div>
+
+  <div class="ingredient-box">
+    <table class="ingredient-table">
+      <thead><tr><th>Rohstoff</th><th>Planet</th><th>Temperament</th></tr></thead>
+      <tbody>
+        <tr><td>Kirschtomate</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Kirschtomate &amp; Paprika</td><td>☿</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Datteltomate</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Kapern &amp; Zitrone</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Peperoncino (Arrabbiata)</td><td>♂</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Oliven &amp; Kapern</td><td>♂</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Sultaninen &amp; Fenchel</td><td>☿</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Aubergine (Norma)</td><td>☽</td><td><span class="ing-tag c-phleg">Phlegmatisch</span></td></tr>
+        <tr><td>Rosmarin &amp; Oregano</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Tomate (rein, Passata)</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Wilder Fenchel</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Mandel &amp; Basilikum (Trapanese)</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Basilikum</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Aubergine (Paté)</td><td>☽</td><td><span class="ing-tag c-phleg">Phlegmatisch</span></td></tr>
+        <tr><td>Peperoncino (Paté)</td><td>♂</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Aubergine, Oliven &amp; Kapern (Agrodolce)</td><td>☿</td><td><span class="ing-tag ing-tag-mixed">Alle vier</span></td></tr>
+        <tr><td>Blutorange</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
+        <tr><td>Zitrone</td><td>♀</td><td><span class="ing-tag c-mel">Melancholisch</span></td></tr>
+        <tr><td>Mandarine</td><td>♀</td><td><span class="ing-tag c-mel">Melancholisch</span></td></tr>
+        <tr><td>Feige</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Pistazie</td><td>♃</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Mandel (süß, Creme)</td><td>♃</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+        <tr><td>Haselnuss</td><td>♃</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="sec-label" style="margin-top:3rem;">✦ Astrologia in Cibus ✦</div>
@@ -141,42 +189,11 @@
     die Farbe seiner Nachbarn an — seine Speisen, wie die Caponata, vereinen alle vier Qualitäten.
   </div>
 
-  <div class="sec-label" style="margin-top:3rem;">✦ Materia Prima ✦</div>
-  <div class="sec-title">Die Rohstoffe unserer Produkte</div>
-  <div style="max-width:700px;margin:0 auto 1.6rem;font-family:'Cormorant Garamond',serif;font-size:1.02rem;color:var(--ink);line-height:1.72;text-align:center;">
-    Jedes Produkt im Sortiment geht auf einen Rohstoff der sizilianischen Erde zurück — hier, welchem
-    Planeten und Temperament die antike Lehre ihn zuordnet:
-  </div>
-
-  <div class="ingredient-box">
-    <table class="ingredient-table">
-      <thead><tr><th>Rohstoff</th><th>Planet</th><th>Temperament</th></tr></thead>
-      <tbody>
-        <tr><td>Kirschtomate</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Kirschtomate &amp; Paprika</td><td>☿</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Datteltomate</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Kapern &amp; Zitrone</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Peperoncino (Arrabbiata)</td><td>♂</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Oliven &amp; Kapern</td><td>♂</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Sultaninen &amp; Fenchel</td><td>☿</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Aubergine (Norma)</td><td>☽</td><td><span class="ing-tag c-phleg">Phlegmatisch</span></td></tr>
-        <tr><td>Rosmarin &amp; Oregano</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Tomate (rein, Passata)</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Wilder Fenchel</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Mandel &amp; Basilikum (Trapanese)</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Basilikum</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Aubergine (Paté)</td><td>☽</td><td><span class="ing-tag c-phleg">Phlegmatisch</span></td></tr>
-        <tr><td>Peperoncino (Paté)</td><td>♂</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Aubergine, Oliven &amp; Kapern (Agrodolce)</td><td>☿</td><td><span class="ing-tag ing-tag-mixed">Alle vier</span></td></tr>
-        <tr><td>Blutorange</td><td>☉</td><td><span class="ing-tag c-chol">Cholerisch</span></td></tr>
-        <tr><td>Zitrone</td><td>♀</td><td><span class="ing-tag c-mel">Melancholisch</span></td></tr>
-        <tr><td>Mandarine</td><td>♀</td><td><span class="ing-tag c-mel">Melancholisch</span></td></tr>
-        <tr><td>Feige</td><td>♀</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Pistazie</td><td>♃</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Mandel (süß, Creme)</td><td>♃</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-        <tr><td>Haselnuss</td><td>♃</td><td><span class="ing-tag c-sang">Sanguinisch</span></td></tr>
-      </tbody>
-    </table>
+  <div style="max-width:700px;margin:1.4rem auto 0;font-family:'Cormorant Garamond',serif;font-size:1.06rem;color:var(--ink);line-height:1.75;text-align:center;">
+    Genau dieses Planetenwissen — Ptolemäus' Zuordnung der Qualitäten heiß, kalt, feucht und trocken
+    zu den Wandelsternen — gab den Anstoß zur Entwicklung unseres Temperament-Kalkulators: Er
+    berechnet aus Geburtsdatum, -zeit und -ort die Stellung von Sonne, Mond und Aszendent und
+    übersetzt sie zurück in die vier Temperamente.
   </div>
 
   <div class="disclaimer">
@@ -189,10 +206,6 @@
     </div>
   </div>
 
-  <div class="hero-photo" style="margin:2.6rem auto 1rem;">
-    <img class="hero-photo-img" src="images/lehre.jpg" alt="Der Gelehrte mit dem Kalkulator der vier Temperamente vor sizilianischer Landschaft" loading="lazy" onerror="this.closest('.hero-photo').classList.add('noimg')">
-    <div class="hero-photo-ph"><span class="hero-photo-gl">✦</span><span class="hero-photo-tx">Bild — Foto folgt</span></div>
-  </div>
 
   <div style="text-align:center;margin:2.5rem 0 1rem;">
     <a class="cta" href="index.html#kalkulator">Zum Temperament-Kalkulator</a>
@@ -226,6 +239,7 @@
 
 </div>
 <script src="data.js"></script>
+<script src="carousel.js"></script>
 <script src="cart.js"></script>
 </body>
 </html>
