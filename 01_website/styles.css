@@ -80,8 +80,10 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .sec-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.15rem,2.9vw,1.9rem);color:var(--gold);text-align:center;margin-bottom:1.7rem;}
 
 /* CALC */
-/* Kalkulator ueber die volle Breite — das Seitenfoto ist entfallen */
-.calc-layout{max-width:900px;margin:0 auto;}
+/* Kalkulator ueber die volle Breite — das Seitenfoto ist entfallen.
+   952px = Innenbreite des Korb-Karussells darueber (1000px minus 2x1.5rem
+   Innenabstand von .hero-top-row), damit beide buendig stehen. */
+.calc-layout{max-width:952px;margin:0 auto;}
 .calc-box{position:relative;border:15px solid #c9a227;border-image:var(--tile) 16 round;border-radius:6px;
   background:
     radial-gradient(circle at 18% 12%,rgba(180,150,90,.12),transparent 42%),
@@ -282,6 +284,7 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .disc-text{font-family:'Cormorant Garamond',serif;font-size:.89rem;color:var(--ink-dim);line-height:1.68;text-align:center;font-style:italic;}
 footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border);margin-top:2rem;}
 .colo{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase;line-height:2.1;}
+.footer-hinweis{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);margin-top:.9rem;line-height:1.6;}
 .footer-links{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-top:1rem;}
 .footer-links a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;}
 .footer-links a:hover{color:var(--gold);}
