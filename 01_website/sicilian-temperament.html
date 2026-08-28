@@ -78,6 +78,11 @@
   </div>
 
   <div class="calc-layout">
+    <!-- Der Kalkulator liegt auf einer Papyrusrolle, die sich beim
+         Heranscrollen entrollt (siehe .papyrus in styles.css). -->
+    <div class="papyrus" id="papyrus">
+      <div class="papyrus-rod papyrus-rod-top" aria-hidden="true"></div>
+      <div class="papyrus-sheet"><div class="papyrus-sheet-inner">
     <div class="calc-box">
       <div class="calc-title" style="font-size:2rem;line-height:1.1;">Temperament-Kalkulator</div>
       <svg class="meander" width="230" height="14" viewBox="0 0 230 14" aria-hidden="true">
@@ -579,7 +584,9 @@
         <div class="deutung" id="deutung"></div>
       </div>
     </div>
-
+      </div></div>
+      <div class="papyrus-rod papyrus-rod-bottom" aria-hidden="true"></div>
+    </div>
   </div>
 
   <!-- KÖRBE -->
@@ -689,6 +696,29 @@
 <script src="carousel.js"></script>
 <script src="cart.js"></script>
 <script>
+/* ============ PAPYRUSROLLE ============
+   Entrollt den Kalkulator, sobald er in den Blick kommt. Faellt der
+   Beobachter aus (alter Browser, JS-Fehler), wird sofort entrollt —
+   der Kalkulator darf nie unsichtbar bleiben. */
+(function(){
+ const pap=document.getElementById('papyrus');
+ if(!pap)return;
+ const auf=()=>pap.classList.add('unrolled');
+ if(!('IntersectionObserver' in window)){auf();return;}
+ const beob=new IntersectionObserver(function(eintraege){
+  eintraege.forEach(function(e){
+   if(e.isIntersecting){auf();beob.disconnect();}
+  });
+ },{threshold:0,rootMargin:'0px 0px -18% 0px'});
+ beob.observe(pap);
+ /* Steht der Kalkulator beim Laden schon im Bild (Sprungmarke #kalkulator
+    oder sehr hoher Schirm), sofort entrollen statt auf ein Scrollen warten */
+ if(pap.getBoundingClientRect().top < innerHeight*0.85)auf();
+ /* Notbremse: der Kalkulator ist das Herzstueck der Seite und darf unter
+    keinen Umstaenden eingerollt bleiben, falls der Beobachter nicht ausloest */
+ setTimeout(auf,6000);
+})();
+
 /* ============ ASTRONOMIE ============ */
 const rad=x=>x*Math.PI/180,deg=x=>x*180/Math.PI,norm=x=>((x%360)+360)%360;
 const SIGNS=['Widder','Stier','Zwillinge','Krebs','Löwe','Jungfrau','Waage','Skorpion','Schütze','Steinbock','Wassermann','Fische'];

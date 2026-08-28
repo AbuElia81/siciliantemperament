@@ -89,6 +89,41 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
    952px = Innenbreite des Korb-Karussells darueber (1000px minus 2x1.5rem
    Innenabstand von .hero-top-row), damit beide buendig stehen. */
 .calc-layout{max-width:952px;margin:0 auto;}
+
+/* ===== PAPYRUSROLLE =====
+   Der Kalkulator entrollt sich beim Heranscrollen. Stab und Knäufe sind
+   reine CSS-Verläufe, also aufloesungsunabhaengig — auf Retina- wie auf
+   4K-Schirmen gestochen scharf, ohne eine einzige Bilddatei.
+   Das Aufrollen laeuft ueber grid-template-rows 0fr -> 1fr; damit
+   animiert die echte Inhaltshoehe, ohne sie in JS messen zu muessen. */
+.papyrus{position:relative;}
+.papyrus-rod{position:relative;height:26px;margin:0 14px;border-radius:13px;z-index:2;
+  background:
+    repeating-linear-gradient(90deg,rgba(0,0,0,.10) 0 2px,rgba(255,255,255,.05) 2px 6px),
+    linear-gradient(180deg,#a5813f 0%,#7d5f2c 28%,#4a3617 62%,#7a5d2b 88%,#5b4520 100%);
+  box-shadow:0 4px 14px rgba(40,28,10,.42),inset 0 1px 0 rgba(255,231,176,.35);}
+.papyrus-rod::before,.papyrus-rod::after{content:'';position:absolute;top:50%;width:22px;height:36px;
+  transform:translateY(-50%);border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#c9a227 0%,#8a6a34 45%,#4a3617 100%);
+  box-shadow:0 3px 10px rgba(40,28,10,.45);}
+.papyrus-rod::before{left:-14px;}
+.papyrus-rod::after{right:-14px;}
+.papyrus-rod-top{margin-bottom:-6px;}
+.papyrus-rod-bottom{margin-top:-6px;}
+/* Die Bahn selbst: 0fr = aufgerollt, 1fr = ausgerollt */
+.papyrus-sheet{display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows 1.9s cubic-bezier(.22,.61,.36,1);}
+.papyrus.unrolled .papyrus-sheet{grid-template-rows:1fr;}
+.papyrus-sheet-inner{overflow:hidden;position:relative;}
+/* Schattenkante direkt unter dem oberen Stab, wie bei aufgerolltem Papier */
+.papyrus-sheet-inner::before{content:'';position:absolute;left:0;right:0;top:0;height:26px;z-index:3;
+  pointer-events:none;background:linear-gradient(180deg,rgba(40,28,10,.34),rgba(40,28,10,0));}
+/* Inhalt blendet leicht verzoegert ein, damit erst die Bahn erscheint */
+.papyrus .calc-box{opacity:0;transition:opacity .8s ease .55s;}
+.papyrus.unrolled .calc-box{opacity:1;}
+@media(prefers-reduced-motion:reduce){
+  .papyrus-sheet{transition:none;}
+  .papyrus .calc-box{transition:none;opacity:1;}}
 .calc-box{position:relative;border:15px solid #c9a227;border-image:var(--tile) 16 round;border-radius:6px;
   background:
     radial-gradient(circle at 18% 12%,rgba(180,150,90,.12),transparent 42%),
