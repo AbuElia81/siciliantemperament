@@ -320,15 +320,27 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .cert-wheel-svg{width:100%;height:auto;display:block;}
 .cw-name{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Uncial Antiqua',serif;font-size:1.15rem;color:#5a4520;text-align:center;max-width:62%;line-height:1.05;}
 /* VIER-ELEMENTE-BAND */
-.hero-top-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;align-items:stretch;max-width:1000px;margin:0 auto 2rem;padding:0 1.5rem;}
-@media(max-width:820px){.hero-top-row{grid-template-columns:1fr;}}
-.korb-photo-band{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;height:100%;}
-.korb-photo{display:block;aspect-ratio:1/1;overflow:hidden;border:6px solid #c9a227;border-image:var(--tile) 7 round;border-radius:4px;box-shadow:0 6px 20px rgba(60,45,20,.16);transition:transform .2s;}
-.korb-photo:hover{transform:translateY(-3px);}
-.korb-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-.elem-band{display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:.7rem;height:100%;}
-.elem-chip{flex:1 1 120px;max-width:150px;border:7px solid #c9a227;border-image:var(--tile) 8 round;border-radius:4px;background:linear-gradient(var(--ec),var(--ec)) padding-box;padding:.85rem .6rem;font-family:'Cinzel Decorative',serif;font-size:1.05rem;letter-spacing:.04em;color:#fffdf8;text-align:center;text-shadow:0 1px 3px rgba(0,0,0,.35);box-shadow:0 6px 20px rgba(60,45,20,.18);}
-@media(max-width:480px){.elem-chip{flex:1 1 42%;font-size:.92rem;padding:.65rem .4rem;}}
+.hero-top-row{max-width:1000px;margin:0 auto 2rem;padding:0 1.5rem;}
+.occ-line{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 1.8rem;margin-bottom:1.1rem;}
+.occ-line .occ{display:inline-flex;align-items:center;gap:.45rem;font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--ink);}
+.occ-line .occ .occ-icon{font-size:1.1rem;}
+@media(max-width:480px){.occ-line{gap:.45rem 1.1rem;}.occ-line .occ{font-size:1.1rem;}}
+.korb-carousel{position:relative;overflow:hidden;border:7px solid #c9a227;border-image:var(--tile) 8 round;border-radius:4px;box-shadow:0 8px 26px rgba(60,45,20,.2);background:#000;}
+.korb-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.4,0,.2,1);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;}
+.korb-track.dragging{cursor:grabbing;}
+.korb-track.dragging{transition:none;}
+.korb-slide{position:relative;flex:0 0 100%;display:block;aspect-ratio:16/9;overflow:hidden;}
+@media(max-width:640px){.korb-slide{aspect-ratio:4/3;}}
+.korb-slide img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none;}
+.korb-elem{position:absolute;left:1rem;bottom:1rem;background:var(--ec);padding:.6rem 1.4rem;border:3px solid rgba(255,253,248,.75);border-radius:3px;font-family:'Cinzel Decorative',serif;font-size:1.25rem;letter-spacing:.05em;color:#fffdf8;text-shadow:0 1px 4px rgba(0,0,0,.45);box-shadow:0 4px 16px rgba(0,0,0,.3);}
+.korb-nav{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border:none;border-radius:50%;background:rgba(255,253,248,.85);color:var(--gold);font-size:1.8rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.25);transition:background .2s;}
+.korb-nav:hover{background:#fffdf8;}
+.korb-prev{left:.7rem;}
+.korb-next{right:.7rem;}
+.korb-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;}
+.korb-dots button{width:.62rem;height:.62rem;padding:0;border:1px solid rgba(255,253,248,.85);border-radius:50%;background:transparent;cursor:pointer;transition:background .2s;}
+.korb-dots button[aria-current="true"]{background:#fffdf8;}
+@media(max-width:480px){.korb-elem{font-size:1rem;padding:.45rem 1rem;left:.7rem;bottom:2.2rem;}.korb-nav{width:2.1rem;height:2.1rem;font-size:1.4rem;}}
 .cert-row{display:flex;justify-content:space-between;gap:1.5rem;padding:.32rem 0;border-bottom:1px dotted #c9b788;font-size:.94rem;}
 .cert-row .cl{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#8a6f35;align-self:center;}
 .cert-row .cv{color:#2a2113;font-size:1rem;}

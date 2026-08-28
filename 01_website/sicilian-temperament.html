@@ -34,23 +34,34 @@
 <!-- ===== KALKULATOR ===== -->
 <section id="kalkulator">
   <div class="hero-top-row">
-    <div class="korb-photo-band">
-      <a href="geschenke.html" class="korb-photo"><img src="images/korb-empedokles.jpg" alt="Italienischer Geschenkkorb — Korb Empedokles" loading="lazy"></a>
-      <a href="geschenke.html" class="korb-photo"><img src="images/korb-aristoteles.jpg" alt="Italienischer Geschenkkorb — Korb Galen" loading="lazy"></a>
-      <a href="geschenke.html" class="korb-photo"><img src="images/korb-galen.jpg" alt="Italienischer Geschenkkorb — Korb Ptolemäus" loading="lazy"></a>
-      <a href="geschenke.html" class="korb-photo"><img src="images/geschenke-hero.jpg" alt="Sizilianischer Korbladen" loading="lazy"></a>
+    <div class="occ-line">
+      <span class="occ"><span class="occ-icon">🎂</span>Geburtstag</span>
+      <span class="occ"><span class="occ-icon">💍</span>Hochzeit</span>
+      <span class="occ"><span class="occ-icon">🌿</span>Aufmerksamkeit</span>
+      <span class="occ"><span class="occ-icon">🏺</span>Dankeschön</span>
     </div>
-    <div class="elem-band">
-      <div class="elem-chip" style="--ec:var(--chol);">Feuer</div>
-      <div class="elem-chip" style="--ec:var(--sang);">Luft</div>
-      <div class="elem-chip" style="--ec:var(--mel);">Erde</div>
-      <div class="elem-chip" style="--ec:var(--phleg);">Wasser</div>
-    </div>
-    <div class="occasions occ-side">
-      <div class="occ"><span class="occ-icon">🎂</span>Geburtstag</div>
-      <div class="occ"><span class="occ-icon">💍</span>Hochzeit</div>
-      <div class="occ"><span class="occ-icon">🌿</span>Aufmerksamkeit</div>
-      <div class="occ"><span class="occ-icon">🏺</span>Dankeschön</div>
+    <div class="korb-carousel" id="korbCarousel">
+      <div class="korb-track" id="korbTrack">
+        <a href="geschenke.html" class="korb-slide">
+          <img src="images/korb-empedokles.jpg" alt="Italienischer Geschenkkorb — Korb Empedokles">
+          <span class="korb-elem" style="--ec:var(--chol);">Feuer</span>
+        </a>
+        <a href="geschenke.html" class="korb-slide">
+          <img src="images/korb-aristoteles.jpg" alt="Italienischer Geschenkkorb — Korb Galen" loading="lazy">
+          <span class="korb-elem" style="--ec:var(--sang);">Luft</span>
+        </a>
+        <a href="geschenke.html" class="korb-slide">
+          <img src="images/korb-galen.jpg" alt="Italienischer Geschenkkorb — Korb Ptolemäus" loading="lazy">
+          <span class="korb-elem" style="--ec:var(--mel);">Erde</span>
+        </a>
+        <a href="geschenke.html" class="korb-slide">
+          <img src="images/geschenke-hero.jpg" alt="Sizilianischer Korbladen" loading="lazy">
+          <span class="korb-elem" style="--ec:var(--phleg);">Wasser</span>
+        </a>
+      </div>
+      <button class="korb-nav korb-prev" type="button" aria-label="Vorheriger Korb">‹</button>
+      <button class="korb-nav korb-next" type="button" aria-label="Nächster Korb">›</button>
+      <div class="korb-dots" id="korbDots"></div>
     </div>
   </div>
 
@@ -484,6 +495,57 @@
 <script src="data.js"></script>
 <script src="cart.js"></script>
 <script>
+/* ============ KORB-KARUSSELL ============ */
+(function(){
+ const car=document.getElementById('korbCarousel');
+ if(!car) return;
+ const track=document.getElementById('korbTrack');
+ const dots=document.getElementById('korbDots');
+ const slides=[...track.children];
+ let idx=0,startX=0,dx=0,dragging=false;
+
+ slides.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.setAttribute('aria-label','Korb '+(i+1));
+  b.onclick=()=>go(i);
+  dots.appendChild(b);
+ });
+
+ function go(i){
+  idx=(i+slides.length)%slides.length;
+  track.style.transform=`translateX(${-idx*100}%)`;
+  [...dots.children].forEach((d,j)=>d.setAttribute('aria-current',j===idx));
+ }
+ go(0);
+
+ car.querySelector('.korb-prev').onclick=()=>go(idx-1);
+ car.querySelector('.korb-next').onclick=()=>go(idx+1);
+
+ function down(x){dragging=true;startX=x;dx=0;track.classList.add('dragging');}
+ function move(x){
+  if(!dragging) return;
+  dx=x-startX;
+  track.style.transform=`translateX(calc(${-idx*100}% + ${dx}px))`;
+ }
+ function up(x){
+  if(!dragging) return;
+  if(x!==undefined) dx=x-startX;
+  dragging=false;
+  track.classList.remove('dragging');
+  const t=car.offsetWidth*0.15;
+  go(dx<-t?idx+1:dx>t?idx-1:idx);
+ }
+
+ track.addEventListener('touchstart',e=>down(e.touches[0].clientX),{passive:true});
+ track.addEventListener('touchmove',e=>move(e.touches[0].clientX),{passive:true});
+ track.addEventListener('touchend',e=>up(e.changedTouches[0].clientX));
+ track.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'){e.preventDefault();down(e.clientX);}});
+ window.addEventListener('pointermove',e=>{if(e.pointerType!=='touch')move(e.clientX);});
+ window.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')up(e.clientX);});
+ track.addEventListener('click',e=>{if(Math.abs(dx)>8)e.preventDefault();});
+})();
+
 /* ============ ASTRONOMIE ============ */
 const rad=x=>x*Math.PI/180,deg=x=>x*180/Math.PI,norm=x=>((x%360)+360)%360;
 const SIGNS=['Widder','Stier','Zwillinge','Krebs','Löwe','Jungfrau','Waage','Skorpion','Schütze','Steinbock','Wassermann','Fische'];
