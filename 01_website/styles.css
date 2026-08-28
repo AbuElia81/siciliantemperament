@@ -318,9 +318,10 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .cert-name-big{font-family:'Uncial Antiqua',serif;font-size:2.1rem;color:#5a4520;line-height:1.1;margin-bottom:.5rem;}
 .cert-birth{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#4a3c1e;line-height:1.5;}
 .cert-astro{font-family:'IM Fell English',serif;font-style:italic;font-size:1rem;color:#6b5a35;margin-top:.35rem;}
-.cert-wheel{position:relative;width:250px;max-width:72%;margin:.6rem auto 1rem;}
+.cert-wheel{position:relative;width:430px;max-width:94%;margin:.8rem auto 1.1rem;}
 .cert-wheel-svg{width:100%;height:auto;display:block;}
-.cw-name{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Uncial Antiqua',serif;font-size:1.15rem;color:#5a4520;text-align:center;max-width:62%;line-height:1.05;}
+/* Freiraum in der Mitte: die seitlichen Beschriftungen stehen zweizeilig weiter aussen */
+.cw-name{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Uncial Antiqua',serif;font-size:clamp(1rem,3.1vw,1.5rem);color:#5a4520;text-align:center;max-width:38%;line-height:1.14;overflow-wrap:break-word;}
 /* VIER-ELEMENTE-BAND */
 .hero-top-row{max-width:1000px;margin:0 auto 2rem;padding:0 1.5rem;}
 .occ-line{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 1.8rem;margin-bottom:1.1rem;}
@@ -393,7 +394,7 @@ body.certwin #certificate{display:block !important;}
   #certificate{display:block !important;position:absolute;left:0;top:0;width:100%;}
   .print-actions,.certwin-actions{display:none !important;}
   .cert-page{margin:0 auto;box-shadow:none;max-width:100%;padding:.9rem 1.5rem;font-size:.78em;}
-  .cert-wheel{width:170px !important;margin:.2rem auto .5rem !important;}
+  .cert-wheel{width:300px !important;margin:.2rem auto .5rem !important;}
   .cert-flow,.cert-verdict,.cert-analyse-h,.cert-korb-intro,.cert-bars,.cert-products-title{margin-top:.35rem !important;margin-bottom:.35rem !important;}
   .cert-analyse-h{padding-top:.35rem !important;}
   .cert-analysis-cols{gap:.8rem !important;}
