@@ -25,14 +25,13 @@ jobs:
         run: |
           mkdir -p _site
           cp "01_website/sicilian-temperament.html" "_site/index.html"
-          # Gemeinsames Stylesheet und Unterseite(n) mit ausliefern
-          cp "01_website/styles.css" "_site/styles.css"
-          cp "01_website/lehre.html" "_site/lehre.html"
-          cp "01_website/geschenke.html" "_site/geschenke.html"
-          cp "01_website/kontakt.html" "_site/kontakt.html"
-          cp "01_website/sortiment.html" "_site/sortiment.html"
-          cp "01_website/data.js" "_site/data.js"
-          cp "01_website/cart.js" "_site/cart.js"
+          # Alle Unterseiten, Stylesheets und Skripte mit ausliefern.
+          # Bewusst per Muster statt Einzelnamen: eine neu angelegte Datei
+          # (z. B. carousel.js) wurde sonst beim Deploy vergessen und fehlte
+          # live mit 404, obwohl das HTML sie einband.
+          cp 01_website/*.html 01_website/*.css 01_website/*.js "_site/"
+          # Die Verkaufsseite liegt bereits als index.html vor
+          rm -f "_site/sicilian-temperament.html"
           # Bilder-Ordner (Produktfotos, Titelbild) mit ausliefern, falls vorhanden
           if [ -d "01_website/images" ]; then cp -r "01_website/images" "_site/images"; fi
           # Referenzfassung (Fundus) mit veroeffentlichen, unter eigenem Pfad
