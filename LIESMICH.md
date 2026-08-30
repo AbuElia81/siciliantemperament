@@ -8,8 +8,9 @@ gestützt auf die humorale Temperamentenlehre von Empedokles bis Galen.
 
 ## Inhalt des Archivs
 
-### 01_website/  →  sicilian-temperament.html
-Die fertige Verkaufs-Website. **Dies ist die Datei für GoDaddy.**
+### 01_website/  →  index.html
+Die Startseite: die Geschenkkoerbe. Der Temperament-Kalkulator liegt seit
+dem Umbau auf einer eigenen Unterseite (kalkulator.html).
 
 Enthält:
 - Temperament-Kalkulator (Geburtsdatum, -zeit, -ort → Berechnung im Browser)
@@ -41,9 +42,8 @@ Buchseiten. Nicht ins Repository aufnehmen.
 ## Veröffentlichung auf GoDaddy (Kurzfassung)
 
 **Webhosting mit cPanel:** Datei-Manager öffnen → Ordner `public_html` →
-`sicilian-temperament.html` hochladen. Als Startseite: in `index.html`
-umbenennen. Als Unterseite: Ordner `temperament` anlegen, Datei darin als
-`index.html` ablegen → erreichbar unter deinedomain.de/temperament/
+alle Dateien aus `01_website/` hochladen; `index.html` ist bereits die
+Startseite.
 
 **GoDaddy Website Builder:** erlaubt kein eigenes HTML — Datei alternativ
 kostenlos bei Netlify hosten und die Domain per DNS (CNAME) dorthin zeigen.

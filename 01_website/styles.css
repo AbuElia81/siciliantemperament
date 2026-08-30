@@ -56,18 +56,21 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,246,238,.94);backdrop-
   /* backdrop-filter macht nav zum Bezugsrahmen fuer position:fixed — die
      Leiste haenge sonst am Kopf statt am Bildschirmrand. Daher hier aus. */
   nav{padding:.5rem 1rem;backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,238,.97);}
-  .nav-toggle{position:fixed;left:1rem;bottom:1rem;z-index:130;display:flex;flex-direction:column;
-    justify-content:center;gap:5px;width:3.1rem;height:3.1rem;padding:0 .8rem;cursor:pointer;
-    border:1px solid var(--gold);border-radius:50%;background:rgba(250,246,238,.97);
-    box-shadow:0 4px 16px rgba(60,45,20,.32);}
-  .nav-toggle span{display:block;height:2px;background:var(--gold);border-radius:2px;transition:transform .25s,opacity .25s;}
-  body.nav-offen .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  /* Knopf oben links, gross genug um sofort aufzufallen. nav bekommt links
+     Platz, damit das Logo nicht darunter liegt. */
+  nav{padding-left:4.9rem;}
+  .nav-toggle{position:fixed;left:.7rem;top:.55rem;z-index:130;display:flex;flex-direction:column;
+    justify-content:center;gap:7px;width:3.9rem;height:3.9rem;padding:0 .95rem;cursor:pointer;
+    border:2px solid var(--gold);border-radius:50%;background:rgba(250,246,238,.98);
+    box-shadow:0 5px 18px rgba(60,45,20,.34);}
+  .nav-toggle span{display:block;height:3px;background:var(--gold);border-radius:2px;transition:transform .25s,opacity .25s;}
+  body.nav-offen .nav-toggle span:nth-child(1){transform:translateY(10px) rotate(45deg);}
   body.nav-offen .nav-toggle span:nth-child(2){opacity:0;}
-  body.nav-offen .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  .nav-links{position:fixed;left:0;bottom:0;z-index:120;width:min(74vw,280px);max-height:88vh;
+  body.nav-offen .nav-toggle span:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
+  .nav-links{position:fixed;left:0;top:0;z-index:120;width:min(76vw,290px);max-height:100vh;
     overflow-y:auto;flex-direction:column;align-items:flex-start;gap:1.15rem;
-    padding:1.5rem 1.4rem 5.4rem;background:rgba(250,246,238,.985);
-    border-right:1px solid var(--border);border-top:1px solid var(--border);
+    padding:5.2rem 1.4rem 2rem;background:rgba(250,246,238,.985);
+    border-right:1px solid var(--border);
     box-shadow:8px 0 30px rgba(60,45,20,.26);
     transform:translateX(-102%);transition:transform .3s ease;}
   body.nav-offen .nav-links{transform:none;}
@@ -97,9 +100,11 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,5.2vw,3.8rem);co
    direkt aus der verfuegbaren Breite gerechnet (abzueglich Rand und
    Scrollbalken), nach oben auf 8rem begrenzt. So wird die Zeile so gross
    wie moeglich, ohne je ueber den Rand zu laufen. */
-.hero h1{font-size:min(8rem,calc((100vw - 4rem) / 8.7));margin-bottom:.5rem;}
+.hero h1{font-size:clamp(1.05rem,2.6vw,1.9rem);letter-spacing:.16em;margin-bottom:.3rem;}
 /* Reihenfolge im Kopf: Geschenkkoerbe, Unterzeile, dann der Markenname */
-.hero-kicker{font-family:'Cinzel Decorative',serif;font-size:clamp(1.15rem,3vw,2.1rem);color:var(--gold);letter-spacing:.04em;line-height:1.25;margin:0 auto .55rem;max-width:22em;}
+/* Die Aussage traegt jetzt die Groesse, der Markenname steht klein darunter.
+   Teiler 11 statt 8,7, weil "Geschenkkoerbe," laenger ist als "TEMPERAMENT". */
+.hero-kicker{font-family:'Cinzel Decorative',serif;font-size:min(8rem,calc((100vw - 4rem) / 11));color:var(--gold);letter-spacing:.03em;line-height:1.12;margin:0 auto .3rem;text-shadow:0 0 45px rgba(201,168,76,.3);}
 .hero .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,1.9vw,1.25rem);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;}
 .hdiv{width:280px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:1.2rem auto;position:relative;}
 .hdiv::before{content:'✦';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold);background:var(--bg);padding:0 .45rem;font-size:.62rem;}
@@ -173,11 +178,14 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .calc-title{font-family:'Uncial Antiqua',serif;font-size:1.35rem;color:var(--gold);margin-bottom:.3rem;text-align:center;letter-spacing:.03em;}
 .meander{display:block;margin:.35rem auto 1.35rem;max-width:75%;opacity:.85;}
 .calc-sub{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);text-align:center;margin-bottom:1.3rem;}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
-.fgroup{display:flex;flex-direction:column;gap:.26rem;}
+/* minmax(0,1fr) statt 1fr: Rasterelemente duerfen sonst nicht unter ihre
+   Inhaltsbreite schrumpfen — die langen Ortsnamen im Auswahlfeld sprengten
+   dadurch auf dem Handy den Rahmen nach rechts. */
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;}
+.fgroup{display:flex;flex-direction:column;gap:.26rem;min-width:0;}
 .fgroup.full{grid-column:1/-1;}
 .fgroup label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-dim);}
-.fgroup input,.fgroup select{background:#fffdf8;border:1px solid var(--border);color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:.95rem;padding:.52rem .68rem;outline:none;transition:border .2s;color-scheme:light;}
+.fgroup input,.fgroup select{width:100%;max-width:100%;background:#fffdf8;border:1px solid var(--border);color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:.95rem;padding:.52rem .68rem;outline:none;transition:border .2s;color-scheme:light;}
 .fgroup input:focus,.fgroup select:focus{border-color:var(--gold);}
 .calc-go{width:100%;margin-top:1.4rem;font-family:'Cinzel',serif;font-size:1.05rem;letter-spacing:.14em;text-transform:uppercase;color:#fffdf8;background:var(--gold);border:none;border-radius:10px;padding:1.3rem 1rem;cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(60,45,20,.2);}
 .calc-go:hover{background:var(--gold-lt);transform:translateY(-2px);}
@@ -280,7 +288,7 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
 .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.3rem;margin-top:1.6rem;}
 /* Geschenkkoerbe-Seite: dieselben Karten, aber einzeln und gross zum Wischen.
    Das Raster oben bleibt fuer die Vorschlaege auf der Startseite unveraendert. */
-.korb-slider{position:relative;overflow:hidden;max-width:820px;margin:1.6rem auto 0;}
+.korb-slider{position:relative;overflow:hidden;max-width:820px;margin:0 auto;}
 .korb-slider .opt-grid{display:flex;grid-template-columns:none;gap:0;margin-top:0;}
 .korb-slider .opt-card{flex:0 0 100%;box-sizing:border-box;padding:2rem 4.4rem 3rem;}
 .korb-slider .swipe-nav{top:28%;}
@@ -444,17 +452,8 @@ footer{text-align:center;padding:2.3rem 1.5rem;border-top:1px solid var(--border
 .swipe-track.dragging{transition:none;cursor:grabbing;}
 .korb-track{display:flex;height:100%;}
 .korb-slide{position:relative;flex:0 0 100%;display:block;aspect-ratio:16/9;overflow:hidden;}
-@media(max-width:640px){.korb-slide{aspect-ratio:4/3;}}
+@media(max-width:640px){.korb-slide{aspect-ratio:1/1;}}
 .korb-slide img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none;}
-/* Element fliesst mittig ins Foto ein: alchemistisches Zeichen ueber dem Wort */
-.korb-elem{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;color:#fff8ec;pointer-events:none;
-  background:
-    radial-gradient(ellipse 58% 62% at 50% 48%,rgba(20,12,4,.62),rgba(20,12,4,0) 72%),
-    radial-gradient(ellipse 50% 54% at 50% 48%,color-mix(in srgb,var(--ec) 82%,transparent),transparent 76%);}
-.korb-sigil{width:clamp(3.4rem,9vw,6.2rem);height:clamp(3.4rem,9vw,6.2rem);fill:none;stroke:currentColor;stroke-width:4.5;stroke-linejoin:round;stroke-linecap:round;opacity:.94;
-  filter:drop-shadow(0 0 14px color-mix(in srgb,var(--ec) 85%,transparent)) drop-shadow(0 2px 6px rgba(0,0,0,.55));}
-.korb-word{font-family:'Uncial Antiqua','Cinzel Decorative',serif;font-size:clamp(2.1rem,7.4vw,4.8rem);line-height:1;letter-spacing:.04em;
-  text-shadow:0 0 18px color-mix(in srgb,var(--ec) 95%,transparent),0 0 48px color-mix(in srgb,var(--ec) 70%,transparent),0 2px 10px rgba(0,0,0,.6),0 1px 2px rgba(0,0,0,.55);}
 .korb-carousel .swipe-prev{left:.7rem;}
 .korb-carousel .swipe-next{right:.7rem;}
 .korb-dots{position:absolute;left:0;right:0;bottom:.7rem;display:flex;justify-content:center;gap:.5rem;}
@@ -523,4 +522,24 @@ body.certwin #certificate{display:block !important;}
   /* Farbflaechen (Wasserzeichen, Balken) sollen mitgedruckt werden */
   .cert-bg,.cpt-bar i,.cert-bar-f,.cert-bar-t{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .cert-page{break-inside:avoid;page-break-inside:avoid;}
+}
+
+/* Handy: Abstaende im Kopfbereich straffen, damit weniger Leerlauf zwischen
+   Titel, Anlaessen und Karussell steht. */
+@media(max-width:560px){
+  .hero{padding:1.4rem 1rem .5rem;}
+  /* Unterseiten: weniger Luft zwischen Titel und Inhalt */
+  section{padding:1.4rem 1.2rem;}
+  .sec-title{margin-bottom:1rem;}
+  .hdiv{margin:.55rem auto;width:200px;}
+  .hero-top-row{margin-bottom:1rem;}
+  .occ-line{gap:.35rem 1rem;margin-bottom:.6rem;}
+  .occ-line .occ{font-size:1.05rem;}
+  .occ-line .occ .occ-icon{font-size:.95rem;}
+  /* Schmalerer Rahmen und weniger Polsterung geben den Feldern mehr Platz */
+  .calc-box{border-width:10px;padding:1.3rem 1rem;}
+  .calc-title{font-size:1.15rem;}
+  /* Karussell so breit wie der Kalkulator: die Zeile hat schon den
+     Aussenabstand des Abschnitts, ein zweiter machte es schmaler */
+  .hero-top-row{padding:0;}
 }

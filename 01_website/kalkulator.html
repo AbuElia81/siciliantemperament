@@ -3,24 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SICILIAN TEMPERAMENT — Geschenkkörbe nach der Temperamentenlehre · Convivia</title>
+<title>Temperament-Kalkulator · Sicilian Temperament</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="home">
+<body>
 <div class="wrap">
 
 <nav>
-  <a class="nav-logo" href="#top">SICILIAN TEMPERAMENT<span>Geschenkkörbe</span></a>
+  <a class="nav-logo nav-back" href="index.html">← Zurück zu Sicilian Temperament</a>
   <div class="nav-links">
-    <a href="geschenke.html">Geschenkkörbe</a>
+    <a href="index.html">Geschenkkörbe</a>
+    <a href="kalkulator.html">Temperament-Kalkulator</a>
     <a href="sortiment.html">Sortiment</a>
-    <a href="lehre.html">Die Lehre</a>
+    <a href="lehre.html">Die Idee dahinter</a>
     <a href="kontakt.html">Kontakt</a>
     <button class="cart-btn" onclick="toggleCart()">Warenkorb <span class="cart-count" id="cartCount">0</span></button>
     <span class="lang-switch">
       <span class="lang-cur">DE</span>
-      <a href="https://siciliantemperament-org.translate.goog/?_x_tr_sl=de&amp;_x_tr_tl=en&amp;_x_tr_hl=de" rel="nofollow">EN</a>
-      <a href="https://siciliantemperament-org.translate.goog/?_x_tr_sl=de&amp;_x_tr_tl=it&amp;_x_tr_hl=de" rel="nofollow">IT</a>
+      <a href="https://siciliantemperament-org.translate.goog/kalkulator.html?_x_tr_sl=de&amp;_x_tr_tl=en&amp;_x_tr_hl=de" rel="nofollow">EN</a>
+      <a href="https://siciliantemperament-org.translate.goog/kalkulator.html?_x_tr_sl=de&amp;_x_tr_tl=it&amp;_x_tr_hl=de" rel="nofollow">IT</a>
     </span>
   </div>
 </nav>
@@ -42,33 +43,17 @@
     </div>
     <div class="korb-carousel swipe" id="korbCarousel" data-autoplay="5000">
       <div class="korb-track swipe-track" id="korbTrack">
-        <a href="geschenke.html" class="korb-slide">
+        <a href="index.html" class="korb-slide">
           <img src="images/korb-empedokles.jpg" alt="Italienischer Geschenkkorb — Korb Empedokles">
-          <span class="korb-elem" style="--ec:var(--chol);">
-            <svg class="korb-sigil" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 12 L91 84 L9 84 Z"/></svg>
-            <span class="korb-word">Feuer</span>
-          </span>
         </a>
-        <a href="geschenke.html" class="korb-slide">
+        <a href="index.html" class="korb-slide">
           <img src="images/korb-aristoteles.jpg" alt="Italienischer Geschenkkorb — Korb Galen" loading="lazy">
-          <span class="korb-elem" style="--ec:var(--sang);">
-            <svg class="korb-sigil" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 12 L91 84 L9 84 Z"/><path d="M28 62 H72"/></svg>
-            <span class="korb-word">Luft</span>
-          </span>
         </a>
-        <a href="geschenke.html" class="korb-slide">
+        <a href="index.html" class="korb-slide">
           <img src="images/korb-galen.jpg" alt="Italienischer Geschenkkorb — Korb Ptolemäus" loading="lazy">
-          <span class="korb-elem" style="--ec:var(--mel);">
-            <svg class="korb-sigil" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 88 L9 16 L91 16 Z"/><path d="M28 38 H72"/></svg>
-            <span class="korb-word">Erde</span>
-          </span>
         </a>
-        <a href="geschenke.html" class="korb-slide">
+        <a href="index.html" class="korb-slide">
           <img src="images/geschenke-hero.jpg" alt="Sizilianischer Korbladen" loading="lazy">
-          <span class="korb-elem" style="--ec:var(--phleg);">
-            <svg class="korb-sigil" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 88 L9 16 L91 16 Z"/></svg>
-            <span class="korb-word">Wasser</span>
-          </span>
         </a>
       </div>
       <button class="swipe-nav swipe-prev" type="button" aria-label="Vorheriger Korb">‹</button>

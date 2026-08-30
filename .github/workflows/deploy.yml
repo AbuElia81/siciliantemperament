@@ -24,14 +24,13 @@ jobs:
       - name: Verkaufsseite als index.html montieren
         run: |
           mkdir -p _site
-          cp "01_website/sicilian-temperament.html" "_site/index.html"
-          # Alle Unterseiten, Stylesheets und Skripte mit ausliefern.
-          # Bewusst per Muster statt Einzelnamen: eine neu angelegte Datei
-          # (z. B. carousel.js) wurde sonst beim Deploy vergessen und fehlte
-          # live mit 404, obwohl das HTML sie einband.
+          # Alle Seiten, Stylesheets und Skripte ausliefern. Bewusst per
+          # Muster statt Einzelnamen: eine neu angelegte Datei (z. B.
+          # carousel.js) wurde sonst vergessen und fehlte live mit 404,
+          # obwohl das HTML sie einband.
+          # index.html ist die Geschenkkoerbe-Seite und liegt bereits so im
+          # Repository — es braucht keine Umbenennung mehr.
           cp 01_website/*.html 01_website/*.css 01_website/*.js "_site/"
-          # Die Verkaufsseite liegt bereits als index.html vor
-          rm -f "_site/sicilian-temperament.html"
           # Bilder-Ordner (Produktfotos, Titelbild) mit ausliefern, falls vorhanden
           if [ -d "01_website/images" ]; then cp -r "01_website/images" "_site/images"; fi
           # Referenzfassung (Fundus) mit veroeffentlichen, unter eigenem Pfad
