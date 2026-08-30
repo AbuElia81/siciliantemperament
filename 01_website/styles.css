@@ -583,3 +583,16 @@ body.certwin #certificate{display:block !important;}
    Rechnung wie auf der Startseite, damit nichts ueber den Rand laeuft.
    Teiler 8,2 fuer das laengste Wort "dahinter" im Zeilenumbruch. */
 .hero h1.h1-gross{font-size:min(7rem,calc((100vw - 4rem) / 8.2));letter-spacing:.02em;}
+
+/* Beschreibung auf der Kalkulatorseite: sie ist dort der einzige Fliesstext
+   und darf deutlich groesser stehen als der uebliche Zwischentext. */
+.hero-text-gross{max-width:720px;font-size:clamp(1.32rem,3.4vw,1.65rem);line-height:1.65;color:var(--ink);}
+
+/* Startseite: der Schriftzug in der Kopfzeile traegt die Seite und steht
+   deshalb gross. Ueberschrift und Zwischentitel darunter entfallen dafuer. */
+.home .nav-logo{font-size:clamp(1.3rem,5.2vw,2.4rem);line-height:1.1;}
+.home .nav-logo span{font-size:clamp(.62rem,2.1vw,.9rem);letter-spacing:.3em;margin-top:.15rem;}
+.home nav{padding-top:.9rem;padding-bottom:.9rem;}
+/* Ohne Ueberschrift braucht der Kopfbereich nur noch die Trennlinie */
+.hero-schmal{padding-top:.8rem;padding-bottom:0;}
+@media(max-width:560px){.hero-schmal{padding-top:.4rem;}}
