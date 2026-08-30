@@ -556,7 +556,8 @@ body.certwin #certificate{display:block !important;}
    Muster liegt als SVG in --tile vor, ist also vektorbasiert und damit
    auf jedem Bildschirm gestochen scharf — schaerfer als jedes Foto, und
    ohne eine weitere Datei zu laden. */
-.cta-kalk{display:inline-block;max-width:100%;text-decoration:none;
+.cta-kalk{display:inline-flex;align-items:center;justify-content:center;gap:.85rem;
+  max-width:100%;text-decoration:none;
   padding:1.5rem 2.4rem;
   border:16px solid #c9a227;border-image:var(--tile) 17 round;
   background:radial-gradient(circle at 22% 18%,rgba(180,150,90,.13),transparent 48%),
@@ -608,3 +609,9 @@ body.certwin #certificate{display:block !important;}
   .korb-slider .opt-btns{margin-top:1.2rem;}
   .korb-slider .opt-add{padding:.8rem 1.2rem;font-size:.6rem;}
 }
+
+/* Papyrusrolle als Zeichen im Knopf: zwei Rollstaebe mit der Bahn dazwischen,
+   als SVG gezeichnet und damit in jeder Groesse scharf. */
+.cta-kalk-ico{flex:none;width:clamp(1.9rem,5.5vw,2.7rem);height:auto;
+  fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;}
+@media(max-width:560px){.cta-kalk{gap:.6rem;}}
