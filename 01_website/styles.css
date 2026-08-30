@@ -55,7 +55,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,246,238,.94);backdrop-
 @media(max-width:720px){
   /* backdrop-filter macht nav zum Bezugsrahmen fuer position:fixed — die
      Leiste haenge sonst am Kopf statt am Bildschirmrand. Daher hier aus. */
-  nav{padding:.5rem 1rem;backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,238,.97);}
+  nav{padding:.95rem 1rem 1.1rem;backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,238,.97);}
   /* Knopf oben links, gross genug um sofort aufzufallen. nav bekommt links
      Platz, damit das Logo nicht darunter liegt. */
   nav{padding-left:4.9rem;}
@@ -615,3 +615,15 @@ body.certwin #certificate{display:block !important;}
 .cta-kalk-ico{flex:none;width:clamp(1.9rem,5.5vw,2.7rem);height:auto;
   fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;}
 @media(max-width:560px){.cta-kalk{gap:.6rem;}}
+
+/* Planetenzuordnung unter dem Temperament einer Produktkarte */
+.pplanet{display:flex;align-items:center;gap:.4rem;
+  font-family:'Cinzel',serif;font-size:.53rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold-dim);margin-top:.25rem;}
+.pplanet-glyph{font-size:1rem;line-height:1;color:var(--gold);}
+
+/* Unterseiten auf dem Handy: die Zurueck-Zeile war sehr klein. Sie steht nun
+   deutlich groesser, bleibt aber unter dem Titelkopf der Startseite. */
+@media(max-width:720px){
+  .nav-back{font-size:clamp(1rem,3.6vw,1.4rem);letter-spacing:.04em;line-height:1.2;}
+}

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sortiment — Alle Produkte einzeln · Sicilian Temperament</title>
 <meta name="description" content="Alle 23 biologischen Convivia-Delikatessen einzeln, gefiltert nach Temperament — stell Dir Deinen eigenen Geschenkkorb zusammen.">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 <div class="wrap">
@@ -69,9 +69,9 @@
 <div class="toast" id="toast">In den Korb gelegt</div>
 
 </div>
-<script src="data.js"></script>
-<script src="cart.js"></script>
-<script src="nav.js"></script>
+<script src="data.js?v=3"></script>
+<script src="cart.js?v=3"></script>
+<script src="nav.js?v=3"></script>
 <script>
 /* ============ SHOP (nur auf dieser Seite) ============ */
 const dom=s=>{let m=-1,mi=0;s.forEach((v,i)=>{if(v>m){m=v;mi=i;}});return HK[mi];};
@@ -83,6 +83,7 @@ function card(p,i){const d=dom(p.s);
  <div class="pname">${p.n}</div><div class="pit">${p.it} · ${p.g}</div>
  <div class="pwhy">${p.w}</div>
  <div class="phumor" style="color:${HUM[d].col}">${HUM[d].name} · ${HUM[d].q}</div>
+ <div class="pplanet"><span class="pplanet-glyph">${p.pl}</span>${PLANET[p.pl]||''}</div>
  <div class="pfoot"><button class="addbtn" onclick="addCart(${i})">+ Korb</button></div></div>`;}
 function renderShop(f){document.getElementById('shopGrid').innerHTML=
  P.map((p,i)=>(f&&f!=='all'&&dom(p.s)!==f)?'':card(p,i)).join('');}

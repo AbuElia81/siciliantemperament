@@ -31,4 +31,7 @@ const HUM={sang:{name:"Sanguinisch",col:"var(--sang)",hex:"#5a82bf",q:"heiß & f
  mel:{name:"Melancholisch",col:"var(--mel)",hex:"#6a8060",q:"kalt & trocken"},
  phleg:{name:"Phlegmatisch",col:"var(--phleg)",hex:"#4a8aaa",q:"kalt & feucht"}};
 const HK=["sang","chol","mel","phleg"];
+/* Planetennamen zu den Zeichen aus dem Feld pl — dieselbe Zuordnung wie in
+   der Tabelle "Die Planeten und ihre Temperamente" auf lehre.html. */
+const PLANET={"\u2609":"Sol","\u263D":"Luna","\u263E":"Luna","\u263F":"Mercurius","\u2640":"Venus","\u2642":"Mars","\u2643":"Iuppiter","\u2644":"Saturnus"};
 const eur=x=>x.toFixed(2).replace('.',',')+' €';
