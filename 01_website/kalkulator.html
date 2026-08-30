@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
 <div class="wrap">
@@ -67,7 +67,11 @@
         </div>
         <div class="fgroup"><label>Geburtsdatum</label><input type="date" id="bdate"></div>
         <div class="fgroup"><label>Geburtszeit</label><input type="time" id="btime" value="12:00"></div>
-        <div class="fgroup full"><label>Geburtsort</label>
+        <div class="fgroup full"><label>Geburtsort — tippen oder aus der Liste wählen</label>
+          <input type="text" id="bplaceSuche" list="orteListe" autocomplete="off"
+                 placeholder="Ort eingeben, z. B. Regensburg" oninput="ortGetippt()">
+          <datalist id="orteListe"></datalist>
+          <div class="ort-hinweis" id="ortHinweis"></div>
           <select id="bplace" onchange="placeChanged()">
             <optgroup label="Deutschland — 100 größte Städte">
               <option value="52.520,13.405">Berlin</option>
@@ -727,10 +731,64 @@ function moonPhase(sl,ml){const a=norm(ml-sl);
 /* ============ KALKULATION ============ */
 let lastCalc=null;
 function placeChanged(){const v=document.getElementById('bplace').value;if(v==='manual')return;
- const[la,lo]=v.split(',');document.getElementById('blat').value=la;document.getElementById('blon').value=lo;}
+ const[la,lo]=v.split(',');document.getElementById('blat').value=la;document.getElementById('blon').value=lo;
+ const su=document.getElementById('bplaceSuche');
+ if(su)su.value=document.getElementById('bplace').selectedOptions[0].text;
+ melde('');}
+
+/* ============ ORTSSUCHE ============
+   Tippen statt scrollen: die Vorschlagsliste wird aus denselben Optionen
+   gefuellt wie die Auswahlliste, es gibt also nur eine Datenquelle und
+   keinen externen Dienst. Wer einen Ort tippt, der nicht dabei ist,
+   bekommt einen Hinweis auf die manuelle Koordinateneingabe. */
+const ORTE=new Map();
+let ortUngeklaert=false;   /* getippter Ort passt zu keinem Eintrag */
+(function(){
+ const sel=document.getElementById('bplace');
+ const liste=document.getElementById('orteListe');
+ if(!sel||!liste)return;
+ [...sel.options].forEach(o=>{
+  if(o.value==='manual')return;
+  ORTE.set(o.text.toLowerCase(),{wert:o.value,text:o.text});
+  const opt=document.createElement('option');
+  opt.value=o.text;
+  liste.appendChild(opt);
+ });
+ const su=document.getElementById('bplaceSuche');
+ if(su&&sel.selectedOptions[0])su.value=sel.selectedOptions[0].text;
+})();
+function melde(t,warnung){const h=document.getElementById('ortHinweis');
+ if(!h)return; h.textContent=t; h.classList.toggle('warn',!!warnung);}
+function ortGetippt(){
+ const su=document.getElementById('bplaceSuche');
+ const eingabe=su.value.trim();
+ if(!eingabe){ortUngeklaert=false;melde('');return;}
+ let treffer=ORTE.get(eingabe.toLowerCase());
+ if(!treffer){
+  /* auch ohne genaue Schreibweise finden, solange es eindeutig bleibt */
+  const passend=[...ORTE.values()].filter(o=>o.text.toLowerCase().startsWith(eingabe.toLowerCase()));
+  if(passend.length===1)treffer=passend[0];
+  else if(passend.length>1){ortUngeklaert=true;melde(passend.length+' Orte passen — weiter tippen oder auswählen.');return;}
+ }
+ if(!treffer){
+  ortUngeklaert=true;
+  melde('Ort nicht in der Liste — wähle „Koordinaten manuell" und trage Breite und Länge ein.',true);
+  return;
+ }
+ ortUngeklaert=false;
+ document.getElementById('bplace').value=treffer.wert;
+ const[la,lo]=treffer.wert.split(',');
+ document.getElementById('blat').value=la;
+ document.getElementById('blon').value=lo;
+ melde('✓ '+treffer.text);
+}
 function calculate(){
  const dv=document.getElementById('bdate').value,tv=document.getElementById('btime').value;
  if(!dv||!tv){alert('Bitte Datum und Zeit eingeben.');return;}
+ /* Sonst wuerde der zuletzt gewaehlte Ort stillschweigend weiterverwendet */
+ if(ortUngeklaert&&document.getElementById('bplace').value!=='manual'){
+  alert('Der eingegebene Geburtsort ist nicht eindeutig. Bitte aus der Liste wählen oder „Koordinaten manuell" nutzen.');
+  document.getElementById('bplaceSuche').focus();return;}
  const[y,m,d]=dv.split('-').map(Number),[hh,mm]=tv.split(':').map(Number);
  const tz=parseFloat(document.getElementById('btz').value);
  const lat=parseFloat(document.getElementById('blat').value),lon=parseFloat(document.getElementById('blon').value);
@@ -932,7 +990,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=8"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=9"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};
