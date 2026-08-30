@@ -583,7 +583,7 @@ body.certwin #certificate{display:block !important;}
 /* Startseite: der Schriftzug in der Kopfzeile traegt die Seite und steht
    deshalb gross. Ueberschrift und Zwischentitel darunter entfallen dafuer. */
 .home .nav-logo{font-size:clamp(1.3rem,5.2vw,2.4rem);line-height:1.1;}
-.home .nav-logo span{font-size:clamp(.62rem,2.1vw,.9rem);letter-spacing:.3em;margin-top:.15rem;}
+.home .nav-logo span{font-size:clamp(.82rem,2.7vw,1.25rem);letter-spacing:.3em;margin-top:.2rem;}
 .home nav{padding-top:.9rem;padding-bottom:.9rem;}
 /* Ohne Ueberschrift braucht der Kopfbereich nur noch die Trennlinie */
 .hero-schmal{padding-top:.8rem;padding-bottom:0;}
@@ -597,7 +597,7 @@ body.certwin #certificate{display:block !important;}
 @media(max-width:720px){
   .home nav{position:static;padding:1.1rem 1rem 1.5rem 5.1rem;border-bottom:none;}
   .home .nav-logo{font-size:min(3.4rem,calc((100vw - 6.4rem) / 8.4));line-height:1.06;}
-  .home .nav-logo span{font-size:min(1rem,calc((100vw - 6.4rem) / 26));letter-spacing:.3em;margin-top:.3rem;}
+  .home .nav-logo span{font-size:min(1.35rem,calc((100vw - 6.4rem) / 19));letter-spacing:.3em;margin-top:.35rem;}
   .home .hero-schmal{padding-top:0;}
 }
 
