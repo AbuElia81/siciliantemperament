@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
 <div class="wrap">
@@ -618,6 +618,7 @@
       </svg>
     </div>
     <div class="cert-inner">
+      <img class="cert-emblem" src="images/trinacria-emblem.png" alt="Trinacria — Wahrzeichen Siziliens" width="490" height="490">
       <div class="cert-orna">✦ Sicilian Temperament ✦</div>
       <div class="cert-occ" id="cOcc"></div>
       <div class="cert-name" id="cName">—</div>
@@ -821,7 +822,6 @@ function calculate(){
  document.getElementById('verdictSub').textContent=tie
   ?`Ausgeglichen (${so[0].v}:${so[1].v}) — nach Lilly: „${HUM[D].name}, ${HUM[S].name} ${HUM[D].name}"`
   :`Dominant: ${HUM[D].name} (${so[0].v}) · Sekundär: ${HUM[S].name} (${so[1].v})`;
- const ELEMN={chol:'Feuer',sang:'Luft',mel:'Erde',phleg:'Wasser'};
  const weak=so.filter(x=>x.v<=1).map(x=>`<span style="color:${HUM[x.k].col}">${HUM[x.k].name}${x.v===0?' (fehlt)':''}</span>`);
  const oD=OPP[D],oS=OPP[S];
  document.getElementById('deutung').innerHTML=
@@ -841,6 +841,8 @@ function calculate(){
 
 /* ============ DREI GESCHENKKÖRBE ============ */
 const OPP={chol:'phleg',phleg:'chol',mel:'sang',sang:'mel'};
+/* Element je Humor — global, weil Deutung und Urkunde es beide brauchen */
+const ELEMN={chol:'Feuer',sang:'Luft',mel:'Erde',phleg:'Wasser'};
 function fitScore(p,D,S){const idx=k=>HK.indexOf(k);
  return p.s[idx(OPP[D])]*2+p.s[idx(OPP[S])]-p.s[idx(D)]*1.5+(p.n.includes('Caponata')?4:0);}
 const OPTS=[
@@ -908,7 +910,7 @@ function showCert(optId,autoPrint){
  document.getElementById('cBirth').textContent=`${date}  ·  ${time}  ·  ${place}`;
  document.getElementById('cAstro').innerHTML=`Aszendent ${asc} &nbsp;·&nbsp; Mond ${moon}`;
  document.getElementById('cVerdict').textContent=`${HUM[D].name} · ${HUM[S].name}`;
- document.getElementById('cVerdictSub').textContent=`Dominanter Humor: ${HUM[D].name} (${HUM[D].q}) · Sekundär: ${HUM[S].name} (${HUM[S].q})`;
+ document.getElementById('cVerdictSub').textContent=`Dominanter Humor: ${HUM[D].name} (${ELEMN[D]}, ${HUM[D].q}) · Sekundär: ${HUM[S].name} (${ELEMN[S]}, ${HUM[S].q})`;
  document.getElementById('cOptName').textContent=`✦ ${o.name} · ${o.count} Produkte ✦`;
  /* Je Produkt rechts sein Temperament: farbiger Balken + Name des vorherrschenden Humors */
  document.getElementById('cProducts').innerHTML=ranked.map(x=>{
@@ -990,7 +992,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=9"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=10"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};

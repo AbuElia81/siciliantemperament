@@ -664,3 +664,8 @@ body.certwin #certificate{display:block !important;}
   color:var(--gold-dim);margin:.3rem 0 .5rem;min-height:1.1em;}
 .ort-hinweis.warn{color:var(--chol);}
 #bplaceSuche{margin-bottom:.1rem;}
+
+/* Trinacria-Emblem im Kopf der Urkunde */
+.cert-emblem{display:block;width:64px;height:auto;margin:0 auto .5rem;border-radius:50%;}
+.printfit .cert-emblem{width:46px;margin-bottom:.3rem;}
+@media print{.cert-emblem{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
