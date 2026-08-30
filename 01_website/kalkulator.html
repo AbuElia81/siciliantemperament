@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
 <div class="wrap">
@@ -650,10 +650,10 @@
   </div>
 </div>
 
-<script src="data.js?v=3"></script>
-<script src="carousel.js?v=3"></script>
-<script src="cart.js?v=3"></script>
-<script src="nav.js?v=3"></script>
+<script src="data.js?v=6"></script>
+<script src="carousel.js?v=6"></script>
+<script src="cart.js?v=6"></script>
+<script src="nav.js?v=6"></script>
 <script>
 /* ============ PAPYRUSROLLE ============
    Entrollt den Kalkulator, sobald er in den Blick kommt. Faellt der
@@ -897,14 +897,18 @@ function fitCertToOnePage(doc){
  /* Klon unter Druckmassen und Druckbreite ausmessen */
  const holder=doc.createElement('div');
  holder.className='printfit';
- holder.style.cssText='position:absolute;left:-10000px;top:0;visibility:hidden;width:'+availW+'cm;';
+ holder.style.cssText='position:absolute;left:-10000px;top:0;visibility:hidden;width:18.6cm;';
  const probe=page.cloneNode(true);
  probe.style.zoom='1';
  holder.appendChild(probe);
  doc.body.appendChild(holder);
  const h=probe.getBoundingClientRect().height;
  holder.remove();
- const scale=Math.min(1,(availH*pxPerCm*0.985)/h);        /* 1,5 % Sicherheit */
+ /* Zielhoehe bewusst unter der rechnerischen Satzhoehe: Druckdialoge setzen
+    oft eigene, groessere Raender und blenden Kopf-/Fusszeilen ein. 25,5cm
+    statt 27,5cm lassen dafuer Luft, damit nichts auf Seite zwei rutscht. */
+ const zielCm=Math.min(availH*0.93,25.5);
+ const scale=Math.min(1,(zielCm*pxPerCm)/h);
  page.style.zoom=scale;
  return scale;
 }
@@ -928,7 +932,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=5"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=6"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};

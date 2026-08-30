@@ -499,17 +499,27 @@ body.certwin #certificate{display:block !important;}
 
 /* Kompakte Druckmasse. Als Klasse, damit dieselben Werte vor dem Druck
    zum Ausmessen der Hoehe dienen (siehe fitCertToOnePage) und nicht
-   zwischen Mess- und Druckzustand auseinanderlaufen koennen. */
-.printfit .cert-page{margin:0 auto;box-shadow:none;max-width:100%;padding:.9rem 1.5rem;font-size:.78em;}
-.printfit .cert-inner{padding:1.1rem 1.3rem;}
-.printfit .cert-bg{opacity:.1;width:70%;}
+   zwischen Mess- und Druckzustand auseinanderlaufen koennen.
+   Bewusst knapp gehalten: so passt selbst der groesste Korb (14 Produkte)
+   ohne Verkleinerung auf eine Seite, und die Verkleinerung bleibt reine
+   Rueckversicherung fuer Drucker mit groesseren Raendern. */
+.printfit .cert-page{margin:0 auto;box-shadow:none;max-width:100%;padding:.6rem 1.1rem;font-size:.72em;}
+.printfit .cert-inner{padding:.75rem .9rem;}
+.printfit .cert-bg{opacity:.1;width:66%;}
+.printfit .cert-orna{margin-bottom:.35rem;}
+.printfit .cert-occ{margin:.2rem 0 .4rem;}
 .printfit .cert-flow,.printfit .cert-verdict,.printfit .cert-analyse-h,
-.printfit .cert-korb-intro,.printfit .cert-bars,.printfit .cert-products-title{margin-top:.35rem;margin-bottom:.35rem;}
-.printfit .cert-analyse-h{padding-top:.35rem;}
-.printfit .cert-verdict{padding:.5rem;}
-.printfit .cert-name{margin:.15rem 0 .4rem;}
-.printfit .cert-prod{padding:.14rem 0;}
-.printfit .cert-foot{font-size:.9em;margin-top:.5rem;}
+.printfit .cert-korb-intro,.printfit .cert-bars,.printfit .cert-products-title{margin-top:.28rem;margin-bottom:.28rem;}
+.printfit .cert-analyse-h{padding-top:.28rem;}
+.printfit .cert-verdict{padding:.4rem;}
+.printfit .cert-name{margin:.1rem 0 .3rem;}
+.printfit .cert-korb-intro{font-size:.92em;}
+.printfit .cert-bar{padding:.08rem 0;}
+.printfit .cert-prod{padding:.05rem 0;font-size:.94em;}
+.printfit .cert-prod em{font-size:.72rem;}
+.printfit .cpt-bar{height:6px;}
+.printfit .cert-foot{font-size:.82em;margin-top:.35rem;line-height:1.35;}
+.printfit .cert-date{margin-top:.3rem;}
 
 @media print {
   @page{margin:1.1cm;}
@@ -521,7 +531,11 @@ body.certwin #certificate{display:block !important;}
   .print-actions,.certwin-actions{display:none !important;}
   /* Farbflaechen (Wasserzeichen, Balken) sollen mitgedruckt werden */
   .cert-bg,.cpt-bar i,.cert-bar-f,.cert-bar-t{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .cert-page{break-inside:avoid;page-break-inside:avoid;}
+  /* Feste Papierbreite: Handy-Browser legen die Seite sonst in
+     Bildschirmbreite an und skalieren sie erst danach — daraus werden
+     mehrere Seiten. Derselbe Wert dient in fitCertToOnePage zum Messen. */
+  #certificate{width:18.6cm;}
+  .cert-page{width:18.6cm;max-width:none;break-inside:avoid;page-break-inside:avoid;}
 }
 
 /* Handy: Abstaende im Kopfbereich straffen, damit weniger Leerlauf zwischen
