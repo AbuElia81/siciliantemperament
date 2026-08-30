@@ -63,6 +63,23 @@ function initCarousel(car){
  window.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')up(e.clientX);});
  /* Nach einer Wischbewegung nicht zusaetzlich dem Link folgen */
  track.addEventListener('click',e=>{if(Math.abs(dx)>8)e.preventDefault();},true);
+
+ /* Selbsttaetiges Weiterschalten, wenn data-autoplay gesetzt ist (in ms).
+    Pausiert bei Mauskontakt, waehrend einer Wischbewegung und sobald der
+    Tab im Hintergrund liegt — sonst laeuft es unsichtbar weiter. */
+ const takt=parseInt(car.dataset.autoplay||'0',10);
+ if(!takt)return;
+ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ let uhr=null;
+ const start=()=>{if(!uhr)uhr=setInterval(()=>{if(!dragging)go(idx+1);},takt);};
+ const stopp=()=>{clearInterval(uhr);uhr=null;};
+ start();
+ car.addEventListener('mouseenter',stopp);
+ car.addEventListener('mouseleave',start);
+ car.addEventListener('focusin',stopp);
+ car.addEventListener('focusout',start);
+ track.addEventListener('touchstart',stopp,{passive:true});
+ document.addEventListener('visibilitychange',()=>{document.hidden?stopp():start();});
 }
 document.addEventListener('DOMContentLoaded',function(){
  document.querySelectorAll('.swipe').forEach(initCarousel);

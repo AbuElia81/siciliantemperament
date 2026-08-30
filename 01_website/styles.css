@@ -47,6 +47,38 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,246,238,.94);backdrop-
 .lang-switch a:hover{color:var(--gold);border-color:var(--gold);}
 .cart-count{position:absolute;top:-8px;right:-8px;background:var(--chol);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.62rem;display:flex;align-items:center;justify-content:center;font-family:sans-serif;}
 
+/* NAVIGATION AUF DEM HANDY — seitliche Leiste statt dreizeiliger Kopfzeile.
+   Der Knopf sitzt unten links in Daumenreichweite; die Leiste faehrt von
+   links ein. Bleibt unter dem Warenkorb (z-index 200), damit sich beide
+   nicht ueberdecken. */
+.nav-toggle{display:none;}
+@media(max-width:720px){
+  /* backdrop-filter macht nav zum Bezugsrahmen fuer position:fixed — die
+     Leiste haenge sonst am Kopf statt am Bildschirmrand. Daher hier aus. */
+  nav{padding:.5rem 1rem;backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,238,.97);}
+  .nav-toggle{position:fixed;left:1rem;bottom:1rem;z-index:130;display:flex;flex-direction:column;
+    justify-content:center;gap:5px;width:3.1rem;height:3.1rem;padding:0 .8rem;cursor:pointer;
+    border:1px solid var(--gold);border-radius:50%;background:rgba(250,246,238,.97);
+    box-shadow:0 4px 16px rgba(60,45,20,.32);}
+  .nav-toggle span{display:block;height:2px;background:var(--gold);border-radius:2px;transition:transform .25s,opacity .25s;}
+  body.nav-offen .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  body.nav-offen .nav-toggle span:nth-child(2){opacity:0;}
+  body.nav-offen .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .nav-links{position:fixed;left:0;bottom:0;z-index:120;width:min(74vw,280px);max-height:88vh;
+    overflow-y:auto;flex-direction:column;align-items:flex-start;gap:1.15rem;
+    padding:1.5rem 1.4rem 5.4rem;background:rgba(250,246,238,.985);
+    border-right:1px solid var(--border);border-top:1px solid var(--border);
+    box-shadow:8px 0 30px rgba(60,45,20,.26);
+    transform:translateX(-102%);transition:transform .3s ease;}
+  body.nav-offen .nav-links{transform:none;}
+  .nav-links a{font-size:.78rem;letter-spacing:.16em;}
+  .cart-btn{width:100%;text-align:left;font-size:.72rem;padding:.55rem .9rem;}
+  /* Sprachwahl gross genug zum Antippen — vorher war sie kaum zu treffen */
+  .lang-switch{gap:.5rem;font-size:.78rem;}
+  .lang-switch a,.lang-switch .lang-cur{padding:.5rem .8rem;min-width:2.9rem;text-align:center;}
+}
+@media(prefers-reduced-motion:reduce){.nav-links{transition:none;}}
+
 /* HERO */
 .hero{text-align:center;padding:3.2rem 1.5rem 1.8rem;}
 .hero-orna{font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.5em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:1.1rem;}
@@ -66,7 +98,9 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,5.2vw,3.8rem);co
    Scrollbalken), nach oben auf 8rem begrenzt. So wird die Zeile so gross
    wie moeglich, ohne je ueber den Rand zu laufen. */
 .hero h1{font-size:min(8rem,calc((100vw - 4rem) / 8.7));margin-bottom:.5rem;}
-.hero .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,1.9vw,1.25rem);font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
+/* Reihenfolge im Kopf: Geschenkkoerbe, Unterzeile, dann der Markenname */
+.hero-kicker{font-family:'Cinzel Decorative',serif;font-size:clamp(1.15rem,3vw,2.1rem);color:var(--gold);letter-spacing:.04em;line-height:1.25;margin:0 auto .55rem;max-width:22em;}
+.hero .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,1.9vw,1.25rem);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;}
 .hdiv{width:280px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:1.2rem auto;position:relative;}
 .hdiv::before{content:'✦';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold);background:var(--bg);padding:0 .45rem;font-size:.62rem;}
 .hero-text{max-width:640px;margin:0 auto 1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.02rem;color:var(--ink-dim);line-height:1.78;}
