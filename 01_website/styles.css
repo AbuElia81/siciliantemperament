@@ -136,7 +136,7 @@ section{max-width:1120px;margin:0 auto;padding:2.8rem 1.5rem;}
    Das Aufrollen laeuft ueber grid-template-rows 0fr -> 1fr; damit
    animiert die echte Inhaltshoehe, ohne sie in JS messen zu muessen. */
 .papyrus{position:relative;}
-.papyrus-rod{position:relative;height:26px;margin:0 14px;border-radius:13px;z-index:2;
+.papyrus-rod{display:block;position:relative;height:26px;margin:0 14px;border-radius:13px;z-index:2;
   background:
     repeating-linear-gradient(90deg,rgba(0,0,0,.10) 0 2px,rgba(255,255,255,.05) 2px 6px),
     linear-gradient(180deg,#a5813f 0%,#7d5f2c 28%,#4a3617 62%,#7a5d2b 88%,#5b4520 100%);
@@ -543,3 +543,43 @@ body.certwin #certificate{display:block !important;}
      Aussenabstand des Abschnitts, ein zweiter machte es schmaler */
   .hero-top-row{padding:0;}
 }
+
+/* Startseite: "Geschenkkoerbe" traegt die Seite und darf gross stehen —
+   dieselbe breitenabhaengige Rechnung wie im Kopf der Kalkulatorseite,
+   damit das lange Wort auf keinem Schirm ueber den Rand laeuft. */
+.home .hero h1{font-size:min(7rem,calc((100vw - 4rem) / 8.9));letter-spacing:.02em;}
+/* Zwischenueberschrift linksbuendig statt mittig */
+.sec-title-left{text-align:left;}
+
+/* ===== KALKULATOR-KNOPF =====
+   Deutlich groesser als ein normaler Knopf und als angedeutete Papyrusrolle
+   gestaltet: dieselben Rollstaebe wie beim Kalkulator, dazwischen Pergament
+   im sizilianischen Kachelrahmen. Damit sticht der wichtigste Weg der Seite
+   heraus, statt als schmale Textzeile unterzugehen. */
+.cta-kalk{display:block;max-width:560px;margin:0 auto;text-decoration:none;}
+.cta-kalk .papyrus-rod{margin:0 12px;height:20px;}
+.cta-kalk .papyrus-rod::before,.cta-kalk .papyrus-rod::after{width:17px;height:27px;}
+.cta-kalk-in{display:block;margin:-4px 0;padding:1.6rem 1.4rem;text-align:center;
+  border:13px solid #c9a227;border-image:var(--tile) 14 round;
+  background:radial-gradient(circle at 20% 15%,rgba(180,150,90,.14),transparent 45%),
+             linear-gradient(#faf3e2,#f1e7cd);
+  box-shadow:inset 0 0 60px rgba(150,120,60,.12),0 10px 34px rgba(60,45,20,.22);
+  transition:transform .2s,box-shadow .2s;}
+.cta-kalk:hover .cta-kalk-in{transform:translateY(-3px);box-shadow:inset 0 0 60px rgba(150,120,60,.12),0 16px 44px rgba(60,45,20,.3);}
+.cta-kalk-sub{display:block;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gold-dim);margin-bottom:.5rem;}
+.cta-kalk-title{display:block;font-family:'Uncial Antiqua',serif;
+  font-size:clamp(1.25rem,4.4vw,2.1rem);line-height:1.15;color:var(--gold);}
+.cta-kalk-note{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.95rem;color:var(--ink-dim);margin-top:.55rem;}
+@media(max-width:560px){
+  .cta-kalk-in{padding:1.2rem .9rem;border-width:10px;}
+  .cta-kalk-note{font-size:.85rem;}
+  /* Die grossen Seitentitel brauchen Luft zum Menue-Knopf */
+  .hero{padding-top:2.6rem;}
+}
+
+/* Seitentitel, die die Seite tragen sollen — gleiche breitenabhaengige
+   Rechnung wie auf der Startseite, damit nichts ueber den Rand laeuft.
+   Teiler 8,2 fuer das laengste Wort "dahinter" im Zeilenumbruch. */
+.hero h1.h1-gross{font-size:min(7rem,calc((100vw - 4rem) / 8.2));letter-spacing:.02em;}
