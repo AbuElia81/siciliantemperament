@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
 <div class="wrap">
@@ -932,7 +932,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=7"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=8"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};

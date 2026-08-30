@@ -641,3 +641,20 @@ body.certwin #certificate{display:block !important;}
 @media(max-width:720px){
   .nav-back{font-size:clamp(1rem,3.6vw,1.4rem);letter-spacing:.04em;line-height:1.2;}
 }
+
+/* Trinacria-Emblem neben dem Schriftzug. Rund beschnitten, weil im Original
+   der Schriftzug "Trinacria Express" unten in die Ecken ragt — die Kreis-
+   flaeche selbst ist frei davon. */
+/* margin-right:auto haelt das Emblem am Schriftzug; sonst schiebt es
+   das space-between der Leiste an den rechten Rand. */
+.marken-emblem{flex:none;width:clamp(2.6rem,7vw,4.4rem);height:auto;border-radius:50%;margin-left:.9rem;margin-right:auto;}
+@media(max-width:720px){
+  /* Schriftzug und Emblem teilen sich eine Zeile: der Schriftzug darf
+     schrumpfen (min-width:0), das Emblem behaelt seine Groesse. */
+  .home nav{flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:.2rem;}
+  .home .nav-logo{min-width:0;flex:0 1 auto;}
+  .marken-emblem{width:clamp(2.9rem,12vw,4.4rem);margin-left:.7rem;}
+  /* Breitenrechnung beruecksichtigt jetzt auch Emblem und Abstand */
+  .home .nav-logo{font-size:min(3.4rem,calc((100vw - 10.6rem) / 8.4));}
+  .home .nav-logo span{font-size:min(1.35rem,calc((100vw - 10.6rem) / 19));}
+}
