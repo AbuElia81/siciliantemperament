@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
 <div class="wrap">
@@ -825,8 +825,9 @@ function calculate(){
  const weak=so.filter(x=>x.v<=1).map(x=>`<span style="color:${HUM[x.k].col}">${HUM[x.k].name}${x.v===0?' (fehlt)':''}</span>`);
  const oD=OPP[D],oS=OPP[S];
  document.getElementById('deutung').innerHTML=
-  `<div class="deutung-title">Deutung der Elementgewichtung</div>
-   <p>Dein Profil wird vom <strong style="color:${HUM[D].col}">${HUM[D].name}en</strong> getragen — <em>${ELEMN[D]}, ${HUM[D].q}</em> — ergänzt vom <strong style="color:${HUM[S].col}">${HUM[S].name}en</strong> <em>(${ELEMN[S]}, ${HUM[S].q})</em>.${weak.length?` Schwach oder gar nicht vertreten: ${weak.join(' · ')}.`:''}</p>
+  `<div class="deutung-title">${HUM[D].name} und ${HUM[S].name}</div>
+   <p class="deutung-mischung">${MISCHUNG[D+'-'+S]||''}</p>
+   <p>Getragen wird das Profil vom <strong style="color:${HUM[D].col}">${HUM[D].name}en</strong> — <em>${ELEMN[D]}, ${HUM[D].q}</em> — ergänzt vom <strong style="color:${HUM[S].col}">${HUM[S].name}en</strong> <em>(${ELEMN[S]}, ${HUM[S].q})</em>.${weak.length?` Schwach oder gar nicht vertreten: ${weak.join(' · ')}.`:''}</p>
    <p>Der Kalkulator ermittelt diese vorherrschenden Temperamente und stellt den Korb dann nach dem galenischen Grundsatz <em>contraria contrariis</em> zusammen — Gegensätzliches gleicht Gegensätzliches aus. Er wählt bewusst die <strong>fehlenden</strong> Temperamente: vorwiegend <strong style="color:${HUM[oD].col}">${HUM[oD].name}e</strong> Speisen <em>(${ELEMN[oD]}, ${HUM[oD].q})</em>, ergänzt durch <strong style="color:${HUM[oS].col}">${HUM[oS].name}e</strong> Kost <em>(${ELEMN[oS]})</em>. So bringt der Korb genau die Elemente mit, die Deiner Natur zur Waage fehlen.</p>`;
  document.getElementById('result').style.display='block';
  lastCalc={sc,D,S,asc:`${GLYPH[ai]} ${SIGNS[ai]} ${(asc%30).toFixed(0)}°`,
@@ -843,6 +844,21 @@ function calculate(){
 const OPP={chol:'phleg',phleg:'chol',mel:'sang',sang:'mel'};
 /* Element je Humor — global, weil Deutung und Urkunde es beide brauchen */
 const ELEMN={chol:'Feuer',sang:'Luft',mel:'Erde',phleg:'Wasser'};
+/* Kurzbeschreibung der Mischung aus dominantem und sekundaerem Humor.
+   Zwoelf Paarungen, als Fliesstext statt als Stichwortliste. */
+const MISCHUNG={
+ 'chol-sang':'Du gehst voran und nimmst die anderen mit. Der Antrieb kommt vom Feuer, die Leichtigkeit von der Luft — Du entscheidest schnell, aber nicht kalt, und wo Du auftauchst, wird es lebendig. Was Du beginnst, beginnt groß; das Durchhalten überlässt Du gern dem nächsten Einfall.',
+ 'chol-mel':'Ein seltener Zuschnitt: Das Feuer drängt vorwärts, die Erde hält dagegen. Du handelst entschlossen und prüfst doch jeden Schritt, und was Du einmal angefangen hast, führst Du zu Ende. Nach außen wirkst Du unbeirrbar, innen verhandelst Du ständig mit Dir selbst.',
+ 'chol-phleg':'Zwei Gegensätze in einer Natur. Du kannst lange ruhig bleiben und dann sehr plötzlich handeln — wer Dich nur im Alltag erlebt, unterschätzt leicht, wie rasch Du zupackst, wenn es darauf ankommt. Die Ruhe ist keine Trägheit, sie ist Deine Art zu warten.',
+ 'sang-chol':'Du lebst von Begegnung und Bewegung. Die Luft macht Dich zugänglich, das Feuer gibt Deinen Einfällen Nachdruck — Du gewinnst Menschen leicht und bringst sie ebenso leicht in Bewegung. Stillsitzen ist nicht Deine Stärke.',
+ 'sang-mel':'Ein Mensch für Gesellschaft, der die Stille trotzdem braucht. Du bist gern unter Leuten und hast doch einen Kern, den Du nicht ausstellst. Wer Dich näher kennt, merkt, wie viel Nachdenken hinter der Leichtigkeit liegt.',
+ 'sang-phleg':'Umgänglich und unaufgeregt zugleich. Du machst es anderen leicht, Dir nahezukommen, ohne selbst viel Aufhebens zu machen. Streit meidest Du nicht aus Scheu, sondern weil er Dir die Zeit nicht wert ist.',
+ 'mel-chol':'Du gehst gründlich vor, und wenn Du überzeugt bist, wirst Du unnachgiebig. Die Erde gibt Dir Tiefe und Ausdauer, das Feuer den Willen, das Erkannte auch durchzusetzen. Vor der Entscheidung dauert es lange — danach ist sie nicht mehr zu verhandeln.',
+ 'mel-sang':'Nachdenklich, aber nicht verschlossen. Du beobachtest genau und behältst vieles für Dich; zugleich gibt es eine Seite, die gern erzählt und andere zum Lachen bringt. Beides gehört zusammen, auch wenn es von außen wie ein Widerspruch wirkt.',
+ 'mel-phleg':'Ein stiller, sehr beständiger Zuschnitt. Du brauchst Zeit und wenig Publikum, dafür hält, was Du aufbaust. Nähe entsteht bei Dir langsam — und dann für lange.',
+ 'phleg-chol':'Gelassen, mit einem verborgenen Kern aus Feuer. Meistens bist Du der Ruhepol, an dem sich andere ausrichten; wird eine Grenze überschritten, zeigt sich unvermittelt, wie klar und hart Du werden kannst.',
+ 'phleg-sang':'Freundlich und ohne Eile. Du bist gern unter Menschen, aber ohne den Drang, im Mittelpunkt zu stehen. Man sucht Deine Nähe, weil es bei Dir nicht anstrengend ist.',
+ 'phleg-mel':'Ruhig und tief. Du drängst Dich nicht auf, beobachtest lange und urteilst spät, dafür genau. Was Dir wichtig ist, bleibt Dir wichtig, ohne dass Du viel darüber sprichst.'};
 function fitScore(p,D,S){const idx=k=>HK.indexOf(k);
  return p.s[idx(OPP[D])]*2+p.s[idx(OPP[S])]-p.s[idx(D)]*1.5+(p.n.includes('Caponata')?4:0);}
 const OPTS=[
@@ -991,7 +1007,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=10"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=11"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};
