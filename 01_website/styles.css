@@ -680,3 +680,12 @@ body.certwin #certificate{display:block !important;}
 .cert-mischung{font-family:'Cormorant Garamond',serif;font-size:1.02rem;line-height:1.6;
   color:#4a3c1e;max-width:34em;margin:.7rem auto 0;text-align:center;}
 .printfit .cert-mischung{font-size:.94em;line-height:1.45;margin-top:.4rem;}
+
+/* Kaestchen "Geburtszeit unbekannt" und der zugehoerige Hinweis */
+.fgroup label.zeit-unbekannt{display:flex;align-items:center;gap:.45rem;margin-top:.4rem;
+  font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:600;
+  color:var(--ink-dim);text-transform:none;letter-spacing:0;cursor:pointer;}
+.fgroup label.zeit-unbekannt input{width:auto;accent-color:var(--gold);cursor:pointer;}
+.zeit-hinweis{font-family:'IM Fell English',serif;font-style:italic;font-size:.8rem;
+  color:var(--gold-dim);line-height:1.5;}
+.zeit-hinweis:empty{display:none;}
