@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 <div class="wrap">
@@ -527,9 +527,10 @@
             </optgroup>
             <option value="manual">— Koordinaten manuell —</option>
           </select>
+          <label class="zeit-unbekannt" id="ortUnbekanntZeile"><input type="checkbox" id="bortUnbekannt" onchange="ortUmschalten()"> Geburtsort unbekannt</label>
         </div>
-        <div class="fgroup"><label>Breite (°N)</label><input type="number" id="blat" value="48.137" step="0.001"></div>
-        <div class="fgroup"><label>Länge (°O)</label><input type="number" id="blon" value="11.575" step="0.001"></div>
+        <div class="fgroup koord-feld"><label>Breite (°N)</label><input type="number" id="blat" value="48.137" step="0.001"></div>
+        <div class="fgroup koord-feld"><label>Länge (°O)</label><input type="number" id="blon" value="11.575" step="0.001"></div>
         <div class="fgroup full"><label>Zeitzone bei Geburt</label>
           <select id="btz">
             <option value="1" selected>MEZ (UTC+1) — Winterzeit</option>
@@ -767,16 +768,38 @@ function melde(t,warnung){const h=document.getElementById('ortHinweis');
 /* Ohne Geburtszeit laesst sich der Aszendent nicht bestimmen. Statt ihn mit
    einer angenommenen Uhrzeit zu erfinden, entfaellt der ganze Aszendenten-Block
    (4 der 10 Punkte); gewertet werden dann Mond, Mondphase und Jahreszeit. */
+function ortUnbekannt(){const c=document.getElementById('bortUnbekannt');return !!(c&&c.checked);}
+/* Breite und Laenge fliessen ausschliesslich in den Aszendenten — Mond,
+   Mondphase und Jahreszeit haengen nicht am Ort. Fehlt der Ort, entfaellt
+   also derselbe Block wie bei unbekannter Geburtszeit. */
+function ortUmschalten(){
+ const aus=ortUnbekannt();
+ ['bplaceSuche','bplace','blat','blon'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.disabled=aus;
+  el.style.opacity=aus?'.45':'';
+ });
+ document.querySelectorAll('.koord-feld').forEach(f=>f.style.opacity=aus?'.45':'');
+ if(aus)melde('');
+ hinweisSetzen();
+}
+function hinweisSetzen(){
+ const h=document.getElementById('zeitHinweis');
+ if(!h)return;
+ const oZ=zeitUnbekannt(),oO=ortUnbekannt();
+ if(oZ&&oO)h.textContent='Ohne Uhrzeit und Ort bleibt der Aszendent außer Betracht — gewertet werden Mondzeichen, Mondphase und Jahreszeit.';
+ else if(oO)h.textContent='Ohne Geburtsort lässt sich der Aszendent nicht stellen — gewertet werden Mondzeichen, Mondphase und Jahreszeit.';
+ else if(oZ)h.textContent='Ohne Uhrzeit bleibt der Aszendent außer Betracht — gewertet werden Mondzeichen, Mondphase und Jahreszeit.';
+ else h.textContent='';
+}
 function zeitUnbekannt(){const c=document.getElementById('bzeitUnbekannt');return !!(c&&c.checked);}
 function zeitUmschalten(){
  const t=document.getElementById('btime');
  const aus=zeitUnbekannt();
  t.disabled=aus;
  t.style.opacity=aus?'.45':'';
- const h=document.getElementById('zeitHinweis');
- if(h)h.textContent=aus
-  ?'Ohne Uhrzeit bleibt der Aszendent außer Betracht — gewertet werden Mondzeichen, Mondphase und Jahreszeit.'
-  :'';
+ hinweisSetzen();
 }
 
 function ortGetippt(){
@@ -805,11 +828,13 @@ function ortGetippt(){
 function calculate(){
  const dv=document.getElementById('bdate').value;
  const ohneZeit=zeitUnbekannt();
+ const ohneOrt=ortUnbekannt();
+ const ohneAszendent=ohneZeit||ohneOrt;
  const tv=ohneZeit?'12:00':document.getElementById('btime').value;
  if(!dv){alert('Bitte das Geburtsdatum eingeben.');return;}
  if(!ohneZeit&&!tv){alert('Bitte die Geburtszeit eingeben — oder „Geburtszeit unbekannt" ankreuzen.');return;}
  /* Sonst wuerde der zuletzt gewaehlte Ort stillschweigend weiterverwendet */
- if(ortUngeklaert&&document.getElementById('bplace').value!=='manual'){
+ if(!ohneOrt&&ortUngeklaert&&document.getElementById('bplace').value!=='manual'){
   alert('Der eingegebene Geburtsort ist nicht eindeutig. Bitte aus der Liste wählen oder „Koordinaten manuell" nutzen.');
   document.getElementById('bplaceSuche').focus();return;}
  const[y,m,d]=dv.split('-').map(Number),[hh,mm]=tv.split(':').map(Number);
@@ -824,7 +849,7 @@ function calculate(){
  let maxP=0;
  /* show=false: fliesst in die Wertung ein, wird in der Analyse aber nicht aufgefuehrt */
  const add=(l,v,t,p,show=true)=>{sc[t]+=p;maxP+=p;if(show)rows.push([l,v,t,p]);};
- if(!ohneZeit){
+ if(!ohneAszendent){
   add('Aszendent-Zeichen (Element)',`${GLYPH[ai]} ${SIGNS[ai]} ${(asc%30).toFixed(0)}°`,ELEM[ai],2);
   add('Aszendent-Herrscher',arN,arT,1,false);
   add('Almuten des Aszendenten',arN+' (Domizil)',arT,1,false);
@@ -854,12 +879,12 @@ function calculate(){
    <p>Getragen wird das Profil vom <strong style="color:${HUM[D].col}">${HUM[D].name}en</strong> — <em>${ELEMN[D]}, ${HUM[D].q}</em> — ergänzt vom <strong style="color:${HUM[S].col}">${HUM[S].name}en</strong> <em>(${ELEMN[S]}, ${HUM[S].q})</em>.${weak.length?` Schwach oder gar nicht vertreten: ${weak.join(' · ')}.`:''}</p>
    <p>Der Kalkulator ermittelt diese vorherrschenden Temperamente und stellt den Korb dann nach dem galenischen Grundsatz <em>contraria contrariis</em> zusammen — Gegensätzliches gleicht Gegensätzliches aus. Er wählt bewusst die <strong>fehlenden</strong> Temperamente: vorwiegend <strong style="color:${HUM[oD].col}">${HUM[oD].name}e</strong> Speisen <em>(${ELEMN[oD]}, ${HUM[oD].q})</em>, ergänzt durch <strong style="color:${HUM[oS].col}">${HUM[oS].name}e</strong> Kost <em>(${ELEMN[oS]})</em>. So bringt der Korb genau die Elemente mit, die Deiner Natur zur Waage fehlen.</p>`;
  document.getElementById('result').style.display='block';
- lastCalc={sc,D,S,asc:ohneZeit?null:`${GLYPH[ai]} ${SIGNS[ai]} ${(asc%30).toFixed(0)}°`,
+ lastCalc={sc,D,S,asc:ohneAszendent?null:`${GLYPH[ai]} ${SIGNS[ai]} ${(asc%30).toFixed(0)}°`,
   moon:`${GLYPH[mi]} ${SIGNS[mi]} ${(ml%30).toFixed(0)}° · ${phN}`,
   name:document.getElementById('bname').value||'—',
   occ:document.getElementById('boccasion').selectedOptions[0].value,
   date:`${String(d).padStart(2,'0')}.${String(m).padStart(2,'0')}.${y}`,time:tv+' Uhr',
-  place:document.getElementById('bplace').selectedOptions[0].text.replace('— Koordinaten manuell —',`${lat}°N ${lon}°O`)};
+  place:ohneOrt?null:document.getElementById('bplace').selectedOptions[0].text.replace('— Koordinaten manuell —',`${lat}°N ${lon}°O`)};
  renderOptions(D,S);
  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -948,7 +973,9 @@ function showCert(optId,autoPrint){
  document.getElementById('cName').textContent=name;
  /* Ohne bekannte Geburtszeit weder Uhrzeit noch Aszendent ausweisen —
     beides waere erfunden. */
- document.getElementById('cBirth').textContent=asc?`${date}  ·  ${time}  ·  ${place}`:`${date}  ·  ${place}`;
+ /* Nur nennen, was wirklich bekannt ist: ohne Uhrzeit keine Zeit,
+    ohne Geburtsort kein Ort. */
+ document.getElementById('cBirth').textContent=[date,asc?time:null,place].filter(Boolean).join('  ·  ');
  document.getElementById('cAstro').innerHTML=asc?`Aszendent ${asc} &nbsp;·&nbsp; Mond ${moon}`:`Mond ${moon}`;
  document.getElementById('cVerdict').textContent=`${HUM[D].name} · ${HUM[S].name}`;
  document.getElementById('cVerdictSub').textContent=`Dominanter Humor: ${HUM[D].name} (${ELEMN[D]}, ${HUM[D].q}) · Sekundär: ${HUM[S].name} (${ELEMN[S]}, ${HUM[S].q})`;
@@ -1034,7 +1061,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=14"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=15"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};
