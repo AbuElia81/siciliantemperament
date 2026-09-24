@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sortiment — Alle Produkte einzeln · Sicilian Temperament</title>
 <meta name="description" content="Alle 23 biologischen Delikatessen aus Sizilien einzeln, gefiltert nach Temperament — stell Dir Deinen eigenen Geschenkkorb zusammen.">
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
 <div class="wrap">
@@ -36,6 +36,8 @@
 <section id="shop">
   <div class="sec-label">✦ Biologisches Sortiment aus Sizilien ✦</div>
   <div class="sec-title">Alle Produkte — auch einzeln für den eigenen Korb</div>
+  <div class="ziel-bar" id="zielBar"></div>
+
   <div class="shop-filters" id="shopFilters">
     <button class="fbtn on" onclick="filterShop('all',this)">Alle</button>
     <button class="fbtn" onclick="filterShop('chol',this)">🔥 Cholerisch</button>
@@ -62,6 +64,7 @@
   <div class="cart-head"><h3>Warenkorb</h3><button class="cart-close" onclick="toggleCart()">×</button></div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-foot">
+    <div class="cart-ziel" id="cartZiel"></div>
     <button class="checkout-btn" onclick="checkout()">Zur Kasse</button>
     <div class="cart-note">Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau.</div>
   </div>
@@ -69,9 +72,9 @@
 <div class="toast" id="toast">In den Korb gelegt</div>
 
 </div>
-<script src="data.js?v=7"></script>
-<script src="cart.js?v=7"></script>
-<script src="nav.js?v=7"></script>
+<script src="data.js?v=8"></script>
+<script src="cart.js?v=8"></script>
+<script src="nav.js?v=8"></script>
 <script>
 /* ============ SHOP (nur auf dieser Seite) ============ */
 const dom=s=>{let m=-1,mi=0;s.forEach((v,i)=>{if(v>m){m=v;mi=i;}});return HK[mi];};
@@ -89,6 +92,7 @@ function renderShop(f){document.getElementById('shopGrid').innerHTML=
  P.map((p,i)=>(f&&f!=='all'&&dom(p.s)!==f)?'':card(p,i)).join('');}
 function filterShop(f,btn){document.querySelectorAll('#shopFilters .fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderShop(f);}
 renderShop('all');
+renderZiel();
 </script>
 </body>
 </html>

@@ -4,6 +4,34 @@
 function loadCart(){try{return JSON.parse(localStorage.getItem('stCart')||'{}');}catch(e){return{};}}
 function saveCart(){localStorage.setItem('stCart',JSON.stringify(cart));}
 let cart=loadCart();
+
+/* ---- Gewaehlte Korbgroesse ----------------------------------------------
+   Auch der selbst zusammengestellte Korb bekommt die Maske Klein/Medium/
+   Large. Gespeichert wird nur die id; die Grenzen stehen in data.js, damit
+   fertige und eigene Koerbe denselben Preisrahmen haben. */
+function loadZiel(){try{return localStorage.getItem('stZiel')||'';}catch(e){return'';}}
+let ziel=loadZiel();
+function zielObj(){return typeof GROESSEN!=='undefined'?GROESSEN.find(g=>g.id===ziel)||null:null;}
+function setZiel(id){
+ ziel=(ziel===id)?'':id;                    /* nochmal klicken hebt auf */
+ try{localStorage.setItem('stZiel',ziel);}catch(e){}
+ renderZiel();updCart();}
+function korbSumme(){return Object.entries(cart).reduce((a,[i,q])=>a+vkPreis(P[i])*q,0);}
+function renderZiel(){
+ const bar=document.getElementById('zielBar');
+ if(!bar||typeof GROESSEN==='undefined')return;
+ const g=zielObj(),summe=korbSumme();
+ bar.innerHTML=
+  '<div class="ziel-frage">Wie groß soll Dein eigener Korb werden?</div>'
+  +'<div class="ziel-btns">'+GROESSEN.map(x=>
+    `<button class="ziel-btn${x.id===ziel?' on':''}" onclick="setZiel('${x.id}')">
+      <span class="ziel-name">${x.name}</span><span class="ziel-max">bis ${eur(x.max)}</span>
+     </button>`).join('')+'</div>'
+  +(g?`<div class="ziel-stand${summe>g.max?' voll':''}">${g.name} · ${eur(summe)} von ${eur(g.max)}`
+      +(summe>g.max?` — ${eur(summe-g.max)} über der Grenze`
+                   :` — noch ${eur(g.max-summe)} frei`)+'</div>'
+     :'<div class="ziel-stand ziel-stand-leer">Ohne Größe: so viele Produkte, wie Du möchtest.</div>');
+}
 function addCart(i){cart[i]=(cart[i]||0)+1;saveCart();updCart();toast('In den Korb gelegt');}
 function addSet(idxs,label){idxs.forEach(i=>cart[i]=(cart[i]||0)+1);saveCart();updCart();toast(label+' im Warenkorb');toggleCart();}
 function chg(i,d){cart[i]=(cart[i]||0)+d;if(cart[i]<=0)delete cart[i];saveCart();updCart();}
@@ -13,7 +41,15 @@ function updCart(){const it=Object.entries(cart);
  box.innerHTML=it.length?it.map(([i,q])=>`<div class="citem"><div class="citem-name">${P[i].n}</div>
   <div class="citem-qty"><button class="qbtn" onclick="chg(${i},-1)">−</button><span style="font-family:Cinzel,serif;font-size:.7rem;">${q}</span><button class="qbtn" onclick="chg(${i},1)">+</button></div>
   </div>`).join('')
- :'<div style="font-family:\'IM Fell English\',serif;font-style:italic;color:var(--ink-faint);text-align:center;padding:2rem 0;">Der Korb ist noch leer.</div>';}
+ :'<div style="font-family:\'IM Fell English\',serif;font-style:italic;color:var(--ink-faint);text-align:center;padding:2rem 0;">Der Korb ist noch leer.</div>';
+ const zi=document.getElementById('cartZiel');
+ if(zi&&typeof GROESSEN!=='undefined'){
+  const g=zielObj(),summe=korbSumme();
+  zi.className='cart-ziel'+(g&&summe>g.max?' voll':'');
+  zi.textContent=!it.length?''
+   :g?`${g.name} · ${eur(summe)} von ${eur(g.max)}`
+     :`Summe ${eur(summe)}`;}
+ renderZiel();}
 function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
 function checkout(){alert('Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau. Schau in Kürze wieder vorbei!');}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}

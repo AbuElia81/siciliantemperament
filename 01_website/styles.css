@@ -689,3 +689,45 @@ body.certwin #certificate{display:block !important;}
 .zeit-hinweis{font-family:'IM Fell English',serif;font-style:italic;font-size:.8rem;
   color:var(--gold-dim);line-height:1.5;}
 .zeit-hinweis:empty{display:none;}
+
+/* Groessenangabe auf der Korbkarte (Klein / Medium / Large) */
+.opt-groesse{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--gold);text-align:center;margin:.1rem 0 .45rem;}
+
+/* ---- Groessenmaske fuer den selbst zusammengestellten Korb --------------
+   Steht im Sortiment ueber den Filtern und haelt denselben Preisrahmen
+   wie die fertigen Koerbe aus dem Kalkulator. */
+.ziel-bar{max-width:640px;margin:0 auto 1.6rem;text-align:center;}
+.ziel-frage{font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+.ziel-btns{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;}
+.ziel-btn{display:flex;flex-direction:column;align-items:center;gap:.15rem;
+  padding:.55rem 1.1rem;background:transparent;cursor:pointer;
+  border:1px solid var(--gold-dim);border-radius:2px;color:var(--ink-dim);
+  transition:border-color .2s,color .2s,background .2s;}
+.ziel-btn:hover{border-color:var(--gold);color:var(--ink);}
+.ziel-btn.on{border-color:var(--gold);background:rgba(160,120,40,.10);color:var(--ink);}
+.ziel-name{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;}
+.ziel-max{font-family:'Cormorant Garamond',serif;font-size:.86rem;color:var(--ink-faint);}
+.ziel-btn.on .ziel-max{color:var(--gold);}
+.ziel-stand{margin-top:.75rem;font-family:'Cormorant Garamond',serif;font-size:.96rem;
+  color:var(--ink-dim);}
+.ziel-stand.voll{color:var(--chol);font-weight:600;}
+.ziel-stand-leer{font-family:'IM Fell English',serif;font-style:italic;color:var(--ink-faint);}
+
+/* Budgetzeile im Warenkorb-Schubfach */
+.cart-ziel{font-family:'Cormorant Garamond',serif;font-size:.92rem;color:var(--ink-dim);
+  text-align:center;margin-bottom:.6rem;}
+.cart-ziel:empty{display:none;}
+.cart-ziel.voll{color:var(--chol);font-weight:600;}
+
+/* Karte "Dein eigener Korb": drei Groessen untereinander.
+   min-height, damit die Knoepfe am Handy sicher zu treffen sind. */
+.opt-btns-eigen{flex-direction:column;gap:.4rem;}
+.opt-btns-eigen button{min-height:44px;}
+
+@media(max-width:560px){
+  .ziel-btns{gap:.4rem;}
+  .ziel-btn{padding:.5rem .7rem;flex:1 1 0;min-width:0;}
+  .ziel-max{font-size:.78rem;}
+}

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kontakt, Impressum &amp; Datenschutz · Sicilian Temperament</title>
 <meta name="description" content="Kontaktformular, Impressum und Datenschutzerklärung von Sicilian Temperament — Trinacriaexpress.">
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
 <div class="wrap">
@@ -132,15 +132,16 @@
   <div class="cart-head"><h3>Warenkorb</h3><button class="cart-close" onclick="toggleCart()">×</button></div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-foot">
+    <div class="cart-ziel" id="cartZiel"></div>
     <button class="checkout-btn" onclick="checkout()">Zur Kasse</button>
     <div class="cart-note">Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau.</div>
   </div>
 </div>
 
 </div>
-<script src="data.js?v=7"></script>
-<script src="cart.js?v=7"></script>
-<script src="nav.js?v=7"></script>
+<script src="data.js?v=8"></script>
+<script src="cart.js?v=8"></script>
+<script src="nav.js?v=8"></script>
 <script>
 async function sendKontakt(e){e.preventDefault();
  const form=e.target,st=document.getElementById('kStatus'),btn=form.querySelector('button[type=submit]');

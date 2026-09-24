@@ -35,3 +35,13 @@ const HK=["sang","chol","mel","phleg"];
    der Tabelle "Die Planeten und ihre Temperamente" auf lehre.html. */
 const PLANET={"\u2609":"Sol","\u263D":"Luna","\u263E":"Luna","\u263F":"Mercurius","\u2640":"Venus","\u2642":"Mars","\u2643":"Iuppiter","\u2644":"Saturnus"};
 const eur=x=>x.toFixed(2).replace('.',',')+' €';
+
+/* Die drei Korbgroessen — Bruttogrenzen fuer Endkunden. Werden vom
+   Temperament-Kalkulator (fertige Koerbe) und vom Sortiment (eigener
+   Korb) gleichermassen benutzt, damit beide Wege denselben Rahmen haben. */
+const GROESSEN=[
+ {id:'klein', name:'Klein',  max:50 },
+ {id:'medium',name:'Medium', max:60 },
+ {id:'large', name:'Large',  max:110}];
+/* Endkundenpreis = Listino + 50 % */
+const vkPreis=p=>p.pr*1.5;
