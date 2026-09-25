@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=18">
+<link rel="stylesheet" href="styles.css?v=19">
 </head>
 <body>
 <div class="wrap">
@@ -661,10 +661,10 @@
   </div>
 </div>
 
-<script src="data.js?v=8"></script>
-<script src="carousel.js?v=8"></script>
-<script src="cart.js?v=8"></script>
-<script src="nav.js?v=8"></script>
+<script src="data.js?v=10"></script>
+<script src="carousel.js?v=10"></script>
+<script src="cart.js?v=10"></script>
+<script src="nav.js?v=10"></script>
 <script>
 /* ============ PAPYRUSROLLE ============
    Entrollt den Kalkulator, sobald er in den Blick kommt. Faellt der
@@ -927,19 +927,55 @@ const KORB={
 /* GROESSEN und vkPreis stehen in data.js — dieselben Grenzen gelten auch
    fuer den selbst zusammengestellten Korb im Sortiment. */
 
-/* Produkte eines Elementkorbes: nach Elementanteil geordnet, bei Gleichstand
-   das guenstigere zuerst, damit die Grenze gut ausgenutzt wird. */
-function korbProdukte(el,maxPreis){
- const i=HK.indexOf(el);
- const sortiert=P.map((p,idx)=>({p,idx})).sort((a,b)=>
-  b.p.s[i]-a.p.s[i] || vkPreis(a.p)-vkPreis(b.p));
- const gewaehlt=[];let summe=0;
- for(const x of sortiert){
-  const pr=vkPreis(x.p);
-  if(summe+pr>maxPreis)continue;
-  gewaehlt.push(x);summe+=pr;
+/* Produkte eines Elementkorbes.
+   Jede Groesse hat eine feste Stueckzahl (g.anz) UND eine Bruttogrenze
+   (g.max). Beides zugleich zu treffen ist ein Rucksackproblem: die Top-N
+   nach Elementanteil sprengen bei teuren Sorten die Grenze (der Luftkorb
+   mit Pistazien- und Mandelcreme liegt bei neun Stueck sonst ueber 67 €).
+   Darum wird exakt g.anz mal gewaehlt, so dass die Summe unter g.max
+   bleibt und der Elementanteil maximal wird; bei gleichem Anteil gewinnt
+   der wertvollere Korb, damit die Grenze gut ausgenutzt ist.
+
+   Gerechnet wird in 5-Cent-Schritten und stets aufgerundet — das ist rund
+   fuenfmal schneller als centgenau und kann die Grenze nie ueberschreiten.
+   Jede Kombination aus Element und Groesse wird einmal berechnet und dann
+   gemerkt; es gibt nur zwoelf davon. */
+const korbCache={};
+function korbProdukte(el,g){
+ const key=el+'-'+g.id;
+ if(korbCache[key])return korbCache[key];
+ const ei=HK.indexOf(el),N=g.anz,S=5;                  /* S = Cent je Schritt */
+ const preis=P.map(p=>Math.ceil(vkPreis(p)*100/S));    /* aufgerundet */
+ const CAP=Math.floor(g.max*100/S);
+ const breite=CAP+1, felder=(N+1)*breite;
+ const pkt=new Int16Array(felder).fill(-1);            /* Elementpunkte */
+ const wahl=new Int32Array(felder);                    /* Bitmaske der Produkte */
+ pkt[0]=0;
+ P.forEach((prod,idx)=>{
+  const pr=preis[idx], sc=prod.s[ei], bit=1<<idx;
+  for(let c=N-1;c>=0;c--){
+   const zeile=c*breite, ziel=(c+1)*breite;
+   for(let x=CAP-pr;x>=0;x--){
+    const a=pkt[zeile+x];
+    if(a<0)continue;
+    const j=ziel+x+pr;
+    if(a+sc>pkt[j]){pkt[j]=a+sc;wahl[j]=wahl[zeile+x]|bit;}
+   }
+  }
+ });
+ /* Beste Fuellung mit genau N Stueck: erst Punkte, dann Wert */
+ let best=-1,bestX=-1;
+ for(let x=0;x<=CAP;x++){
+  const v=pkt[N*breite+x];
+  if(v>=0&&v>=best){best=v;bestX=x;}   /* spaeteres x = teurer = besser gefuellt */
  }
- return{sel:gewaehlt,summe};
+ const maske=wahl[N*breite+bestX];
+ const sel=[];let summe=0;
+ P.forEach((prod,idx)=>{if(maske&(1<<idx)){sel.push({p:prod,idx});summe+=vkPreis(prod);}});
+ /* Innerhalb des Korbes nach Elementanteil ordnen, damit die Urkunde die
+    kennzeichnenden Produkte zuerst nennt. */
+ sel.sort((a,b)=>b.p.s[ei]-a.p.s[ei]||vkPreis(a.p)-vkPreis(b.p));
+ return korbCache[key]={sel,summe};
 }
 
 function renderOptions(D,S){
@@ -956,7 +992,7 @@ function renderOptions(D,S){
   Wähle die Größe:`;
 
  document.getElementById('optGrid').innerHTML=GROESSEN.map(g=>{
-  const{sel,summe}=korbProdukte(el,g.max);
+  const{sel,summe}=korbProdukte(el,g);
   const idxs=JSON.stringify(sel.map(x=>x.idx));
   return `<div class="opt-card" id="oc-${g.id}">
    <div class="opt-photo"><img src="images/${k.bild}.jpg" alt="${k.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
@@ -976,7 +1012,7 @@ function renderOptions(D,S){
    <div class="opt-own-text">Stell Dir Deinen Korb selbst aus allen Delikatessen des Sortiments zusammen.
     Wähle die Größe, dann zeigt Dir das Sortiment laufend an, wie viel vom Rahmen noch frei ist.</div>
    <div class="opt-btns opt-btns-eigen">`
-   +GROESSEN.map(g=>`<button class="opt-add" onclick="setZiel('${g.id}');location.href='sortiment.html'">${g.name} — bis ${eur(g.max)}</button>`).join('')
+   +GROESSEN.map(g=>`<button class="opt-add" onclick="setZiel('${g.id}');location.href='sortiment.html'">${g.name} — ${g.anz} Produkte, bis ${eur(g.max)}</button>`).join('')
    +`<button class="opt-print" onclick="setZiel('');location.href='sortiment.html'">Ohne Grenze</button>
    </div></div>`;
  box.style.display='block';
@@ -991,7 +1027,7 @@ function showCert(optId,autoPrint){
  if(karte)karte.classList.add('chosen');
  const{sc,D,S,name,occ,date,time,place,asc,moon}=lastCalc;
  const el=OPP[D],k=KORB[el];
- const{sel,summe}=korbProdukte(el,g.max);
+ const{sel,summe}=korbProdukte(el,g);
  const ranked=sel.map(x=>({p:x.p,i:x.idx}));
  document.getElementById('cOcc').textContent=occ;
  document.getElementById('cName').textContent=name;
@@ -1085,7 +1121,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=18"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=19"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};

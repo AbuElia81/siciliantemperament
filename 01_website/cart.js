@@ -17,19 +17,31 @@ function setZiel(id){
  try{localStorage.setItem('stZiel',ziel);}catch(e){}
  renderZiel();updCart();}
 function korbSumme(){return Object.entries(cart).reduce((a,[i,q])=>a+vkPreis(P[i])*q,0);}
+function korbAnzahl(){return Object.values(cart).reduce((a,q)=>a+q,0);}
+/* Ein Satz dazu, was noch fehlt oder zu viel ist — Stueckzahl und Preis
+   koennen unabhaengig voneinander ueberschritten werden. */
+function zielHinweis(g,anz,summe){
+ const zuViel=[];
+ if(anz>g.anz)   zuViel.push((anz-g.anz)+(anz-g.anz===1?' Produkt':' Produkte')+' zu viel');
+ if(summe>g.max) zuViel.push(eur(summe-g.max)+' über der Grenze');
+ if(zuViel.length) return ' — '+zuViel.join(' und ');
+ if(anz<g.anz)   return ' — noch '+(g.anz-anz)+(g.anz-anz===1?' Produkt':' Produkte')
+                        +' und '+eur(g.max-summe)+' frei';
+ return ' — der Korb ist voll';
+}
 function renderZiel(){
  const bar=document.getElementById('zielBar');
  if(!bar||typeof GROESSEN==='undefined')return;
- const g=zielObj(),summe=korbSumme();
+ const g=zielObj(),summe=korbSumme(),anz=korbAnzahl();
  bar.innerHTML=
   '<div class="ziel-frage">Wie groß soll Dein eigener Korb werden?</div>'
   +'<div class="ziel-btns">'+GROESSEN.map(x=>
     `<button class="ziel-btn${x.id===ziel?' on':''}" onclick="setZiel('${x.id}')">
-      <span class="ziel-name">${x.name}</span><span class="ziel-max">bis ${eur(x.max)}</span>
+      <span class="ziel-name">${x.name}</span><span class="ziel-max">${x.anz} Produkte · bis ${eur(x.max)}</span>
      </button>`).join('')+'</div>'
-  +(g?`<div class="ziel-stand${summe>g.max?' voll':''}">${g.name} · ${eur(summe)} von ${eur(g.max)}`
-      +(summe>g.max?` — ${eur(summe-g.max)} über der Grenze`
-                   :` — noch ${eur(g.max-summe)} frei`)+'</div>'
+  +(g?`<div class="ziel-stand${(summe>g.max||anz>g.anz)?' voll':''}">`
+      +`${g.name} · ${anz} von ${g.anz} Produkten · ${eur(summe)} von ${eur(g.max)}`
+      +zielHinweis(g,anz,summe)+'</div>'
      :'<div class="ziel-stand ziel-stand-leer">Ohne Größe: so viele Produkte, wie Du möchtest.</div>');
 }
 function addCart(i){cart[i]=(cart[i]||0)+1;saveCart();updCart();toast('In den Korb gelegt');}
@@ -47,7 +59,7 @@ function updCart(){const it=Object.entries(cart);
   const g=zielObj(),summe=korbSumme();
   zi.className='cart-ziel'+(g&&summe>g.max?' voll':'');
   zi.textContent=!it.length?''
-   :g?`${g.name} · ${eur(summe)} von ${eur(g.max)}`
+   :g?`${g.name} · ${korbAnzahl()} von ${g.anz} Produkten · ${eur(summe)} von ${eur(g.max)}`
      :`Summe ${eur(summe)}`;}
  renderZiel();}
 function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
