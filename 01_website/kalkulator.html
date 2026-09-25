@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=22">
+<link rel="stylesheet" href="styles.css?v=24">
 </head>
 <body>
 <div class="wrap">
@@ -660,10 +660,10 @@
   </div>
 </div>
 
-<script src="data.js?v=13"></script>
-<script src="carousel.js?v=13"></script>
-<script src="cart.js?v=13"></script>
-<script src="nav.js?v=13"></script>
+<script src="data.js?v=15"></script>
+<script src="carousel.js?v=15"></script>
+<script src="cart.js?v=15"></script>
+<script src="nav.js?v=15"></script>
 <script>
 /* ============ PAPYRUSROLLE ============
    Entrollt den Kalkulator, sobald er in den Blick kommt. Faellt der
@@ -993,7 +993,10 @@ function renderOptions(D,S){
  document.getElementById('optGrid').innerHTML=GROESSEN.map(g=>{
   const{sel,summe}=korbProdukte(el,g);
   const idxs=JSON.stringify(sel.map(x=>x.idx));
-  return `<div class="opt-card" id="oc-${g.id}">
+  /* Wer auf der Startseite schon S, M oder L gewaehlt hat, findet die
+     Groesse hier hervorgehoben wieder. */
+  const vorgemerkt=(typeof ziel!=='undefined'&&ziel===g.id)?' chosen':'';
+  return `<div class="opt-card${vorgemerkt}" id="oc-${g.id}">
    <div class="opt-photo"><img src="images/${k.bild}.jpg" alt="${k.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
    <div class="opt-name">${k.name}</div>
    <div class="opt-groesse">${g.name}</div>
@@ -1120,7 +1123,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=22"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=24"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};

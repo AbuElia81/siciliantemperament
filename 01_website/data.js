@@ -39,7 +39,7 @@ const eur=x=>x.toFixed(2).replace('.',',')+' €';
 /* Die drei Korbgroessen — Bruttogrenzen fuer Endkunden. Werden vom
    Temperament-Kalkulator (fertige Koerbe) und vom Sortiment (eigener
    Korb) gleichermassen benutzt, damit beide Wege denselben Rahmen haben. */
-/* anz = feste Stueckzahl, preis = Verkaufspreis brutto, max = Grenze fuer
+/* kurz = Kuerzel auf den Korbkarten, anz = feste Stueckzahl, preis = Verkaufspreis brutto, max = Grenze fuer
    den Warenwert der Zusammenstellung. Der Preis steht fest; die Grenze ist
    gleich dem Preis, damit ein Korb nie mehr kostet, als seine Produkte
    einzeln wert sind. Die Stueckzahlen sind
@@ -47,8 +47,8 @@ const eur=x=>x.toFixed(2).replace('.',',')+' €';
    und gut ausschoepfen — bei zehn Stueck passte der Luftkorb nicht mehr
    unter 50 Euro. */
 const GROESSEN=[
- {id:'klein', name:'Klein',  anz: 9, preis: 49, max: 49 },
- {id:'medium',name:'Medium', anz:11, preis: 59, max: 59 },
- {id:'large', name:'Large',  anz:19, preis:109, max:109}];
+ {id:'klein', kurz:'S', name:'Small',  anz: 9, preis: 49, max: 49 },
+ {id:'medium',kurz:'M', name:'Medium', anz:11, preis: 59, max: 59 },
+ {id:'large', kurz:'L', name:'Large',  anz:19, preis:109, max:109}];
 /* Endkundenpreis = Listino + 60 % */
 const vkPreis=p=>p.pr*1.6;

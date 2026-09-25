@@ -12,8 +12,9 @@ let cart=loadCart();
 function loadZiel(){try{return localStorage.getItem('stZiel')||'';}catch(e){return'';}}
 let ziel=loadZiel();
 function zielObj(){return typeof GROESSEN!=='undefined'?GROESSEN.find(g=>g.id===ziel)||null:null;}
-function setZiel(id){
- ziel=(ziel===id)?'':id;                    /* nochmal klicken hebt auf */
+function setZiel(id,fest){
+ ziel=(!fest&&ziel===id)?'':id;             /* in der Leiste hebt ein zweiter Klick auf,
+                                               von der Korbkarte aus wird gesetzt */
  try{localStorage.setItem('stZiel',ziel);}catch(e){}
  renderZiel();updCart();}
 function korbSumme(){return Object.entries(cart).reduce((a,[i,q])=>a+vkPreis(P[i])*q,0);}

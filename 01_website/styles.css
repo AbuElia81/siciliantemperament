@@ -741,3 +741,53 @@ body.certwin #certificate{display:block !important;}
 @media(max-width:560px){
   .korb-slider .opt-add-gross{font-size:.76rem;letter-spacing:.13em;padding:1.05rem 1.2rem;}
 }
+
+/* ---- Groessenwahl auf den Korbkarten (S · M · L) -----------------------
+   Statt einer Produktliste steht auf jeder Karte nur das Kuerzel. Ein Klick
+   klappt die drei Groessen nach unten aus. Die Hoehe wird nicht gemessen,
+   sondern grosszuegig begrenzt — bei drei Eintraegen reicht das und spart
+   die Messung beim Aufklappen. */
+.gwahl{position:relative;}
+.gwahl-btn{display:inline-flex;align-items:center;gap:.55rem;cursor:pointer;
+  padding:.5rem 1rem;background:rgba(160,120,40,.07);
+  border:1px solid var(--gold-dim);border-radius:2px;
+  transition:border-color .2s,background .2s;}
+.gwahl-btn:hover{border-color:var(--gold);background:rgba(160,120,40,.14);}
+.gwahl-kurz{font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;
+  letter-spacing:.2em;color:var(--gold);}
+.gwahl-wort{font-family:'Cormorant Garamond',serif;font-size:.86rem;color:var(--ink-dim);
+  text-transform:none;letter-spacing:0;}
+.gwahl-pfeil{font-size:.7rem;color:var(--gold);transition:transform .25s;}
+.gwahl.auf .gwahl-pfeil{transform:rotate(180deg);}
+
+.gwahl-menu{position:absolute;left:50%;transform:translateX(-50%);top:100%;z-index:30;
+  width:min(17rem,92%);margin-top:.35rem;overflow:hidden;
+  max-height:0;opacity:0;pointer-events:none;
+  background:var(--paper,#fdf8ec);border:1px solid var(--gold-dim);
+  box-shadow:0 8px 22px rgba(60,40,10,.22);
+  transition:max-height .28s ease,opacity .2s ease;}
+.gwahl.auf .gwahl-menu{max-height:22rem;opacity:1;pointer-events:auto;}
+.gwahl-opt{display:flex;align-items:baseline;gap:.6rem;width:100%;
+  padding:.72rem .9rem;background:transparent;border:none;cursor:pointer;text-align:left;
+  border-bottom:1px solid rgba(160,120,40,.22);transition:background .15s;}
+.gwahl-opt:last-child{border-bottom:none;}
+.gwahl-opt:hover{background:rgba(160,120,40,.12);}
+.gwahl-opt-kurz{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;
+  color:var(--gold);min-width:1.1em;}
+.gwahl-opt-name{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink);}
+.gwahl-opt-info{margin-left:auto;font-family:'Cormorant Garamond',serif;
+  font-size:.84rem;color:var(--ink-faint);white-space:nowrap;}
+
+@media(max-width:560px){
+  .gwahl-menu{width:min(16rem,96%);}
+  .gwahl-opt{padding:.8rem .75rem;}
+  .gwahl-opt-info{font-size:.78rem;}
+}
+
+/* Der Knopf zum Kalkulator soll auf den ersten Blick als Knopf lesbar sein */
+.korb-slider .opt-add-gross{font-weight:700;background:linear-gradient(180deg,var(--gold-lt),var(--gold));
+  border:1px solid rgba(90,60,10,.35);text-shadow:0 1px 1px rgba(60,40,10,.35);}
+.korb-slider .opt-add-gross:hover{background:linear-gradient(180deg,var(--gold),var(--gold-lt));
+  transform:translateY(-1px);}
+.opt-add-pfeil{margin-right:.35rem;opacity:.85;}
