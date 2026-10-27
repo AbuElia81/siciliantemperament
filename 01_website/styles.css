@@ -805,3 +805,24 @@ body.certwin #certificate{display:block !important;}
 .widerruf-formular{border:1px solid var(--gold-dim);padding:1.2rem 1.3rem;
   margin-top:.9rem;background:rgba(160,120,40,.05);}
 .widerruf-formular p{font-family:'Cormorant Garamond',serif;line-height:1.9;}
+
+/* ---- LMIV-Pflichtangaben auf der Produktkarte --------------------------
+   Als <details>, damit die Karte kompakt bleibt und die Angaben trotzdem
+   ohne Javascript und vor dem Kauf erreichbar sind. */
+.pinfo{margin:.5rem 0 .2rem;border-top:1px solid rgba(160,120,40,.22);padding-top:.5rem;}
+.pinfo summary{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);cursor:pointer;list-style:none;
+  padding:.55rem 0;}                       /* Fingerhoehe am Handy */
+.pinfo summary::-webkit-details-marker{display:none;}
+.pinfo summary::before{content:'▸ ';display:inline-block;transition:transform .2s;}
+.pinfo[open] summary::before{content:'▾ ';}
+.pinfo summary:hover{color:var(--gold-lt);}
+.pinfo-body{margin-top:.55rem;}
+.pinfo-body p{font-family:'Cormorant Garamond',serif;font-size:.86rem;line-height:1.5;
+  color:var(--ink-dim);margin:.3rem 0;}
+.pinfo-lbl{display:block;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-dim);margin-bottom:.1rem;}
+.palg{font-weight:700;color:var(--chol);}
+.pinfo-note{font-style:italic;font-size:.78rem !important;color:var(--ink-faint) !important;}
+.pinfo-warn{font-style:italic;color:var(--chol) !important;font-size:.8rem !important;}
+.pinfo-fehlt summary{color:var(--chol);}

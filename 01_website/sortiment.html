@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sortiment — Alle Produkte einzeln · Sicilian Temperament</title>
 <meta name="description" content="Alle 25 biologischen Delikatessen einzeln, gefiltert nach Temperament — stell Dir Deinen eigenen Geschenkkorb zusammen.">
-<link rel="stylesheet" href="styles.css?v=29">
+<link rel="stylesheet" href="styles.css?v=31">
 </head>
 <body>
 <div class="wrap">
@@ -79,20 +79,49 @@
 <div class="toast" id="toast">In den Korb gelegt</div>
 
 </div>
-<script src="data.js?v=20"></script>
-<script src="cart.js?v=20"></script>
-<script src="nav.js?v=20"></script>
+<script src="data.js?v=21"></script>
+<script src="cart.js?v=21"></script>
+<script src="nav.js?v=21"></script>
 <script>
 /* ============ SHOP (nur auf dieser Seite) ============ */
 const dom=s=>{let m=-1,mi=0;s.forEach((v,i)=>{if(v>m){m=v;mi=i;}});return HK[mi];};
 function stripe(s){const t=s.reduce((a,b)=>a+b,0)||1;
  return '<div class="pstripe">'+HK.map((k,i)=>s[i]>0?`<div class="pseg" style="width:${s[i]/t*100}%;background:${HUM[k].col}"></div>`:'').join('')+'</div>';}
+/* ---- LMIV-Pflichtangaben -----------------------------------------------
+   Art. 14 der Verordnung (EU) 1169/2011 verlangt im Fernabsatz, dass die
+   Pflichtangaben schon vor dem Kauf verfuegbar sind. Allergene muessen nach
+   Art. 21 im Zutatenverzeichnis hervorgehoben sein — das erledigt hervor().
+   Nur das Mindesthaltbarkeitsdatum darf fehlen; es liegt der Lieferung bei. */
+const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function hervor(text,allergene){
+ let h=esc(text);
+ (allergene||[]).forEach(a=>{
+  h=h.split(esc(a)).join('<strong class="palg">'+esc(a)+'</strong>');});
+ return h;
+}
+function pflichtangaben(p){
+ if(!p.lmiv) return `<details class="pinfo pinfo-fehlt"><summary>Zutaten &amp; Allergene</summary>
+  <div class="pinfo-body"><p class="pinfo-warn">Die Pflichtangaben zu diesem Erzeugnis liegen uns
+  noch nicht vor. Bitte frag uns vor einer Bestellung danach — wir reichen sie Dir nach.</p></div></details>`;
+ const l=p.lmiv;
+ return `<details class="pinfo"><summary>Zutaten &amp; Allergene</summary>
+  <div class="pinfo-body">
+   <p><span class="pinfo-lbl">Bezeichnung</span>${esc(l.bez)}</p>
+   <p><span class="pinfo-lbl">Zutaten</span>${hervor(l.zut,l.alg)}</p>
+   ${l.alg&&l.alg.length?`<p><span class="pinfo-lbl">Allergene</span>${l.alg.map(esc).join(', ')}</p>`:''}
+   ${l.spur?`<p><span class="pinfo-lbl">Hinweis</span>${esc(l.spur)}</p>`:''}
+   <p><span class="pinfo-lbl">Nettofüllmenge</span>${esc(p.g)}</p>
+   <p class="pinfo-note">*Aus biologischem Anbau.</p>
+   <p class="pinfo-warn">Nährwertangaben liegen uns noch nicht vor.</p>
+  </div></details>`;
+}
 function card(p,i){const d=dom(p.s);
  const img=p.img||('images/produkte/'+String(i+1).padStart(2,'0')+'.jpg');
  return `<div class="pcard"><div class="pphoto"><img class="pphoto-img" src="${img}" alt="${p.n}" loading="lazy" onerror="this.closest('.pphoto').classList.add('noimg')"><div class="pphoto-ph"><span class="pphoto-gl">${p.pl}</span><span class="pphoto-tx">Foto folgt</span></div></div>${stripe(p.s)}<div class="pcorner">${p.pl}</div>
  <div class="pname">${p.n}</div><div class="pit">${p.it} · ${p.g}</div>
  <div class="pwhy">${p.w}</div>
  <div class="phumor" style="color:${HUM[d].col}">${HUM[d].name} · ${HUM[d].q}</div>
+ ${pflichtangaben(p)}
  <div class="pplanet"><span class="pplanet-glyph">${p.pl}</span>${PLANET[p.pl]||''}</div>
  <div class="pfoot"><button class="addbtn" onclick="addCart(${i})">+ Korb</button></div></div>`;}
 function renderShop(f){document.getElementById('shopGrid').innerHTML=
