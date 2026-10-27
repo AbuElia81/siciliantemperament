@@ -795,3 +795,13 @@ body.certwin #certificate{display:block !important;}
 .korb-slider .opt-add-gross:hover{background:linear-gradient(180deg,var(--gold),var(--gold-lt));
   transform:translateY(-1px);}
 .opt-add-pfeil{margin-right:.35rem;opacity:.85;}
+
+/* ---- AGB-Seite: offene Stellen und Widerrufsformular -------------------
+   .legal-luecke markiert Angaben, die erst feststehen, wenn der Shop steht.
+   Bewusst auffaellig, damit sie nicht versehentlich online bleiben. */
+.legal-luecke{border-left:3px solid var(--chol);background:rgba(191,90,42,.08);
+  padding:.7rem .9rem;font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--chol);}
+.widerruf-formular{border:1px solid var(--gold-dim);padding:1.2rem 1.3rem;
+  margin-top:.9rem;background:rgba(160,120,40,.05);}
+.widerruf-formular p{font-family:'Cormorant Garamond',serif;line-height:1.9;}
