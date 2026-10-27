@@ -660,10 +660,10 @@
   </div>
 </div>
 
-<script src="data.js?v=15"></script>
-<script src="carousel.js?v=15"></script>
-<script src="cart.js?v=15"></script>
-<script src="nav.js?v=15"></script>
+<script src="data.js?v=19"></script>
+<script src="carousel.js?v=19"></script>
+<script src="cart.js?v=19"></script>
+<script src="nav.js?v=19"></script>
 <script>
 /* ============ PAPYRUSROLLE ============
    Entrollt den Kalkulator, sobald er in den Blick kommt. Faellt der
@@ -943,14 +943,24 @@ const korbCache={};
 function korbProdukte(el,g){
  const key=el+'-'+g.id;
  if(korbCache[key])return korbCache[key];
- const ei=HK.indexOf(el),N=g.anz,S=5;                  /* S = Cent je Schritt */
+ const ei=HK.indexOf(el),S=5;                          /* S = Cent je Schritt */
  const preis=P.map(p=>Math.ceil(vkPreis(p)*100/S));    /* aufgerundet */
- const CAP=Math.floor(g.max*100/S);
+ /* Leitprodukt (Oel) des Elements fest einplanen, wo die Groesse es vorsieht.
+    Sein Platz und sein Preis werden vorab abgezogen, der Rest wird wie
+    gewohnt gefuellt. */
+ const fest=g.oel?P.findIndex(p=>p.leit&&HK[p.s.indexOf(Math.max(...p.s))]===el):-1;
+ const N=g.anz-(fest>=0?1:0);
+ const CAP=Math.floor(g.max*100/S)-(fest>=0?preis[fest]:0);
  const breite=CAP+1, felder=(N+1)*breite;
  const pkt=new Int16Array(felder).fill(-1);            /* Elementpunkte */
  const wahl=new Int32Array(felder);                    /* Bitmaske der Produkte */
  pkt[0]=0;
  P.forEach((prod,idx)=>{
+  if(idx===fest)return;                                /* steht schon fest */
+  if(g.oel&&prod.leit)return;                          /* fremdes Oel bleibt draussen:
+                                                          sonst zieht die Wertauffuellung
+                                                          das melancholische Oel in den
+                                                          Feuerkorb */
   const pr=preis[idx], sc=prod.s[ei], bit=1<<idx;
   for(let c=N-1;c>=0;c--){
    const zeile=c*breite, ziel=(c+1)*breite;
@@ -968,7 +978,7 @@ function korbProdukte(el,g){
   const v=pkt[N*breite+x];
   if(v>=0&&v>=best){best=v;bestX=x;}   /* spaeteres x = teurer = besser gefuellt */
  }
- const maske=wahl[N*breite+bestX];
+ const maske=wahl[N*breite+bestX]|(fest>=0?(1<<fest):0);
  const sel=[];let summe=0;
  P.forEach((prod,idx)=>{if(maske&(1<<idx)){sel.push({p:prod,idx});summe+=vkPreis(prod);}});
  /* Innerhalb des Korbes nach Elementanteil ordnen, damit die Urkunde die
@@ -1099,8 +1109,17 @@ function fitCertToOnePage(doc){
     oft eigene, groessere Raender und blenden Kopf-/Fusszeilen ein. 25,5cm
     statt 27,5cm lassen dafuer Luft, damit nichts auf Seite zwei rutscht. */
  const zielCm=Math.min(availH*0.93,25.5);
- const scale=Math.min(1,(zielCm*pxPerCm)/h);
+ let scale=Math.min(1,(zielCm*pxPerCm)/h);
  page.style.zoom=scale;
+ /* Der Klon misst nicht immer genau wie das lebende Blatt — lange
+    Produktnamen brechen dort anders um. Darum einmal nachmessen und
+    nachziehen; getBoundingClientRect enthaelt den gesetzten Zoom bereits. */
+ for(let i=0;i<3;i++){
+  const ist=page.getBoundingClientRect().height/pxPerCm;
+  if(ist<=zielCm+0.05)break;
+  scale*=zielCm/ist;
+  page.style.zoom=scale;
+ }
  return scale;
 }
 function certPrintHooks(win){

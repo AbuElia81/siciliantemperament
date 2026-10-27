@@ -25,6 +25,12 @@ const P=[
  {n:"Pistaziencreme",it:"Crema dolce di pistacchio (45%)",pr:8.78,g:"190 g",pl:"♃",s:[6,1,0,1],w:"Jovialisch nach Ficino — warm, nährend, dem Geist zuträglich."},
  {n:"Mandelcreme",it:"Crema dolce di mandorle (38%)",pr:6.48,g:"190 g",pl:"♃",s:[6,1,1,0],w:"Ibn Sīnā verschrieb Mandeln gegen Übermaß schwarzer Galle."},
  {n:"Haselnusscreme",it:"Crema dolce di nocciole (38%)",pr:6.08,g:"190 g",pl:"♃",s:[5,0,0,3],w:"Dem Jupiter geweiht — festlich, erheiternd, sanguinisch-weich."},
+ /* Die beiden Olivenoele von Calvi. ACHTUNG: pr ist vorlaeufig aus dem
+    Endkundenpreis des Herstellers zurueckgerechnet (18,00 € bzw. 16,00 €
+    geteilt durch 1,6) — sobald der eigene Einkaufspreis feststeht, hier
+    ersetzen. Auf der Seite wird kein Einzelpreis angezeigt. */
+ {n:"Olivenöl Extra Vergine Bio Rêuza",leit:true,it:"Olio extra vergine di oliva bio Rêuza",pr:11.25,g:"750 ml",pl:"♃",s:[6,1,0,1],w:"Reife Biancolilla und Taggiasca, kalt gepresst — nach Galen warm und feucht, das jovialische Grundöl der Küche."},
+ {n:"Olivenöl Extra Vergine Bio Frutto Verde",leit:true,it:"Olio extra vergine di oliva bio Frutto Verde",pr:10.00,g:"750 ml",pl:"♄",s:[1,1,6,0],w:"Aus grün geernteter Frucht — das omphacium der Alten: kalt, trocken und herb, dem Saturn zugeordnet."},
 ];
 const HUM={sang:{name:"Sanguinisch",col:"var(--sang)",hex:"#5a82bf",q:"heiß & feucht"},
  chol:{name:"Cholerisch",col:"var(--chol)",hex:"#bf5a2a",q:"heiß & trocken"},
@@ -49,6 +55,10 @@ const eur=x=>x.toFixed(2).replace('.',',')+' €';
 const GROESSEN=[
  {id:'klein', kurz:'S', name:'Small',  anz: 9, preis: 49, max: 49 },
  {id:'medium',kurz:'M', name:'Medium', anz:11, preis: 59, max: 59 },
- {id:'large', kurz:'L', name:'Large',  anz:19, preis:109, max:109}];
+ /* oel: der grosse Korb bekommt das Oel seines Elements fest zugeteilt.
+    Eine 750-ml-Flasche kostet so viel wie drei kleine Glaeser; nur hier ist
+    dafuer Platz, ohne dass der Korb seinen Charakter verliert. Dafuer sind
+    es 17 statt 19 Produkte — mit 19 passte das Oel nicht mehr unter 109 €. */
+ {id:'large', kurz:'L', name:'Large',  anz:17, preis:109, max:109, oel:true}];
 /* Endkundenpreis = Listino + 60 % */
 const vkPreis=p=>p.pr*1.6;
