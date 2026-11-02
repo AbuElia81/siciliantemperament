@@ -53,7 +53,7 @@ const eur=x=>x.toFixed(2).replace('.',',')+' €';
    unter 50 Euro. */
 const GROESSEN=[
  {id:'klein', kurz:'S', name:'Small',  anz: 9, preis: 49, max: 49 },
- {id:'medium',kurz:'M', name:'Medium', anz:11, preis: 69, max: 69 },
+ {id:'medium',kurz:'M', name:'Medium', anz:10, preis: 69, max: 69 },
  /* oel: der grosse Korb bekommt das Oel seines Elements fest zugeteilt.
     Eine 750-ml-Flasche kostet so viel wie drei kleine Glaeser; nur hier ist
     dafuer Platz, ohne dass der Korb seinen Charakter verliert. Dafuer sind
