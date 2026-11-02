@@ -826,3 +826,7 @@ body.certwin #certificate{display:block !important;}
 .pinfo-note{font-style:italic;font-size:.78rem !important;color:var(--ink-faint) !important;}
 .pinfo-warn{font-style:italic;color:var(--chol) !important;font-size:.8rem !important;}
 .pinfo-fehlt summary{color:var(--chol);}
+
+/* Platzhalter-Erzeugnisse (noch ohne Preis) */
+.pbald{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold-dim);font-style:normal;}

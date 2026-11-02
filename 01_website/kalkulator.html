@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Temperament-Kalkulator · Sicilian Temperament</title>
-<link rel="stylesheet" href="styles.css?v=31">
+<link rel="stylesheet" href="styles.css?v=32">
 </head>
 <body>
 <div class="wrap">
@@ -660,10 +660,10 @@
   </div>
 </div>
 
-<script src="data.js?v=21"></script>
-<script src="carousel.js?v=21"></script>
-<script src="cart.js?v=21"></script>
-<script src="nav.js?v=21"></script>
+<script src="data.js?v=22"></script>
+<script src="carousel.js?v=22"></script>
+<script src="cart.js?v=22"></script>
+<script src="nav.js?v=22"></script>
 <script>
 /* ============ PAPYRUSROLLE ============
    Entrollt den Kalkulator, sobald er in den Blick kommt. Faellt der
@@ -948,7 +948,7 @@ function korbProdukte(el,g){
  /* Leitprodukt (Oel) des Elements fest einplanen, wo die Groesse es vorsieht.
     Sein Platz und sein Preis werden vorab abgezogen, der Rest wird wie
     gewohnt gefuellt. */
- const fest=g.oel?P.findIndex(p=>p.leit&&HK[p.s.indexOf(Math.max(...p.s))]===el):-1;
+ const fest=g.oel?P.findIndex(p=>p.leit&&!p.platzhalter&&HK[p.s.indexOf(Math.max(...p.s))]===el):-1;
  const N=g.anz-(fest>=0?1:0);
  const CAP=Math.floor(g.max*100/S)-(fest>=0?preis[fest]:0);
  const breite=CAP+1, felder=(N+1)*breite;
@@ -956,6 +956,7 @@ function korbProdukte(el,g){
  const wahl=new Int32Array(felder);                    /* Bitmaske der Produkte */
  pkt[0]=0;
  P.forEach((prod,idx)=>{
+  if(prod.platzhalter)return;                          /* ohne Preis nicht korbfaehig */
   if(idx===fest)return;                                /* steht schon fest */
   if(g.oel&&prod.leit)return;                          /* fremdes Oel bleibt draussen:
                                                           sonst zieht die Wertauffuellung
@@ -1142,7 +1143,7 @@ function openCertWindow(autoPrint){
  /* Dieselbe Einpass-Logik im Druckfenster verfuegbar machen */
  const fitJs='<'+'script>'+fitCertToOnePage.toString()+';'+certPrintHooks.toString()+';certPrintHooks(window);<'+'/script>';
  w.document.open();
- w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=31"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
+ w.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temperament-Urkunde — Sicilian Temperament</title><link rel="stylesheet" href="styles.css?v=32"></head><body class="certwin"><div id="certificate" style="display:block">'+cert+'</div><div class="certwin-actions"><button onclick="window.print()">🖨 Drucken</button><button onclick="window.close()">Schließen</button></div>'+fitJs+'</body></html>');
  w.document.close();
  if(autoPrint)w.onload=function(){w.focus();setTimeout(function(){w.print();},350);};
  else w.onload=function(){w.focus();};

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sortiment — Alle Produkte einzeln · Sicilian Temperament</title>
 <meta name="description" content="Alle 25 biologischen Delikatessen einzeln, gefiltert nach Temperament — stell Dir Deinen eigenen Geschenkkorb zusammen.">
-<link rel="stylesheet" href="styles.css?v=31">
+<link rel="stylesheet" href="styles.css?v=32">
 </head>
 <body>
 <div class="wrap">
@@ -79,9 +79,9 @@
 <div class="toast" id="toast">In den Korb gelegt</div>
 
 </div>
-<script src="data.js?v=21"></script>
-<script src="cart.js?v=21"></script>
-<script src="nav.js?v=21"></script>
+<script src="data.js?v=22"></script>
+<script src="cart.js?v=22"></script>
+<script src="nav.js?v=22"></script>
 <script>
 /* ============ SHOP (nur auf dieser Seite) ============ */
 const dom=s=>{let m=-1,mi=0;s.forEach((v,i)=>{if(v>m){m=v;mi=i;}});return HK[mi];};
@@ -123,7 +123,9 @@ function card(p,i){const d=dom(p.s);
  <div class="phumor" style="color:${HUM[d].col}">${HUM[d].name} · ${HUM[d].q}</div>
  ${pflichtangaben(p)}
  <div class="pplanet"><span class="pplanet-glyph">${p.pl}</span>${PLANET[p.pl]||''}</div>
- <div class="pfoot"><button class="addbtn" onclick="addCart(${i})">+ Korb</button></div></div>`;}
+ <div class="pfoot">${p.platzhalter
+  ?'<span class="pbald">Bald verfügbar</span>'
+  :`<button class="addbtn" onclick="addCart(${i})">+ Korb</button>`}</div></div>`;}
 function renderShop(f){document.getElementById('shopGrid').innerHTML=
  P.map((p,i)=>(f&&f!=='all'&&dom(p.s)!==f)?'':card(p,i)).join('');}
 function filterShop(f,btn){document.querySelectorAll('#shopFilters .fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderShop(f);}
