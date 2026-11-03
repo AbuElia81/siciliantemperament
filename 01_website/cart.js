@@ -25,7 +25,9 @@ function zielHinweis(g,anz,summe){
  const p=n=>n===1?' Produkt':' Produkte';
  const zuViel=[];
  if(anz>g.anz)   zuViel.push((anz-g.anz)+p(anz-g.anz)+' zu viel');
- if(summe>g.max) zuViel.push('der Warenwert liegt '+eur(summe-g.max)+' über dem Rahmen');
+ if(summe>g.max) zuViel.push(PREISE_ZEIGEN
+  ?'der Warenwert liegt '+eur(summe-g.max)+' über dem Rahmen'
+  :'die Auswahl übersteigt den Rahmen dieser Größe');
  if(zuViel.length) return ' — '+zuViel.join(', ')+'. Bitte tauschen.';
  if(anz<g.anz)   return ' — noch '+(g.anz-anz)+p(g.anz-anz)+' frei';
  return ' — der Korb ist vollständig';
@@ -38,10 +40,10 @@ function renderZiel(){
   '<div class="ziel-frage">Wie groß soll Dein eigener Korb werden?</div>'
   +'<div class="ziel-btns">'+GROESSEN.map(x=>
     `<button class="ziel-btn${x.id===ziel?' on':''}" onclick="setZiel('${x.id}')">
-      <span class="ziel-name">${x.name}</span><span class="ziel-max">${x.anz} Produkte · ${eur(x.preis)}</span>
+      <span class="ziel-name">${x.name}</span><span class="ziel-max">${x.anz} Produkte${PREISE_ZEIGEN?" · "+eur(x.preis):""}</span>
      </button>`).join('')+'</div>'
   +(g?`<div class="ziel-stand${(summe>g.max||anz>g.anz)?' voll':''}">`
-      +`${g.name} · ${anz} von ${g.anz} Produkten · ${eur(g.preis)}`
+      +`${g.name} · ${anz} von ${g.anz} Produkten${PREISE_ZEIGEN?" · "+eur(g.preis):""}`
       +zielHinweis(g,anz,summe)+'</div>'
      :'<div class="ziel-stand ziel-stand-leer">Ohne Größe: so viele Produkte, wie Du möchtest.</div>');
 }
@@ -60,8 +62,8 @@ function updCart(){const it=Object.entries(cart);
   const g=zielObj(),summe=korbSumme();
   zi.className='cart-ziel'+(g&&summe>g.max?' voll':'');
   zi.textContent=!it.length?''
-   :g?`${g.name} · ${korbAnzahl()} von ${g.anz} Produkten · ${eur(g.preis)}`
-     :`Summe ${eur(summe)}`;}
+   :g?`${g.name} · ${korbAnzahl()} von ${g.anz} Produkten${PREISE_ZEIGEN?" · "+eur(g.preis):""}`
+     :(PREISE_ZEIGEN?`Summe ${eur(summe)}`:`${korbAnzahl()} Produkte`);}
  renderZiel();}
 function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('on');}
 function checkout(){alert('Unser Webshop ist bald bereit — die Bestellfunktion ist noch im Aufbau. Schau in Kürze wieder vorbei!');}

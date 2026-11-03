@@ -660,10 +660,10 @@
   </div>
 </div>
 
-<script src="data.js?v=25"></script>
-<script src="carousel.js?v=25"></script>
-<script src="cart.js?v=25"></script>
-<script src="nav.js?v=25"></script>
+<script src="data.js?v=26"></script>
+<script src="carousel.js?v=26"></script>
+<script src="cart.js?v=26"></script>
+<script src="nav.js?v=26"></script>
 <script>
 /* ============ PAPYRUSROLLE ============
    Entrollt den Kalkulator, sobald er in den Blick kommt. Faellt der
@@ -1011,7 +1011,7 @@ function renderOptions(D,S){
    <div class="opt-photo"><img src="images/${k.bild}.jpg" alt="${k.name}" loading="lazy" onerror="this.closest('.opt-photo').remove()"></div>
    <div class="opt-name">${k.name}</div>
    <div class="opt-groesse">${g.name}</div>
-   <div class="opt-count">${g.anz} Produkte · ${eur(g.preis)} · inkl. Urkunde</div>
+   <div class="opt-count">${g.anz} Produkte${PREISE_ZEIGEN?" · "+eur(g.preis):""} · inkl. Urkunde</div>
    <div class="opt-list">${sel.map(x=>`<div class="opt-item"><img class="opt-item-img" src="images/produkte/${String(x.idx+1).padStart(2,'0')}.jpg" alt="${x.p.n}" loading="lazy" onerror="this.style.display='none'"><span>${x.p.pl} ${x.p.n}</span></div>`).join('')}</div>
    <div class="opt-btns">
     <button class="opt-add" onclick='addSet(${idxs},"${k.name} ${g.name}")'>In den Korb</button>
@@ -1025,7 +1025,7 @@ function renderOptions(D,S){
    <div class="opt-own-text">Stell Dir Deinen Korb selbst aus allen Delikatessen des Sortiments zusammen.
     Wähle die Größe, dann zeigt Dir das Sortiment laufend an, wie viel vom Rahmen noch frei ist.</div>
    <div class="opt-btns opt-btns-eigen">`
-   +GROESSEN.map(g=>`<button class="opt-add" onclick="setZiel('${g.id}');location.href='sortiment.html'">${g.name} — ${g.anz} Produkte für ${eur(g.preis)}</button>`).join('')
+   +GROESSEN.map(g=>`<button class="opt-add" onclick="setZiel('${g.id}');location.href='sortiment.html'">${g.name} — ${g.anz} Produkte${PREISE_ZEIGEN?" für "+eur(g.preis):""}</button>`).join('')
    +`<button class="opt-print" onclick="setZiel('');location.href='sortiment.html'">Ohne Grenze</button>
    </div></div>`;
  box.style.display='block';

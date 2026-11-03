@@ -62,3 +62,16 @@ const GROESSEN=[
 /* Verkaufspreis: vk ist der vom Haendler gesetzte Bruttopreis. pr bleibt als
    Listino-Wert zur Orientierung stehen, wird aber nicht mehr gerechnet. */
 const vkPreis=p=>p.vk;
+
+/* ---- Preisanzeige -------------------------------------------------------
+   Solange der Shop nicht steht, werden KEINE Preise angezeigt: die
+   Preisangabenverordnung verlangt dann auch Grundpreis je Kilogramm bzw.
+   Liter, einen Hinweis zur Umsatzsteuer und die Versandkosten. Fehlen die,
+   ist die Preisauszeichnung abmahnfaehig.
+
+   Die Preise bleiben in den Daten, weil die Koerbe damit zusammengestellt
+   werden — sie werden nur nicht ausgegeben. Zum Wiedereinschalten hier auf
+   true setzen; alle Stellen richten sich danach.                          */
+const PREISE_ZEIGEN=false;
+/* Preis als Text, oder leer solange die Anzeige aus ist */
+const preisText=betrag=>PREISE_ZEIGEN?eur(betrag):'';

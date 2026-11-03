@@ -18,7 +18,7 @@ function gwahlAufbauen(){
      `<button type="button" class="gwahl-opt" role="menuitem" data-id="${g.id}">
         <span class="gwahl-opt-kurz">${g.kurz}</span>
         <span class="gwahl-opt-name">${g.name}</span>
-        <span class="gwahl-opt-info">${g.anz} Produkte · ${eur(g.preis)}</span>
+        <span class="gwahl-opt-info">${g.anz} Produkte${PREISE_ZEIGEN?" · "+eur(g.preis):""}</span>
       </button>`).join('')
    +`</div>`;
 
